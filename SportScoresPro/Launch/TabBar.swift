@@ -72,7 +72,7 @@ struct TabBar: View {
                                 .aspectRatio(contentMode: .fit)
                                 .frame(height: 30)
 
-                            Text("Home")
+                            Text("Scores")
                                 .font(.system(size: 12))
                                 .foregroundColor(selectedTab == 1 ? .SportScoresRed : .gray)
                         }
@@ -86,7 +86,7 @@ struct TabBar: View {
                                 .aspectRatio(contentMode: .fit)
                                 .frame(height: 30)
 
-                            Text("Home")
+                            Text("Odds")
                                 .font(.system(size: 12))
                                 .foregroundColor(selectedTab == 2 ? .SportScoresRed : .gray)
                         }
@@ -100,7 +100,7 @@ struct TabBar: View {
                                 .aspectRatio(contentMode: .fit)
                                 .frame(height: 30)
 
-                            Text("Home")
+                            Text("More")
                                 .font(.system(size: 12))
                                 .foregroundColor(selectedTab == 3 ? .SportScoresRed : .gray)
                         }
