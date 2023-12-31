@@ -46,29 +46,64 @@ struct TabBar: View {
                 }
             }
             
-            // Custom Tab Bar
             HStack {
                 Spacer()
                 
                 Button(action: { self.selectedTab = 0 }) {
-                    Image(systemName: "house.circle")
-                        .foregroundColor(selectedTab == 0 ? .SportScoresRed : .gray)
+                    VStack {
+                            Image(systemName: "house.circle")
+                                .resizable()
+                                .foregroundColor(selectedTab == 0 ? .SportScoresRed : .gray)
+                                .aspectRatio(contentMode: .fit)
+                                .frame(height: 30)
+
+                            Text("Home")
+                                .font(.system(size: 12))
+                                .foregroundColor(selectedTab == 0 ? .SportScoresRed : .gray)
+                        }
                 }
                 Spacer()
                 
                 Button(action: { self.selectedTab = 1 }) {
-                    Image(systemName: "sportscourt.circle")
-                        .foregroundColor(selectedTab == 1 ? .SportScoresRed : .gray)
+                    VStack {
+                            Image(systemName: "sportscourt.circle")
+                                .resizable()
+                                .foregroundColor(selectedTab == 1 ? .SportScoresRed : .gray)
+                                .aspectRatio(contentMode: .fit)
+                                .frame(height: 30)
+
+                            Text("Home")
+                                .font(.system(size: 12))
+                                .foregroundColor(selectedTab == 1 ? .SportScoresRed : .gray)
+                        }
                 }
                 Spacer()
                 Button(action: { self.selectedTab = 2 }) {
-                    Image(systemName: "dollarsign.circle")
-                        .foregroundColor(selectedTab == 2 ? .SportScoresRed : .gray)
+                    VStack {
+                            Image(systemName: "dollarsign.circle")
+                                .resizable()
+                                .foregroundColor(selectedTab == 2 ? .SportScoresRed : .gray)
+                                .aspectRatio(contentMode: .fit)
+                                .frame(height: 30)
+
+                            Text("Home")
+                                .font(.system(size: 12))
+                                .foregroundColor(selectedTab == 2 ? .SportScoresRed : .gray)
+                        }
                 }
                 Spacer()
                 Button(action: { self.selectedTab = 3 }) {
-                    Image(systemName: "ellipsis.circle")
-                        .foregroundColor(selectedTab == 3 ? .SportScoresRed : .gray)
+                    VStack {
+                            Image(systemName: "ellipsis.circle")
+                                .resizable()
+                                .foregroundColor(selectedTab == 3 ? .SportScoresRed : .gray)
+                                .aspectRatio(contentMode: .fit)
+                                .frame(height: 30)
+
+                            Text("Home")
+                                .font(.system(size: 12))
+                                .foregroundColor(selectedTab == 3 ? .SportScoresRed : .gray)
+                        }
                 }
                 Spacer()
                 
