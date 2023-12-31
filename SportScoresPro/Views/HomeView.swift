@@ -14,10 +14,9 @@ struct HomeView: View {
     
     var body: some View {
         let homeDataArray: [HomeModel] = [
-            HomeModel(id: 1, image: "1", titleText: "About", descriptionText: "Thank you for visiting Sport Scores Pro! This app is your hub for sport scores, betting odds, and more!"),
-            HomeModel(id: 2, image: "1", titleText: "Account Benefits", descriptionText: "Creating an account gives you access to high quality betting picks intended to give you +EV bets. Expected value (EV) in sports betting is a way to measure the probability gap between a bettor’s expectations and the sportsbook’s."),
-            HomeModel(id: 3, image: "1", titleText: "Now Available!", descriptionText: "Now when creating a Sport Scores Pro account you get access to soccer betting predictions for Europe's top 5 leagues, as well as the MLS. These predictions are based on a variety of data, and are intended to give you +EV bets."),
-            HomeModel(id: 4, image: "1", titleText: "New Feature", descriptionText: "In the latest update, we've added a search by date function! Also, you can click on any game to see either an event preview, or an event recap, an example can be seen in the image.")
+            HomeModel(id: 1, image: "1", titleText: "About", descriptionText: "Thank you for visiting Sport Scores Pro! This app is your hub for sport scores, betting odds, and more! Currently available are scores and moneyline odds for, NFL, NBA, MLB, NHL, College Football, College Basketball, College Baseball, Europe’s 5 Main Soccer Leagues (Premier League, Serie A, Bundesliga, LaLiga, and Ligue 1), and the MLS"),
+            HomeModel(id: 2, image: "1", titleText: "Account Benefits", descriptionText: "Now when creating a Sport Scores Pro account you get access to soccer betting predictions for Europe's top 5 leagues, as well as the MLS. These predictions are based on a variety of data, and are intended to give you +EV bets."),
+            HomeModel(id: 3, image: "1", titleText: "New Feature", descriptionText: "In the latest update, we've added a search by date function! Select a date in the scores tab for any league, and you will see a list of events from that day.")
         ]
         TabView {
             ForEach(homeDataArray, id: \.id) { item in
