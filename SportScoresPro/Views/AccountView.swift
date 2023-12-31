@@ -27,7 +27,7 @@ struct AccountView: View {
                         
                     } else {
                         Section {
-                            NavigationLink(destination: SignUpView()) {
+                            NavigationLink(destination: PredictionView()) {
                                 Text("Betting Predictions")
                             }
                         }
