@@ -29,22 +29,26 @@ struct HomeView: View {
                     .padding()
                     .background(Color(.systemGray6))
             }
-            TabView {
-                ForEach(homeDataArray, id: \.id) { item in
-                    HomeModelView(homeData: item)
-                        .background(Color(.systemGray6))
-                    
+            GeometryReader { geometry in
+                ScrollView {
+                    ForEach(homeDataArray, id: \.id) { item in
+                        HomeModelView(homeData: item)
+                            .frame(maxHeight: geometry.size.height)
+                    }
                 }
-            }
-            .tabViewStyle(PageTabViewStyle())
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    HStack {
-                        Image("home-logo")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 30)
+                .padding(.bottom, 60)
+                .background(Color(.systemGray6))
+                .frame(maxWidth: geometry.size.width)
+                .frame(maxHeight: .infinity)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        HStack {
+                            Image("home-logo")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 30)
+                        }
                     }
                 }
             }
@@ -66,32 +70,28 @@ struct HomeModelView: View {
     @EnvironmentObject var settings: UserSettings
     
     var body: some View {
-        GeometryReader { geometry in
-            VStack(spacing: 20) {
-                
-                Image(homeData.image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(maxWidth: geometry.size.width - 40)
-                    .cornerRadius(10)
-                    .padding(.bottom, 20)
-                
-                Text(homeData.titleText)
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.primary)
-                
-                Text(homeData.descriptionText)
-                    .font(.body)
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(Color.secondary)
-                
-            }
-            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: geometry.size.height - 100)
-            .padding(20)
-            .background(Color(.systemBackground))
-            .cornerRadius(12)
-            .padding()
+        VStack(spacing: 20) {
+            Text(homeData.titleText)
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundColor(Color.primary)
+                .multilineTextAlignment(.center)
+            
+            Image(homeData.image)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .cornerRadius(10)
+                .padding(.bottom, 20)
+            
+            Text(homeData.descriptionText)
+                .font(.body)
+                .multilineTextAlignment(.center)
+                .foregroundColor(Color.secondary)
         }
+        .padding(20)
+        .background(Color(.systemBackground))
+        .cornerRadius(12)
+        .padding()
     }
 }
+

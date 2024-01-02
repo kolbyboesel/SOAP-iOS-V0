@@ -105,23 +105,6 @@ struct SportPredictionView: View {
                     }
                 }
             }
-            
-            .navigationTitle("\(sportName)" + " Predictions")
-            .navigationBarTitleDisplayMode(.inline)
-            .accentColor(.white)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
-                        HStack {
-                            Image(systemName: "arrow.left")
-                            Text("Sports")
-                        }
-                        .foregroundColor(.white)
-                    }
-                }
-            }
         }
     }
 }

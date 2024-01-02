@@ -61,25 +61,9 @@ struct SportScoresView: View {
                         }
                     }
                 }
-                .navigationTitle("\(sportName)" + " Scores")
-                .navigationBarTitleDisplayMode(.inline)
-                .accentColor(.white)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button(action: {
-                            presentationMode.wrappedValue.dismiss()
-                        }) {
-                            HStack {
-                                Image(systemName: "arrow.left")
-                                Text("Sports")
-                            }
-                            .foregroundColor(.white)
-                        }
-                    }
-                }
             }
         }
-        
+
         .onAppear {
             isLoading = true
             

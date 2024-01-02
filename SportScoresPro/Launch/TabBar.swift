@@ -18,7 +18,7 @@ struct TabBar: View {
     
     
     var body: some View {
-        VStack {
+        ZStack {
             switch selectedTab {
             case 0:
                 NavigationView {
@@ -46,6 +46,8 @@ struct TabBar: View {
             if userSettings.tabBarVisible == true {
                 
                 VStack{
+                    Spacer()
+
                     HStack {
                         Spacer()
                         
