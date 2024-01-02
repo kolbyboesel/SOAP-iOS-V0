@@ -43,7 +43,15 @@ struct SportScoresProApp: App {
 }
 
 class UserSettings: ObservableObject {
-    @Published var loggedIn : Bool = false
-    @Published var navigateNowToLogIn: Bool = false
-    @Published var navigateNowToSignup: Bool = false
+    @Published var loggedIn : Bool = false{
+        didSet {
+            UserDefaults.standard.set(loggedIn, forKey: "loggedIn")
+        }
+    }
+    @Published var email: String
+    @Published var paidConfirm: String
+    
+    init() {
+        self.loggedIn = UserDefaults.standard.bool(forKey: "loggedIn")
+    }
 }

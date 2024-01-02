@@ -117,6 +117,7 @@ struct LogInView: View {
             switch result {
             case .success(let user):
                 settings.loggedIn = true
+                settings.email = emailAddress
                 DispatchQueue.main.async {
                     alertMessage = "Login successful!"
                     showAlert = true
