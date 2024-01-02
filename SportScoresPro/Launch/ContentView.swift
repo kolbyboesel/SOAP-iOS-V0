@@ -19,10 +19,11 @@ struct StartView: View {
 
 struct ContentView: View {
     var logoFetcher : LogoFetcher
-    
+    @StateObject var userSettings = UserSettings()
+
     var body: some View {
         return AnyView(TabBar(logoFetcher: logoFetcher))
-            .environmentObject(UserSettings())
+            .environmentObject(userSettings)
     }
 }
 
@@ -30,7 +31,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         let logoFetcher = LogoFetcher()
 
-        ContentView(logoFetcher: logoFetcher)
+        TabBar(logoFetcher: logoFetcher)
             .environmentObject(UserSettings())
     }
 }

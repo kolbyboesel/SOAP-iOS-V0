@@ -17,6 +17,7 @@ struct SportOddsView: View {
     @State var market = "Moneyline"
     @State var isMenuVisible = false
     var logoFetcher : LogoFetcher
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         ZStack {
@@ -47,6 +48,19 @@ struct SportOddsView: View {
                     .navigationTitle("\(sportName)" + " Odds")
                     .navigationBarTitleDisplayMode(.inline)
                     .accentColor(.white)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button(action: {
+                                presentationMode.wrappedValue.dismiss()
+                            }) {
+                                HStack {
+                                    Image(systemName: "arrow.left")
+                                    Text("Sports")
+                                }
+                                .foregroundColor(.white)
+                            }
+                        }
+                    }
                 }
             }
             .onAppear {

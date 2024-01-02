@@ -19,7 +19,8 @@ struct SportPredictionView: View {
     @State var market = "Moneyline"
     @State var isMenuVisible = false
     @EnvironmentObject var settings: UserSettings
-
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
         ZStack {
             VStack(spacing: 0){
@@ -51,9 +52,6 @@ struct SportPredictionView: View {
                                 }
                             }
                         }
-                        .navigationTitle("\(sportName)" + " Predictions")
-                        .navigationBarTitleDisplayMode(.inline)
-                        .accentColor(.white)
                     } else {
                         
                         Text("Please log in or create an account to access all predictions")
@@ -64,7 +62,7 @@ struct SportPredictionView: View {
                             .multilineTextAlignment(.center)
                             .padding()
                         
-                        
+                        Spacer()
                         if let firstPrediction = predictionData.first {
                             let startTime = formatEventTime(epochTIS: TimeInterval(firstPrediction.match_dat))
                             let startDate = formatEventDate(epochTIS: TimeInterval(firstPrediction.match_dat))
@@ -83,6 +81,7 @@ struct SportPredictionView: View {
                     }
                 }
             }
+            
             .onAppear {
                 isLoading = true
                 
@@ -101,9 +100,26 @@ struct SportPredictionView: View {
                 getPredictionData(forSport: PredictionKey, forSport: sportID, selectedDate: todayDate, seasonName: seasonName) { fetchedData in
                     self.predictionData = fetchedData
                     getPredictionData(forSport: PredictionKey, forSport: sportID, selectedDate: nextDateString, seasonName: seasonName) { nextDayData in
-                            self.predictionData.append(contentsOf: nextDayData)
-                            self.isLoading = false
+                        self.predictionData.append(contentsOf: nextDayData)
+                        self.isLoading = false
+                    }
+                }
+            }
+            
+            .navigationTitle("\(sportName)" + " Predictions")
+            .navigationBarTitleDisplayMode(.inline)
+            .accentColor(.white)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        HStack {
+                            Image(systemName: "arrow.left")
+                            Text("Sports")
                         }
+                        .foregroundColor(.white)
+                    }
                 }
             }
         }

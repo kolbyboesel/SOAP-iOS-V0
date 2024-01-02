@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SportsView: View {
     var logoFetcher : LogoFetcher
+    @Binding var selectedTab : Int
     @EnvironmentObject var settings: UserSettings
     @State private var isItemSelected = false
     
@@ -32,7 +33,7 @@ struct SportsView: View {
         NavigationStack{
             List {
                 ForEach(sportMenuArray, id: \.id) { item in
-                    SportMenuItem(sportName: item.sportName, ScoreKey: item.ScoreKey, OddKey: item.OddKey, PredictionKey: item.PredictionKey, seasonName: item.seasonName, sportID: item.sportID, logoFetcher: logoFetcher)
+                    SportMenuItem(sportName: item.sportName, ScoreKey: item.ScoreKey, OddKey: item.OddKey, PredictionKey: item.PredictionKey, seasonName: item.seasonName, sportID: item.sportID, logoFetcher: logoFetcher, selectedTab: $selectedTab)
                         .environmentObject(settings)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
@@ -62,13 +63,14 @@ struct SportMenuItem: View{
     var seasonName: String
     var sportID : Int
     var logoFetcher : LogoFetcher
-    
+    @Binding var selectedTab : Int
+
     @EnvironmentObject var settings: UserSettings
     
     @State private var selectedView: SelectedView = .scores
     
     var body: some View {
-        NavigationLink(destination: SportPlaceholderPage(sportName: sportName, ScoreKey: ScoreKey, OddKey: OddKey, PredictionKey: PredictionKey, seasonName: seasonName, sportID: sportID, logoFetcher: logoFetcher).environmentObject(settings)) {
+        NavigationLink(destination: SportPlaceholderPage(sportName: sportName, ScoreKey: ScoreKey, OddKey: OddKey, PredictionKey: PredictionKey, seasonName: seasonName, sportID: sportID, logoFetcher: logoFetcher, selectedTabBarTab: $selectedTab).environmentObject(settings)) {
             HStack {
                 Image(sportName + "Logo")
                     .resizable()
@@ -91,49 +93,167 @@ struct SportPlaceholderPage: View{
     var seasonName : String
     var sportID : Int
     var logoFetcher : LogoFetcher
+    @Binding var selectedTabBarTab : Int
     @EnvironmentObject var settings: UserSettings
+    @Environment(\.presentationMode) var presentationMode
     
-    @State private var selectedView: SelectedView = .scores
+    @State private var selectedTab = 0
     
     var body: some View {
-        NavigationStack {
-            VStack {
-                switch selectedView {
-                case .scores:
+        VStack {
+            switch selectedTab {
+            case 0:
+                NavigationView {
                     SportScoresView(sportName: sportName, ScoreKey: ScoreKey, sportID: sportID, logoFetcher: logoFetcher)
-                case .odds:
+                }
+                .navigationBarHidden(true)
+                
+            case 1:
+                NavigationView {
                     SportOddsView(sportName: sportName, OddKey: OddKey, sportID: sportID, logoFetcher: logoFetcher)
-                case .predictions:
+                }
+                .navigationBarHidden(true)
+                
+            case 2:
+                NavigationView {
                     SportPredictionView(sportName: sportName, PredictionKey: PredictionKey, sportID: sportID, seasonName: seasonName, logoFetcher: logoFetcher)
                         .environmentObject(settings)
                 }
-                Spacer()
+                .navigationBarHidden(true)
+                
+            case 3:
+                NavigationView {
+                    ContentView(logoFetcher: logoFetcher)
+                        .environmentObject(settings)
+                }
+                .onAppear{
+                    settings.tabBarVisible = true
+                    selectedTabBarTab = 0
+                    presentationMode.wrappedValue.dismiss()
+                }
+                .navigationBarHidden(true)
+                
+            default:
+                NavigationView {
+                    SportScoresView(sportName: sportName, ScoreKey: ScoreKey, sportID: sportID, logoFetcher: logoFetcher)
+                }
+                .navigationBarHidden(true)
+                
             }
-            .navigationTitle("Sports")
-            .toolbar {
-                ToolbarItem() {
-                    Menu {
-                        Button("Scores") {
-                            selectedView = .scores
+            
+            if settings.tabBarVisible != true {
+                Spacer()
+                
+                HStack {
+                    Spacer()
+                    
+                    Button(action: { self.selectedTab = 3 }) {
+                        VStack {
+                            if selectedTab == 3 {
+                                Color.SportScoresRed.frame(height: 2)
+                            } else {
+                                Color.clear.frame(height: 2)
+                            }
+                            VStack {
+                                Image(systemName: "house")
+                                    .resizable()
+                                    .foregroundColor(selectedTab == 3 ? .SportScoresRed : .gray)
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(height: 30)
+                                    .frame(maxWidth: 30)
+                                
+                                
+                                Text("Home")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(selectedTab == 3 ? .SportScoresRed : .gray)
+                            }
                         }
-                        Button("Odds") {
-                            selectedView = .odds
+                    }
+                    Spacer()
+                    
+                    Button(action: { self.selectedTab = 0 }) {
+                        VStack {
+                            if selectedTab == 0 {
+                                Color.SportScoresRed.frame(height: 2)
+                            } else {
+                                Color.clear.frame(height: 2)
+                            }
+                            VStack {
+                                Image(systemName: "sportscourt")
+                                    .resizable()
+                                    .foregroundColor(selectedTab == 0 ? .SportScoresRed : .gray)
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(height: 30)
+                                    .frame(maxWidth: 30)
+                                
+                                
+                                Text("Scores")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(selectedTab == 0 ? .SportScoresRed : .gray)
+                            }
                         }
-                        Button("Predictions") {
-                            selectedView = .predictions
+                    }
+                    Spacer()
+                    Button(action: { self.selectedTab = 1 }) {
+                        VStack {
+                            if selectedTab == 1 {
+                                Color.SportScoresRed.frame(height: 2)
+                            } else {
+                                Color.clear.frame(height: 2)
+                            }
+                            VStack {
+                                Image(systemName: "dollarsign")
+                                    .resizable()
+                                    .foregroundColor(selectedTab == 1 ? .SportScoresRed : .gray)
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(height: 30)
+                                    .frame(maxWidth: 30)
+                                
+                                Text("Odds")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(selectedTab == 1 ? .SportScoresRed : .gray)
+                            }
                         }
                         
-                    } label: {
-                        Image(systemName: "arrow.down.app")
+                        
                     }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
+                    Spacer()
+                    Button(action: { self.selectedTab = 2 }) {
+                        VStack {
+                            if selectedTab == 2 {
+                                Color.SportScoresRed.frame(height: 2)
+                            } else {
+                                Color.clear.frame(height: 0)
+                            }
+                            VStack {
+                                Image(systemName: "hourglass")
+                                    .resizable()
+                                    .foregroundColor(selectedTab == 2 ? .SportScoresRed : .gray)
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(height: 30)
+                                    .frame(maxWidth: 30)
+                                
+                                Text("Predictions")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(selectedTab == 2 ? .SportScoresRed : .gray)
+                            }
+                        }
+                        
+                    }
                     Spacer()
                 }
+                .padding(.top, 0)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .background(Color.white)
             }
-            .contentMargins(.top, 20)
         }
-        .accentColor(.white)
+        .onAppear {
+            settings.tabBarVisible = false
+        }
+        .onDisappear {
+            settings.tabBarVisible = true
+            presentationMode.wrappedValue.dismiss()
+        }
     }
 }
 

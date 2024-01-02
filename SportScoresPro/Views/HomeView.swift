@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
+    var logoFetcher : LogoFetcher
     @EnvironmentObject var settings: UserSettings
     @State var notificationToggle: Bool = false
     @State var locationUsage: Bool = false

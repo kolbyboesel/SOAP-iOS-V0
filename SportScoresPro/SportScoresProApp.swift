@@ -34,7 +34,7 @@ struct SportScoresProApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView(logoFetcher: logoFetcher)
+            TabBar(logoFetcher: logoFetcher)
                 .environmentObject(userSettings)
 
 
@@ -43,6 +43,9 @@ struct SportScoresProApp: App {
 }
 
 class UserSettings: ObservableObject {
+    @Published var tabBarVisible = true
+    @Published var homeSelected = false
+
     @Published var loggedIn: Bool {
         didSet {
             UserDefaults.standard.set(loggedIn, forKey: "loggedIn")
@@ -69,5 +72,26 @@ class UserSettings: ObservableObject {
         self.email = UserDefaults.standard.string(forKey: "email") ?? ""
         self.firstName = UserDefaults.standard.string(forKey: "firstName") ?? ""
         self.lastName = UserDefaults.standard.string(forKey: "lastName") ?? ""
+    }
+}
+
+struct CustomBackButtonView: View {
+    @Environment(\.presentationMode) var presentationMode
+
+    var body: some View {
+        VStack {
+            // Your view content here
+
+            Button(action: {
+                presentationMode.wrappedValue.dismiss()
+            }) {
+                HStack {
+                    Image(systemName: "arrow.left")
+                    Text("Back")
+                }
+                .foregroundColor(.blue)
+            }
+            .padding()
+        }
     }
 }

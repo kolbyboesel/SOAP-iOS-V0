@@ -16,6 +16,7 @@ struct SportScoresView: View {
     var sportID: Int
     @State private var isLoading = false
     var logoFetcher : LogoFetcher
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         VStack{
@@ -37,10 +38,10 @@ struct SportScoresView: View {
                         .accentColor(.blue)
                     
                     Rectangle()
-                            .frame(height: 2)
-                            .foregroundColor(.SportScoresRed)
-                            .offset(y: 5)
-
+                        .frame(height: 2)
+                        .foregroundColor(.SportScoresRed)
+                        .offset(y: 5)
+                    
                 }
                 List(liveScoreData) { data in
                     
@@ -63,8 +64,22 @@ struct SportScoresView: View {
                 .navigationTitle("\(sportName)" + " Scores")
                 .navigationBarTitleDisplayMode(.inline)
                 .accentColor(.white)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button(action: {
+                            presentationMode.wrappedValue.dismiss()
+                        }) {
+                            HStack {
+                                Image(systemName: "arrow.left")
+                                Text("Sports")
+                            }
+                            .foregroundColor(.white)
+                        }
+                    }
+                }
             }
         }
+        
         .onAppear {
             isLoading = true
             
