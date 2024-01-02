@@ -9,8 +9,6 @@ import SwiftUI
 
 @main
 struct SportScoresProApp: App {
-    let persistenceController = PersistenceController.shared
-
     init() {
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = UIColor(red: 0.95686274509, green: 0.26274509803, blue: 0.21176470588, alpha: 1)
@@ -31,13 +29,14 @@ struct SportScoresProApp: App {
     }
     
     var userSettings = UserSettings()
+    @ObservedObject var logoFetcher = LogoFetcher()
 
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            ContentView(logoFetcher: logoFetcher)
                 .environmentObject(userSettings)
+
 
         }
     }

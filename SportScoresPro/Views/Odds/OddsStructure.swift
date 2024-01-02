@@ -11,11 +11,18 @@ import SwiftUI
 struct OddBoard : View {
     @Binding var market : String
     var data : OddsData
+    var logoFetcher: LogoFetcher
 
     var body: some View {
 
         VStack {
             HStack {
+                if let logo = logoFetcher.getLogo(forTeam: 0, teamName: data.away_team) {
+                    Image(uiImage: logo)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30)
+                }
                 Text(data.away_team)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 if(market == "Moneyline"){
@@ -56,6 +63,12 @@ struct OddBoard : View {
             Spacer()
             
             HStack {
+                if let logo = logoFetcher.getLogo(forTeam: 0, teamName: data.home_team) {
+                    Image(uiImage: logo)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30)
+                }
                 Text(data.home_team)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 if(market == "Moneyline"){
@@ -96,33 +109,6 @@ struct OddBoard : View {
         .padding()
     }
 }
-struct OddsMenuItemModel {
-    var id: Int
-    var sportName : String
-    var APIKEY: String
-    var sportID : Int
-}
-
-struct OddsMenuItem: View{
-    var sportName: String
-    var APIKEY: String
-    var sportID : Int
-
-    var body: some View {
-        NavigationLink(destination: SportOddsView(sportName: sportName, APIKEY: APIKEY, sportID: sportID)) {
-            HStack {
-                Image(sportName + "Logo")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(maxWidth: 60, maxHeight: 30)
-                    .padding(.top, 10)
-                    .padding(.trailing, 10)
-                    .padding(.bottom, 10)
-                Text(sportName)
-            }
-        }
-    }
-}
 
 struct OddsMenuButton: View{
     @Binding var isMenuVisible : Bool
@@ -139,7 +125,7 @@ struct OddsMenuButton: View{
                     Text(market)
                         .foregroundColor(Color.primary)
 
-                    Image(systemName: "arrow.down.circle")
+                    Image(systemName: "arrow.down.app")
                         .resizable()
                         .foregroundColor(Color.primary)
                         .aspectRatio(contentMode: .fit)
@@ -152,7 +138,7 @@ struct OddsMenuButton: View{
             .frame(maxWidth: .infinity)
             .overlay(
                 Rectangle()
-                    .frame(height: 5)
+                    .frame(height: 2)
                     .foregroundColor(.SportScoresRed),
                 alignment: .bottom
             )

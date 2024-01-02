@@ -10,13 +10,16 @@ import SwiftUI
 
 struct ScoreFuture: View {
     var data : LiveScoreData
-    @ObservedObject var logoFetcher: LogoFetcher
+    var logoFetcher : LogoFetcher
 
     var body: some View {
+        let awayKey = TeamKey(teamID: data.awayTeam.id, teamName: data.awayTeam.name)
+        let homeKey = TeamKey(teamID: data.homeTeam.id, teamName: data.homeTeam.name)
+
         HStack{
             VStack {
                 HStack {
-                    if let logo = logoFetcher.teamLogos[data.awayTeam.id] {
+                    if let logo = logoFetcher.teamLogos[awayKey] {
                         Image(uiImage: logo)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -24,7 +27,7 @@ struct ScoreFuture: View {
                     } else {
                         ProgressView()
                             .onAppear {
-                                logoFetcher.fetchLogo(forTeam: data.awayTeam.id)
+                                logoFetcher.fetchLogo(forTeam: data.awayTeam.id, teamName: data.awayTeam.name)
                             }
                             .frame(width: 30, height: 30)
                     }
@@ -37,7 +40,7 @@ struct ScoreFuture: View {
                 Spacer()
                 
                 HStack {
-                    if let logo = logoFetcher.teamLogos[data.homeTeam.id] {
+                    if let logo = logoFetcher.teamLogos[homeKey] {
                         Image(uiImage: logo)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -45,7 +48,7 @@ struct ScoreFuture: View {
                     } else {
                         ProgressView()
                             .onAppear {
-                                logoFetcher.fetchLogo(forTeam: data.homeTeam.id)
+                                logoFetcher.fetchLogo(forTeam: data.homeTeam.id, teamName: data.homeTeam.name)
                             }
                             .frame(width: 30, height: 30)
                     }
@@ -62,12 +65,14 @@ struct ScoreFuture: View {
 
 struct ScoreLive: View {
     var data : LiveScoreData
-    @ObservedObject var logoFetcher: LogoFetcher
-    
+    var logoFetcher : LogoFetcher
+
     var body: some View {
+        let awayKey = TeamKey(teamID: data.awayTeam.id, teamName: data.awayTeam.name)
+        let homeKey = TeamKey(teamID: data.homeTeam.id, teamName: data.homeTeam.name)
         VStack {
             HStack {
-                if let logo = logoFetcher.teamLogos[data.awayTeam.id] {
+                if let logo = logoFetcher.teamLogos[awayKey] {
                     Image(uiImage: logo)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
@@ -75,7 +80,7 @@ struct ScoreLive: View {
                 } else {
                     ProgressView()
                         .onAppear {
-                            logoFetcher.fetchLogo(forTeam: data.awayTeam.id)
+                            logoFetcher.fetchLogo(forTeam: data.awayTeam.id, teamName: data.awayTeam.name)
                         }
                         .frame(width: 30, height: 30)
                 }
@@ -94,7 +99,7 @@ struct ScoreLive: View {
             Spacer()
             
             HStack {
-                if let logo = logoFetcher.teamLogos[data.homeTeam.id] {
+                if let logo = logoFetcher.teamLogos[homeKey] {
                     Image(uiImage: logo)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
@@ -102,7 +107,7 @@ struct ScoreLive: View {
                 } else {
                     ProgressView()
                         .onAppear {
-                            logoFetcher.fetchLogo(forTeam: data.homeTeam.id)
+                            logoFetcher.fetchLogo(forTeam: data.homeTeam.id, teamName: data.awayTeam.name)
                         }
                         .frame(width: 30, height: 30)
                 }
@@ -144,35 +149,6 @@ struct ScoresHeader : View {
         .padding(.top)
         .padding(.leading)
         .padding(.trailing)
-    }
-}
-
-
-struct ScoreMenuItemModel {
-    var id: Int
-    var sportName : String
-    var seasonName: String
-    var sportID : Int
-}
-
-struct ScoresMenuItem: View{
-    var sportName: String
-    var seasonName: String
-    var sportID : Int
-
-    var body: some View {
-        NavigationLink(destination: SportScoresView(sportName: sportName, seasonName: seasonName, sportID: sportID)) {
-            HStack {
-                Image(sportName + "Logo")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(maxWidth: 60, maxHeight: 30)
-                    .padding(.top, 10)
-                    .padding(.trailing, 10)
-                    .padding(.bottom, 10)
-                Text(sportName)
-            }
-        }
     }
 }
 

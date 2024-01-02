@@ -11,11 +11,19 @@ import SwiftUI
 struct PredictionBoard : View {
     @Binding var market : String
     var data : PredictionData
+    var logoFetcher : LogoFetcher
+
 
     var body: some View {
 
         VStack {
             HStack {
+                if let logo = logoFetcher.getLogo(forTeam: 0, teamName: data.away_team_name) {
+                    Image(uiImage: logo)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30)
+                }
                 Text(data.away_team_name)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 if(market == "Moneyline"){
@@ -38,6 +46,12 @@ struct PredictionBoard : View {
             Spacer()
             
             HStack {
+                if let logo = logoFetcher.getLogo(forTeam: 0, teamName: data.home_team_name) {
+                    Image(uiImage: logo)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30)
+                }
                 Text(data.home_team_name)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 if(market == "Moneyline"){
@@ -60,35 +74,6 @@ struct PredictionBoard : View {
         .padding()
     }
 }
-struct PredictionMenuItemModel {
-    var id: Int
-    var sportName : String
-    var APIKEY : String
-    var sportID : Int
-    var seasonName : String
-}
-
-struct PredictionMenuItem: View{
-    var sportName: String
-    var APIKEY : String
-    var sportID : Int
-    var seasonName : String
-
-    var body: some View {
-        NavigationLink(destination: SportPredictionView(sportName: sportName, APIKEY: APIKEY, sportID: sportID, seasonName: seasonName)) {
-            HStack {
-                Image(sportName + "Logo")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(maxWidth: 60, maxHeight: 30)
-                    .padding(.top, 10)
-                    .padding(.trailing, 10)
-                    .padding(.bottom, 10)
-                Text(sportName)
-            }
-        }
-    }
-}
 
 struct PredictionMenuButton: View{
     @Binding var isMenuVisible : Bool
@@ -105,7 +90,7 @@ struct PredictionMenuButton: View{
                     Text(market)
                         .foregroundColor(Color.primary)
 
-                    Image(systemName: "arrow.down.circle")
+                    Image(systemName: "arrow.down.app")
                         .resizable()
                         .foregroundColor(Color.primary)
                         .aspectRatio(contentMode: .fit)
@@ -118,7 +103,7 @@ struct PredictionMenuButton: View{
             .frame(maxWidth: .infinity)
             .overlay(
                 Rectangle()
-                    .frame(height: 5)
+                    .frame(height: 2)
                     .foregroundColor(.SportScoresRed),
                 alignment: .bottom
             )

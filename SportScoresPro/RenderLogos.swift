@@ -8,67 +8,85 @@ import Foundation
 import SQLite3
 import UIKit
 
+struct TeamKey: Hashable {
+    let teamID: Int
+    let teamName: String
+}
+
 class LogoFetcher: ObservableObject {
-    @Published var teamLogos: [Int: UIImage] = [:]
-    private let databaseManager = DatabaseManager() // Add database manager
-    // ... rest of your properties
+    @Published var teamLogos: [TeamKey : UIImage] = [:]
+    private let databaseManager = DatabaseManager()
 
-    func fetchLogo(forTeam teamID: Int) {
-        // First try to load from database
-        if let logoData = databaseManager.getLogo(teamID: teamID),
-           let image = UIImage(data: logoData) {
-            DispatchQueue.main.async {
-                self.teamLogos[teamID] = image
-            }
-            return
-        }
+    func fetchLogo(forTeam teamID: Int, teamName: String) {
+        let key = TeamKey(teamID: teamID, teamName: teamName)
 
-        // If not in database, fetch from API
+                if let logoData = databaseManager.getLogo(teamID: teamID, teamName: teamName),
+                   let image = UIImage(data: logoData) {
+                    DispatchQueue.main.async {
+                        self.teamLogos[key] = image
+                    }
+                    return
+                }
+
         getTeamLogos(forTeam: teamID) { [weak self] fetchedImage in
             DispatchQueue.main.async {
                 if let image = fetchedImage {
-                    self?.teamLogos[teamID] = image
-                    // Convert UIImage to Data and save to database
+                    self?.teamLogos[key] = image
                     if let data = image.pngData() {
-                        self?.databaseManager.saveLogo(teamID: teamID, logoData: data)
+                        self?.databaseManager.saveLogo(teamID: teamID, teamName: teamName, logoData: data)
                     }
                 } else {
-                    self?.teamLogos[teamID] = UIImage(named: "placeholderLogo")
+                    self?.teamLogos[key] = UIImage(named: "placeholderLogo")
                 }
             }
         }
     }
+    
+    func getLogo(forTeam teamID: Int, teamName: String) -> UIImage? {
+        for (key, logo) in teamLogos {
+            if key.teamID == teamID || key.teamName == teamName {
+                return logo
+            }
+        }
+        return UIImage(named: "placeholderLogo")
+    }
+
 }
 
 
 class DatabaseManager {
     var db: OpaquePointer?
-
+    
     init() {
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let databasePath = documentsDirectory.appendingPathComponent("TeamLogos.sqlite").path
-
+        
         if sqlite3_open(databasePath, &db) != SQLITE_OK {
             print("Error opening database")
             return
         }
-
+        
         let createTableString = """
         CREATE TABLE IF NOT EXISTS TeamLogos(
-        TeamID INTEGER PRIMARY KEY,
-        LogoData BLOB
+            TeamID INTEGER,
+            TeamName TEXT,
+            LogoData BLOB,
+            PRIMARY KEY (TeamID, TeamName)
         );
         """
-
+        
         if sqlite3_exec(db, createTableString, nil, nil, nil) != SQLITE_OK {
             let errmsg = String(cString: sqlite3_errmsg(db)!)
             print("error creating table: \(errmsg)")
         }
     }
-
-    func getLogo(teamID: Int) -> Data? {
-        let query = "SELECT LogoData FROM TeamLogos WHERE TeamID = ?;"
+    
+    func getLogo(teamID: Int, teamName: String) -> Data? {
+        let query = "SELECT LogoData FROM TeamLogos WHERE TeamID = ? OR TeamName = ?;"
         var statement: OpaquePointer?
+        
+        sqlite3_bind_int(statement, 1, Int32(teamID))
+        sqlite3_bind_text(statement, 2, (teamName as NSString).utf8String, -1, nil)
         
         if sqlite3_prepare_v2(db, query, -1, &statement, nil) == SQLITE_OK {
             sqlite3_bind_int(statement, 1, Int32(teamID))
@@ -90,14 +108,17 @@ class DatabaseManager {
         sqlite3_finalize(statement)
         return nil
     }
-
-    func saveLogo(teamID: Int, logoData: Data) {
+    
+    func saveLogo(teamID: Int, teamName: String, logoData: Data) {
         let query = """
-        INSERT INTO TeamLogos(TeamID, LogoData) VALUES (?, ?)
-        ON CONFLICT(TeamID) DO UPDATE SET LogoData=excluded.LogoData;
-        """
+            INSERT INTO TeamLogos(TeamID, TeamName, LogoData) VALUES (?, ?, ?)
+            ON CONFLICT(TeamID, TeamName) DO UPDATE SET LogoData=excluded.LogoData;
+            """
         
         var statement: OpaquePointer?
+        
+        sqlite3_bind_int(statement, 1, Int32(teamID))
+        sqlite3_bind_text(statement, 2, (teamName as NSString).utf8String, -1, nil)
         
         if sqlite3_prepare_v2(db, query, -1, &statement, nil) == SQLITE_OK {
             sqlite3_bind_int(statement, 1, Int32(teamID))
@@ -121,42 +142,3 @@ class DatabaseManager {
         sqlite3_finalize(statement)
     }
 }
-
-func getTeamLogos(forTeam teamID: Int, completion: @escaping (UIImage?) -> Void) {
-    let urlString = "https://sofascores.p.rapidapi.com/v1/teams/logo?team_id=\(teamID)"
-    guard let url = URL(string: urlString) else {
-        print("Invalid URL")
-        completion(nil)
-        return
-    }
-
-    var request = URLRequest(url: url)
-    request.httpMethod = "GET"
-    request.addValue("7c01195a20mshbc9188a6ca4f5a5p1ce61cjsn5e640810eca6", forHTTPHeaderField: "X-RapidAPI-Key")
-    request.addValue("sofascores.p.rapidapi.com", forHTTPHeaderField: "X-RapidAPI-Host")
-
-    let task = URLSession.shared.dataTask(with: request) { data, response, error in
-        if let error = error {
-            print("Error fetching logo: \(error.localizedDescription)")
-            completion(nil)
-            return
-        }
-
-        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-            print("Invalid response from server")
-            completion(nil)
-            return
-        }
-
-        guard let data = data, let image = UIImage(data: data) else {
-            print("No data or data is not an image")
-            completion(nil)
-            return
-        }
-
-        completion(image)
-    }
-
-    task.resume()
-}
-

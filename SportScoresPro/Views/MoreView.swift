@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct AccountView: View {
+struct MoreView: View {
+    var logoFetcher: LogoFetcher
     @EnvironmentObject var settings: UserSettings
     
     var body: some View {
@@ -26,13 +27,6 @@ struct AccountView: View {
                         }
                         
                     } else {
-                        Section {
-                            NavigationLink(destination: PredictionView()) {
-                                Text("Betting Predictions")
-                            }
-                        }
-                        
-                        
                         Section {
                             NavigationLink(destination: SignUpView()) {
                                 Text("Update Email")
