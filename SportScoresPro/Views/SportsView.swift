@@ -130,18 +130,12 @@ struct SportPlaceholderPage: View{
                 .navigationTitle(sportName + " Predictions")
                 
             case 3:
-                NavigationView {
-                    ContentView(logoFetcher: logoFetcher)
-                        .environmentObject(settings)
-                        .navigationBarHidden(true)
-
-                }
-                .onAppear{
-                    settings.tabBarVisible = true
-                    selectedTabBarTab = 0
-                    presentationMode.wrappedValue.dismiss()
-                }
-                .navigationBarHidden(true)
+                TabBar(logoFetcher: logoFetcher)
+                    .environmentObject(settings)
+                    .onAppear{
+                        selectedTabBarTab = 0
+                        presentationMode.wrappedValue.dismiss()
+                    }
                 
             default:
                 NavigationView {

@@ -77,5 +77,8 @@ struct SportScoresView: View {
                 
             }
         }
+        .onDisappear {
+            
+        }
     }
 }
