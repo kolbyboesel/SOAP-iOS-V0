@@ -72,7 +72,6 @@ struct TabBar: View {
                                         .foregroundColor(selectedTab == 0 ? .SportScoresRed : .gray)
                                 }
                             }
-                            .frame(maxWidth: 50)
                         }
                         Spacer()
                         Button(action: { self.selectedTab = 1 }) {
@@ -95,9 +94,6 @@ struct TabBar: View {
                                         .foregroundColor(selectedTab == 1 ? .SportScoresRed : .gray)
                                 }
                             }
-                            .frame(maxWidth: 50)
-                            
-                            
                         }
                         Spacer()
                         Button(action: { self.selectedTab = 2 }) {
@@ -120,9 +116,6 @@ struct TabBar: View {
                                         .foregroundColor(selectedTab == 2 ? .SportScoresRed : .gray)
                                 }
                             }
-                            .frame(maxWidth: 50)
-                            
-                            
                         }
                         Spacer()
                     }
