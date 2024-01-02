@@ -36,24 +36,27 @@ struct LogInView: View {
                     .frame(width: geometry.size.width, height: 50)
                     .textContentType(.emailAddress)
                     .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0))
-                    .accentColor(.red)
-                    .background(Color(red: 242 / 255, green: 242 / 255, blue: 242 / 255))
+                    .accentColor(.SportScoresRed)
+                    .background(Color(.systemGray6))
                     .cornerRadius(5)
+                    .foregroundColor(Color.primary)
                 
                 if showPassword {
                     ZStack{
                         TextField("Password", text: self.$password)
                             .frame(width: geometry.size.width, height: 50)
                             .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0))
-                            .foregroundColor(.gray)
-                            .background(Color(red: 242 / 255, green: 242 / 255, blue: 242 / 255))
+                            .background(Color(.systemGray6))
                             .textContentType(.password)
                             .cornerRadius(5)
+                            .accentColor(.SportScoresRed)
+                            .foregroundColor(Color.primary)
+
                         
                         Button(action: { self.showPassword.toggle() }) {
                             Image(systemName: "eye.circle")
                                 .resizable()
-                                .foregroundColor(.gray)
+                                .foregroundColor(Color.primary)
                                 .aspectRatio(contentMode: .fit)
                                 .frame(height: 25)
                         }
@@ -65,15 +68,16 @@ struct LogInView: View {
                         SecureField("Password", text: self.$password)
                             .frame(width: geometry.size.width, height: 50)
                             .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0))
-                            .foregroundColor(.gray)
-                            .background(Color(red: 242 / 255, green: 242 / 255, blue: 242 / 255))
-                            .textContentType(.password)
+                            .background(Color(.systemGray6))
                             .cornerRadius(5)
+                            .accentColor(.SportScoresRed)
+                            .foregroundColor(Color.primary)
+
                         
                         Button(action: { self.showPassword.toggle() }) {
                             Image(systemName: "eye.slash.circle")
                                 .resizable()
-                                .foregroundColor(.gray)
+                                .foregroundColor(Color.primary)
                                 .aspectRatio(contentMode: .fit)
                                 .frame(height: 25)
                         }

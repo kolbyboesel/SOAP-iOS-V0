@@ -119,6 +119,7 @@ struct TabBar: View {
                 }
                 Spacer()
             }
+            .padding(.top, 0)
             .frame(maxWidth: .infinity)
             .background(Color.white)
         }
