@@ -43,7 +43,7 @@ struct SportScoresProApp: App {
 }
 
 class UserSettings: ObservableObject {
-    @Published var loggedIn : Bool = true
+    @Published var loggedIn : Bool = false
     @Published var navigateNowToLogIn: Bool = false
     @Published var navigateNowToSignup: Bool = false
 }

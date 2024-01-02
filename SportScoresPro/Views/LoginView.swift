@@ -8,17 +8,19 @@
 
 import SwiftUI
 
-struct LoginDataModel: Codable {
-    var email: String
-    var password: String
-}
-
 struct LogInView: View {
     @EnvironmentObject var settings: UserSettings
+    var logoFetcher: LogoFetcher
     @State  private var emailAddress: String = ""
     @State  private var password: String = ""
     @State private var showPassword = false
+    @State private var isLoginInProgress = false
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+    @State private var shouldNavigateToHome = false
+    @Environment(\.presentationMode) var presentationMode
 
+    
     var body: some View {
         
         GeometryReader { geometry in
@@ -77,21 +79,25 @@ struct LogInView: View {
                         }
                         .padding()
                         .frame(width: geometry.size.width, alignment: .trailing)
-
-
+                        
+                        
                     }
                 }
                 
                 Button(action: {
                     handleLoginSubmit()
                 }) {
-                    Text("Log In")
+                    Text(isLoginInProgress ? "Logging In..." : "Log In")
                         .padding()
                         .frame(width: geometry.size.width, height: 40)
                         .foregroundColor(.white)
-                        .background(Color.blue)
+                        .background(isLoginInProgress ? Color.gray : Color.blue)
                         .cornerRadius(5)
+                        .disabled(isLoginInProgress)
                 }
+            }
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Login"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -99,6 +105,24 @@ struct LogInView: View {
     }
     
     func handleLoginSubmit() {
+        isLoginInProgress = true
+        let credentials = LoginCredentials(username: emailAddress, password: password)
+        
+        loginUser(withCredentials: credentials) { result in
+            isLoginInProgress = false
+            switch result {
+            case .success(let user):
+                settings.loggedIn = true
+                DispatchQueue.main.async {
+                    alertMessage = "Login successful!"
+                    showAlert = true
+                    self.presentationMode.wrappedValue.dismiss()
+                }
+                
+            case .failure(let error):
+                alertMessage = error.localizedDescription
+                showAlert = true
+            }
+        }
     }
-    
 }
