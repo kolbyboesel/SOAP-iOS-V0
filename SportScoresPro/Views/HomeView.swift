@@ -18,22 +18,33 @@ struct HomeView: View {
             HomeModel(id: 2, image: "2", titleText: "Account Benefits", descriptionText: "Now when creating a Sport Scores Pro account you get access to soccer betting predictions for Europe's top 5 leagues, as well as the MLS. These predictions are based on a variety of data, and are intended to give you +EV bets."),
             HomeModel(id: 3, image: "3", titleText: "New Feature", descriptionText: "In the latest update, we've added a search by date function! Select a date in the scores tab for any league, and you will see a list of events from that day.")
         ]
-        TabView {
-            ForEach(homeDataArray, id: \.id) { item in
-                HomeModelView(homeData: item)
+        VStack(spacing: 0) {
+            if settings.loggedIn {
+                Text("Welcome, " + settings.firstName)
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.SportScoresRed)
+                    .frame(maxWidth: .infinity, maxHeight: 30, alignment: .leading)
+                    .padding()
                     .background(Color(.systemGray6))
-                
             }
-        }
-        .tabViewStyle(PageTabViewStyle())
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                HStack {
-                    Image("home-logo")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 30)
+            TabView {
+                ForEach(homeDataArray, id: \.id) { item in
+                    HomeModelView(homeData: item)
+                        .background(Color(.systemGray6))
+                    
+                }
+            }
+            .tabViewStyle(PageTabViewStyle())
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    HStack {
+                        Image("home-logo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 30)
+                    }
                 }
             }
         }

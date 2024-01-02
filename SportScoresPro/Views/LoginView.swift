@@ -112,12 +112,11 @@ struct LogInView: View {
         isLoginInProgress = true
         let credentials = LoginCredentials(username: emailAddress, password: password)
         
-        loginUser(withCredentials: credentials) { result in
+        loginUser(withCredentials: credentials, userSettings: settings) { result in
             isLoginInProgress = false
             switch result {
             case .success(let user):
                 settings.loggedIn = true
-                settings.email = emailAddress
                 DispatchQueue.main.async {
                     alertMessage = "Login successful!"
                     showAlert = true

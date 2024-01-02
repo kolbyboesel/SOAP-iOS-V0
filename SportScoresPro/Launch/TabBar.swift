@@ -13,6 +13,7 @@ extension Color {
 
 struct TabBar: View {
     var logoFetcher : LogoFetcher
+    @EnvironmentObject var userSettings: UserSettings
     @State private var selectedTab = 0
     
     var body: some View {
@@ -22,21 +23,27 @@ struct TabBar: View {
             case 0:
                 NavigationView {
                     HomeView()
+                        .environmentObject(userSettings)
                     
                 }
             case 1:
                 NavigationView {
                     SportsView(logoFetcher: logoFetcher)
+                        .environmentObject(userSettings)
                     
                 }
             case 2:
                 NavigationView {
                     MoreView(logoFetcher: logoFetcher)
+                        .environmentObject(userSettings)
+
                     
                 }
             default:
                 NavigationView {
                     HomeView()
+                        .environmentObject(userSettings)
+
                     
                 }
             }

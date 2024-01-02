@@ -9,24 +9,20 @@ import SwiftUI
 
 struct MoreView: View {
     var logoFetcher: LogoFetcher
-    @EnvironmentObject var settings: UserSettings
+    @EnvironmentObject var userSettings: UserSettings
 
     var body: some View {
         NavigationStack{
             VStack(spacing: 0){
                 List {
-                    if !settings.loggedIn {
+                    if !userSettings.loggedIn {
                         Section {
                             NavigationLink(destination: SignUpView()) {
                                 Text("Sign Up")
                             }
                             
-                            if settings.loggedIn {
-                                TabBar(logoFetcher: logoFetcher)
-                            } else {
-                                NavigationLink(destination: LogInView(logoFetcher: logoFetcher)) {
-                                    Text("Log In")
-                                }
+                            NavigationLink(destination: LogInView(logoFetcher: logoFetcher).environmentObject(userSettings)) {
+                                Text("Log In")
                             }
                         }
                     } else {
@@ -49,10 +45,10 @@ struct MoreView: View {
                     }
                     
                     
-                    if settings.loggedIn {
+                    if userSettings.loggedIn {
                         Section {
                             Button(action: {
-                                settings.loggedIn = false
+                                userSettings.loggedIn = false
                             }) {
                                 Text("Log Out")
                             }

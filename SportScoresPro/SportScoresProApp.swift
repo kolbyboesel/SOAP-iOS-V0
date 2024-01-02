@@ -28,7 +28,7 @@ struct SportScoresProApp: App {
         
     }
     
-    var userSettings = UserSettings()
+    @StateObject var userSettings = UserSettings()
     @ObservedObject var logoFetcher = LogoFetcher()
 
     
@@ -43,15 +43,31 @@ struct SportScoresProApp: App {
 }
 
 class UserSettings: ObservableObject {
-    @Published var loggedIn : Bool = false{
+    @Published var loggedIn: Bool {
         didSet {
             UserDefaults.standard.set(loggedIn, forKey: "loggedIn")
         }
     }
-    @Published var email: String
-    @Published var paidConfirm: String
-    
-    init() {
+    @Published var email: String {
+        didSet {
+            UserDefaults.standard.set(email, forKey: "email")
+        }
+    }
+    @Published var firstName: String {
+        didSet {
+            UserDefaults.standard.set(firstName, forKey: "firstName")
+        }
+    }
+    @Published var lastName: String {
+        didSet {
+            UserDefaults.standard.set(lastName, forKey: "lastName")
+        }
+    }
+
+    init(loggedIn: Bool = false, email: String = "", firstName: String = "", lastName: String = "") {
         self.loggedIn = UserDefaults.standard.bool(forKey: "loggedIn")
+        self.email = UserDefaults.standard.string(forKey: "email") ?? ""
+        self.firstName = UserDefaults.standard.string(forKey: "firstName") ?? ""
+        self.lastName = UserDefaults.standard.string(forKey: "lastName") ?? ""
     }
 }
