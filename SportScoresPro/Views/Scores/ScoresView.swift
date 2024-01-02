@@ -12,7 +12,7 @@ struct SportScoresView: View {
     @State private var liveScoreData: [LiveScoreData] = []
     @State private var selectedDate = Date()
     var sportName: String
-    var seasonName: String
+    var ScoreKey: String
     var sportID: Int
     @State private var isLoading = false
     var logoFetcher : LogoFetcher
@@ -29,7 +29,7 @@ struct SportScoresView: View {
                         .onChange(of: selectedDate) { newDate in
                             isLoading = true
                             let dateString = formatDateToString(date: newDate)
-                            getScoresData(forSport: seasonName, forSport: sportID, selectedDate: dateString) { fetchedData in
+                            getScoresData(forSport: ScoreKey, forSport: sportID, selectedDate: dateString) { fetchedData in
                                 self.liveScoreData = fetchedData
                                 isLoading = false
                             }
@@ -72,7 +72,7 @@ struct SportScoresView: View {
             dateFormatter.dateFormat = "yyyy-MM-dd"
             let todayDate = dateFormatter.string(from: Date())
             
-            getScoresData(forSport: seasonName, forSport: sportID, selectedDate: todayDate) { fetchedData in
+            getScoresData(forSport: ScoreKey, forSport: sportID, selectedDate: todayDate) { fetchedData in
                 self.liveScoreData = fetchedData
                 isLoading = false
                 

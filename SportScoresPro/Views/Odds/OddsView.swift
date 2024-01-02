@@ -11,7 +11,7 @@ struct SportOddsView: View {
     @State private var oddsData: [OddsData] = []
     @State private var selectedDate = Date()
     var sportName: String
-    var APIKEY: String
+    var OddKey: String
     var sportID: Int
     @State private var isLoading = false
     @State var market = "Moneyline"
@@ -56,7 +56,7 @@ struct SportOddsView: View {
                 dateFormatter.dateFormat = "yyyy-MM-dd"
                 let todayDate = dateFormatter.string(from: Date())
                 
-                getOddsData(forSport: APIKEY, forSport: sportID, selectedDate: todayDate) { fetchedData in
+                getOddsData(forSport: OddKey, forSport: sportID, selectedDate: todayDate) { fetchedData in
                     self.oddsData = fetchedData
                     self.isLoading = false
                     

@@ -11,14 +11,15 @@ struct SportPredictionView: View {
     @State private var predictionData: [PredictionData] = []
     @State private var selectedDate = Date()
     var sportName: String
-    var APIKEY : String
+    var PredictionKey : String
     var sportID: Int
     var seasonName : String
     var logoFetcher : LogoFetcher
     @State private var isLoading = false
     @State var market = "Moneyline"
     @State var isMenuVisible = false
-    
+    @EnvironmentObject var settings: UserSettings
+
     var body: some View {
         ZStack {
             VStack(spacing: 0){
@@ -33,25 +34,53 @@ struct SportPredictionView: View {
                         PredictionDropdownMenu(menuItems: menuItems, market: $market, isMenuVisible: $isMenuVisible)
                     }
                     
-                    List{
-                        ForEach(predictionData, id: \.match_id) { data in
-                            let startTime = formatEventTime(epochTIS: TimeInterval(data.match_dat))
-                            let startDate = formatEventDate(epochTIS: TimeInterval(data.match_dat))
+                    if settings.loggedIn {
+                        List{
+                            ForEach(predictionData, id: \.match_id) { data in
+                                let startTime = formatEventTime(epochTIS: TimeInterval(data.match_dat))
+                                let startDate = formatEventDate(epochTIS: TimeInterval(data.match_dat))
+                                let selectedFormattedDate = formatVerifyDate(date: selectedDate)
+                                let verifyDate = startDate == selectedFormattedDate
+                                
+                                if(data.league_name == seasonName && verifyDate){
+                                    VStack {
+                                        PredictionHeader(startDate: startDate, startTime: startTime, market: $market)
+                                        
+                                        PredictionBoard(market: $market, data: data, logoFetcher: logoFetcher)
+                                    }
+                                }
+                            }
+                        }
+                        .navigationTitle("\(sportName)" + " Predictions")
+                        .navigationBarTitleDisplayMode(.inline)
+                        .accentColor(.white)
+                    } else {
+                        
+                        Text("Please log in or create an account to access all predictions")
+                            .font(.headline)
+                            .bold()
+                            .foregroundColor(Color.SportScoresRed)
+                            .frame(maxWidth: .infinity, maxHeight: 100, alignment: .center)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                        
+                        
+                        if let firstPrediction = predictionData.first {
+                            let startTime = formatEventTime(epochTIS: TimeInterval(firstPrediction.match_dat))
+                            let startDate = formatEventDate(epochTIS: TimeInterval(firstPrediction.match_dat))
                             let selectedFormattedDate = formatVerifyDate(date: selectedDate)
                             let verifyDate = startDate == selectedFormattedDate
-                            
-                            if(data.league_name == seasonName && verifyDate){
-                                VStack {
-                                    PredictionHeader(startDate: startDate, startTime: startTime, market: $market)
-                                    
-                                    PredictionBoard(market: $market, data: data, logoFetcher: logoFetcher)
+                            if(firstPrediction.league_name == seasonName && verifyDate){
+                                List {
+                                    VStack {
+                                        PredictionHeader(startDate: startDate, startTime: startTime, market: $market)
+                                        
+                                        PredictionBoard(market: $market, data: firstPrediction, logoFetcher: logoFetcher)
+                                    }
                                 }
                             }
                         }
                     }
-                    .navigationTitle("\(sportName)" + " Predictions")
-                    .navigationBarTitleDisplayMode(.inline)
-                    .accentColor(.white)
                 }
             }
             .onAppear {
@@ -69,9 +98,9 @@ struct SportPredictionView: View {
                     print("Could not calculate the next date.")
                 }
                 
-                getPredictionData(forSport: APIKEY, forSport: sportID, selectedDate: todayDate, seasonName: seasonName) { fetchedData in
+                getPredictionData(forSport: PredictionKey, forSport: sportID, selectedDate: todayDate, seasonName: seasonName) { fetchedData in
                     self.predictionData = fetchedData
-                    getPredictionData(forSport: APIKEY, forSport: sportID, selectedDate: nextDateString, seasonName: seasonName) { nextDayData in
+                    getPredictionData(forSport: PredictionKey, forSport: sportID, selectedDate: nextDateString, seasonName: seasonName) { nextDayData in
                             self.predictionData.append(contentsOf: nextDayData)
                             self.isLoading = false
                         }
