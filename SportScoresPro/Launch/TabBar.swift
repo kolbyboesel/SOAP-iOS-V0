@@ -14,22 +14,28 @@ extension Color {
 struct TabBar: View {
     @ObservedObject var logoFetcher : LogoFetcher
     @EnvironmentObject var userSettings: UserSettings
+    @EnvironmentObject var sharedSportViewModel: SharedSportViewModel
     @State private var selectedTab = 0
-    @Environment(\.presentationMode) var presentationMode
-
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var appEnvironment: AppEnvironment
+    
     
     var body: some View {
         ZStack {
             switch selectedTab {
             case 0:
                 NavigationView {
-                    HomeView(logoFetcher: logoFetcher)
+                    HomeView(logoFetcher: logoFetcher, selectedTab: $selectedTab)
                         .environmentObject(userSettings)
+                        .environmentObject(appEnvironment)
                 }
+                
             case 1:
                 NavigationView {
                     SportsView(logoFetcher: logoFetcher, selectedTab: $selectedTab)
                         .environmentObject(userSettings)
+                        .environmentObject(sharedSportViewModel)
+                        .environmentObject(appEnvironment)
                 }
             case 2:
                 NavigationView {
@@ -38,18 +44,16 @@ struct TabBar: View {
                 }
             default:
                 NavigationView {
-                    HomeView(logoFetcher: logoFetcher)
+                    HomeView(logoFetcher: logoFetcher, selectedTab: $selectedTab)
                         .environmentObject(userSettings)
                     
                 }
             }
-            
-            if userSettings.tabBarVisible == true {
+            VStack{
+                Spacer()
                 
-                VStack{
-                    Spacer()
-
-                    HStack {
+                HStack {
+                    if (appEnvironment.sportBarActive == false) {
                         Spacer()
                         
                         Button(action: { self.selectedTab = 0 }) {
@@ -74,6 +78,7 @@ struct TabBar: View {
                                 }
                             }
                         }
+                        
                         Spacer()
                         Button(action: { self.selectedTab = 1 }) {
                             VStack {
@@ -120,19 +125,15 @@ struct TabBar: View {
                         }
                         Spacer()
                     }
-                    .padding(.top, 0)
-                    .contentMargins(.bottom, 0)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-                    .background(Color.white)
                 }
+                .padding(.top, 0)
+                .contentMargins(.bottom, 0)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .background(Color.white)
             }
         }
         .onAppear{
-            userSettings.tabBarVisible = true
-            if(userSettings.homeSelected == true){
-                self.selectedTab = 0
-            }
+            self.selectedTab = 0
         }
     }
 }
-

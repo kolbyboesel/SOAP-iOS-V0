@@ -63,6 +63,7 @@ struct SportScoresView: View {
                 }
             }
         }
+        .navigationTitle("\(sportName) Scores")
         .padding(.bottom, 60)
         .onAppear {
             isLoading = true

@@ -10,6 +10,8 @@ import SwiftUI
 struct HomeView: View {
     @ObservedObject var logoFetcher : LogoFetcher
     @EnvironmentObject var settings: UserSettings
+    @EnvironmentObject var appEnvironment: AppEnvironment
+    @Binding var selectedTab : Int
     @State var notificationToggle: Bool = false
     @State var locationUsage: Bool = false
     
@@ -52,6 +54,10 @@ struct HomeView: View {
                     }
                 }
             }
+        }
+        .onAppear {
+            appEnvironment.sportBarActive = false
+            selectedTab = 0
         }
     }
 }

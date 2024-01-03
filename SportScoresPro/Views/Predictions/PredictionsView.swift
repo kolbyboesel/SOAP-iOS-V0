@@ -81,6 +81,7 @@ struct SportPredictionView: View {
                     }
                 }
             }
+            .navigationTitle("\(sportName) Predictions")
             .padding(.bottom, 60)
             .onAppear {
                 isLoading = true

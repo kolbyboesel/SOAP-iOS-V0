@@ -47,6 +47,7 @@ struct SportOddsView: View {
                     }
                 }
             }
+            .navigationTitle("\(sportName) Betting Odds")
             .padding(.bottom, 60)
             .onAppear {
                 isLoading = true
