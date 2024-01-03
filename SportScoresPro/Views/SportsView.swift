@@ -144,6 +144,7 @@ struct SportTabBar: View {
                         .environmentObject(sharedSportViewModel)
                         .onAppear(){
                             selectedMainTab = 0
+                            appEnvironment.sportBarActive = false
                             self.presentationMode.wrappedValue.dismiss()
                         }
                 

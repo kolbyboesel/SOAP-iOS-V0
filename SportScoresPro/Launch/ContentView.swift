@@ -31,6 +31,7 @@ struct ContentView: View {
             .environmentObject(userSettings)
             .environmentObject(sharedSportViewModel)
             .environmentObject(appEnvironment))
+
     }
 }
 

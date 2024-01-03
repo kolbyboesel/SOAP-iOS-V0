@@ -132,8 +132,5 @@ struct TabBar: View {
                 .background(Color.white)
             }
         }
-        .onAppear{
-            self.selectedTab = 0
-        }
     }
 }

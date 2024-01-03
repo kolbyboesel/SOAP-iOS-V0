@@ -55,10 +55,6 @@ struct HomeView: View {
                 }
             }
         }
-        .onAppear {
-            appEnvironment.sportBarActive = false
-            selectedTab = 0
-        }
     }
 }
     
