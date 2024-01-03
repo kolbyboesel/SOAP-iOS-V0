@@ -10,6 +10,7 @@
 		F9066C992B44685B001878EF /* SportsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9066C982B44685B001878EF /* SportsView.swift */; };
 		F9066C9B2B447AC1001878EF /* MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9066C9A2B447AC1001878EF /* MoreView.swift */; };
 		F9066C9F2B448CC6001878EF /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9066C9E2B448CC6001878EF /* Account.swift */; };
+		F91D82472B46008600FEE54D /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = F91D82462B46008600FEE54D /* index.html */; };
 		F9B66ECD2B415429005C6B49 /* SportScoresProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B66ECC2B415429005C6B49 /* SportScoresProApp.swift */; };
 		F9B66ECF2B415429005C6B49 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B66ECE2B415429005C6B49 /* ContentView.swift */; };
 		F9B66ED12B41542B005C6B49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9B66ED02B41542B005C6B49 /* Assets.xcassets */; };
@@ -55,6 +56,7 @@
 		F9066C9C2B447C03001878EF /* SportScoresPro.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SportScoresPro.entitlements; sourceTree = "<group>"; };
 		F9066C9D2B447C5F001878EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9066C9E2B448CC6001878EF /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		F91D82462B46008600FEE54D /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = index.html; path = SportScoresPro/Paypal/index.html; sourceTree = SOURCE_ROOT; };
 		F9B66EC92B415429005C6B49 /* SportScoresPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportScoresPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9B66ECC2B415429005C6B49 /* SportScoresProApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportScoresProApp.swift; sourceTree = "<group>"; };
 		F9B66ECE2B415429005C6B49 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -105,12 +107,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F91D82482B4601DF00FEE54D /* Paypal */ = {
+			isa = PBXGroup;
+			children = (
+				F91D82462B46008600FEE54D /* index.html */,
+			);
+			name = Paypal;
+			path = SportScoresPro/Paypal;
+			sourceTree = "<group>";
+		};
 		F9B66EC02B415429005C6B49 = {
 			isa = PBXGroup;
 			children = (
 				F9B66ECB2B415429005C6B49 /* SportScoresPro */,
 				F9B66EE32B41542B005C6B49 /* SportScoresProTests */,
 				F9B66EED2B41542B005C6B49 /* SportScoresProUITests */,
+				F91D82482B4601DF00FEE54D /* Paypal */,
 				F9B66ECA2B415429005C6B49 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -235,6 +247,8 @@
 			dependencies = (
 			);
 			name = SportScoresPro;
+			packageProductDependencies = (
+			);
 			productName = SportScoresPro;
 			productReference = F9B66EC92B415429005C6B49 /* SportScoresPro.app */;
 			productType = "com.apple.product-type.application";
@@ -307,6 +321,8 @@
 				Base,
 			);
 			mainGroup = F9B66EC02B415429005C6B49;
+			packageReferences = (
+			);
 			productRefGroup = F9B66ECA2B415429005C6B49 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -323,6 +339,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F91D82472B46008600FEE54D /* index.html in Resources */,
 				F9B66ED42B41542B005C6B49 /* Preview Assets.xcassets in Resources */,
 				F9B66ED12B41542B005C6B49 /* Assets.xcassets in Resources */,
 			);

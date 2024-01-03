@@ -17,7 +17,7 @@ struct MoreView: View {
                 List {
                     if !userSettings.loggedIn {
                         Section {
-                            NavigationLink(destination: SignUpView()) {
+                            NavigationLink(destination: SignupView(logoFetcher: logoFetcher)) {
                                 Text("Sign Up")
                             }
                             
@@ -27,11 +27,11 @@ struct MoreView: View {
                         }
                     } else {
                         Section {
-                            NavigationLink(destination: SignUpView()) {
+                            NavigationLink(destination: SignupView(logoFetcher: logoFetcher)) {
                                 Text("Update Email")
                             }
                             
-                            NavigationLink(destination: SignUpView()) {
+                            NavigationLink(destination: SignupView(logoFetcher: logoFetcher)) {
                                 Text("Update Password")
                             }
                         }

@@ -38,3 +38,4 @@ struct LoginDataModel: Codable {
     var email: String
     var password: String
 }
+

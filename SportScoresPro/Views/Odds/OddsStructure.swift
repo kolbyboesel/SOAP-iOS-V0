@@ -103,7 +103,7 @@ struct OddBoard : View {
         }
 
         let pointString = (point > 0 ? "+" : "") + "\(point)"
-        return "\(pointString)     (\(formatPrice(price)))"
+        return "\(pointString)    (\(formatPrice(price)))"
     }
 
     private func formatOverUnder(forTeam team: OddsData, teamType: String) -> String {
@@ -116,7 +116,7 @@ struct OddBoard : View {
         let pointString = "\(point)"
         let priceString = formatPrice(overOutcome.price)
         
-        return "\(pointString)" + "     (\(priceString))"
+        return "\(pointString)" + "    (\(priceString))"
     }
 
     private func formatPrice(_ price: Int) -> String {
@@ -162,7 +162,7 @@ struct OddsMenuButton: View{
 
 struct OddsDropdownMenu: View {
     var menuItems: [String]
-    let estimatedRowHeight: CGFloat = 44
+    let estimatedRowHeight: CGFloat = 50
     @Binding var market : String
     @Binding var isMenuVisible : Bool
 
@@ -246,20 +246,14 @@ struct OddsHeader : View {
                     .font(.caption)
             }
             if(market == "Spreads"){
-                Text("Spread")
+                Text("Spread  (Line)")
                     .font(.caption)
-                    .frame(width: 45,alignment: .center)
-                Text("(Line)")
-                    .font(.caption)
-                    .frame(width: 45,alignment: .center)
+                    .frame(width: 90,alignment: .center)
             }
             if(market == "Over / Unders"){
-                Text("O/U")
+                Text("O/U    (Line)")
                     .font(.caption)
-                    .frame(width: 45,alignment: .center)
-                Text("(Line)")
-                    .font(.caption)
-                    .frame(width: 45,alignment: .center)
+                    .frame(width: 90,alignment: .center)
             }
         }
         .padding(.top)

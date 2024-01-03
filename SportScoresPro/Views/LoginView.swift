@@ -89,7 +89,7 @@ struct LogInView: View {
                 }
                 
                 Button(action: {
-                    handleLoginSubmit()
+                    handleLoginSubmit(email: emailAddress, password: password)
                 }) {
                     Text(isLoginInProgress ? "Logging In..." : "Log In")
                         .padding()
@@ -108,9 +108,9 @@ struct LogInView: View {
         .padding()
     }
     
-    func handleLoginSubmit() {
+    func handleLoginSubmit(email: String, password: String) {
         isLoginInProgress = true
-        let credentials = LoginCredentials(username: emailAddress, password: password)
+        let credentials = LoginCredentials(username: email, password: password)
         
         loginUser(withCredentials: credentials, userSettings: settings) { result in
             isLoginInProgress = false

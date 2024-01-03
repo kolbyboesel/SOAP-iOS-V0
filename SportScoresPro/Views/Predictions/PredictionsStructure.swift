@@ -113,7 +113,7 @@ struct PredictionMenuButton: View{
 
 struct PredictionDropdownMenu: View {
     var menuItems: [String]
-    let estimatedRowHeight: CGFloat = 44
+    let estimatedRowHeight: CGFloat = 50
     @Binding var market : String
     @Binding var isMenuVisible : Bool
 

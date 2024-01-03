@@ -15,6 +15,8 @@ struct HomeView: View {
     @State var notificationToggle: Bool = false
     @State var locationUsage: Bool = false
     
+    @State private var showPayPalView = false
+
     var body: some View {
         let homeDataArray: [HomeModel] = [
             HomeModel(id: 1, image: "1", titleText: "About", descriptionText: "Thank you for visiting Sport Scores Pro! This app is your hub for sport scores, betting odds, and more! Currently available are scores and moneyline odds for, NFL, NBA, MLB, NHL, College Football, College Basketball, College Baseball, Europe’s 5 Main Soccer Leagues (Premier League, Serie A, Bundesliga, LaLiga, and Ligue 1), and the MLS"),
@@ -31,6 +33,7 @@ struct HomeView: View {
                     .padding()
                     .background(Color(.systemGray6))
             }
+            
             GeometryReader { geometry in
                 ScrollView {
                     ForEach(homeDataArray, id: \.id) { item in
