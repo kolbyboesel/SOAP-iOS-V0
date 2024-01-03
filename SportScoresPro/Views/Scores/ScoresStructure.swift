@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ScoreFuture: View {
     var data : LiveScoreData
-    var logoFetcher : LogoFetcher
+    @ObservedObject var logoFetcher : LogoFetcher
 
     var body: some View {
         let awayKey = TeamKey(teamID: data.awayTeam.id, teamName: data.awayTeam.name)
@@ -65,7 +65,7 @@ struct ScoreFuture: View {
 
 struct ScoreLive: View {
     var data : LiveScoreData
-    var logoFetcher : LogoFetcher
+    @ObservedObject var logoFetcher : LogoFetcher
 
     var body: some View {
         let awayKey = TeamKey(teamID: data.awayTeam.id, teamName: data.awayTeam.name)

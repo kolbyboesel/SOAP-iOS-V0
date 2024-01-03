@@ -15,7 +15,7 @@ struct SportScoresView: View {
     var ScoreKey: String
     var sportID: Int
     @State private var isLoading = false
-    var logoFetcher : LogoFetcher
+    @ObservedObject var logoFetcher : LogoFetcher
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -63,7 +63,7 @@ struct SportScoresView: View {
                 }
             }
         }
-
+        .padding(.bottom, 60)
         .onAppear {
             isLoading = true
             

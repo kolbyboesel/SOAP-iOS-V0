@@ -11,7 +11,7 @@ import SwiftUI
 struct PredictionBoard : View {
     @Binding var market : String
     var data : PredictionData
-    var logoFetcher : LogoFetcher
+    @ObservedObject var logoFetcher : LogoFetcher
 
 
     var body: some View {

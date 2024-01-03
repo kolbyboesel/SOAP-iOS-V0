@@ -14,7 +14,7 @@ struct SportPredictionView: View {
     var PredictionKey : String
     var sportID: Int
     var seasonName : String
-    var logoFetcher : LogoFetcher
+    @ObservedObject var logoFetcher : LogoFetcher
     @State private var isLoading = false
     @State var market = "Moneyline"
     @State var isMenuVisible = false
@@ -81,7 +81,7 @@ struct SportPredictionView: View {
                     }
                 }
             }
-            
+            .padding(.bottom, 60)
             .onAppear {
                 isLoading = true
                 

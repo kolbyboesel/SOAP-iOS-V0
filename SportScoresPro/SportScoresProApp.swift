@@ -19,7 +19,7 @@ struct SportScoresProApp: App {
         
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
         UINavigationBar.appearance().tintColor = UIColor.white
-
+        
         UITabBar.appearance().backgroundColor = UIColor.white
         
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(red: 0.95686274509, green: 0.26274509803, blue: 0.21176470588, alpha: 1)
@@ -29,15 +29,19 @@ struct SportScoresProApp: App {
     }
     
     @StateObject var userSettings = UserSettings()
-    @ObservedObject var logoFetcher = LogoFetcher()
-
+    @StateObject var logoFetcher = LogoFetcher()
+    
+    let lifecyclePublisher = NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)
     
     var body: some Scene {
         WindowGroup {
-            TabBar(logoFetcher: logoFetcher)
+            ContentView(logoFetcher: logoFetcher)
                 .environmentObject(userSettings)
-
-
+                .onReceive(lifecyclePublisher) { _ in
+                    logoFetcher.saveData()
+                }
+            
+            
         }
     }
 }
@@ -72,26 +76,5 @@ class UserSettings: ObservableObject {
         self.email = UserDefaults.standard.string(forKey: "email") ?? ""
         self.firstName = UserDefaults.standard.string(forKey: "firstName") ?? ""
         self.lastName = UserDefaults.standard.string(forKey: "lastName") ?? ""
-    }
-}
-
-struct CustomBackButtonView: View {
-    @Environment(\.presentationMode) var presentationMode
-
-    var body: some View {
-        VStack {
-            // Your view content here
-
-            Button(action: {
-                presentationMode.wrappedValue.dismiss()
-            }) {
-                HStack {
-                    Image(systemName: "arrow.left")
-                    Text("Back")
-                }
-                .foregroundColor(.blue)
-            }
-            .padding()
-        }
     }
 }

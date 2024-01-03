@@ -16,7 +16,7 @@ struct SportOddsView: View {
     @State private var isLoading = false
     @State var market = "Moneyline"
     @State var isMenuVisible = false
-    var logoFetcher : LogoFetcher
+    @ObservedObject var logoFetcher : LogoFetcher
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
@@ -47,6 +47,7 @@ struct SportOddsView: View {
                     }
                 }
             }
+            .padding(.bottom, 60)
             .onAppear {
                 isLoading = true
                 

@@ -12,10 +12,11 @@ extension Color {
 }
 
 struct TabBar: View {
-    var logoFetcher : LogoFetcher
+    @ObservedObject var logoFetcher : LogoFetcher
     @EnvironmentObject var userSettings: UserSettings
     @State private var selectedTab = 0
-    
+    @Environment(\.presentationMode) var presentationMode
+
     
     var body: some View {
         ZStack {

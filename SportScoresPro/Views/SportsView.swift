@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct SportsView: View {
-    var logoFetcher : LogoFetcher
+    @ObservedObject var logoFetcher : LogoFetcher
     @Binding var selectedTab : Int
     @EnvironmentObject var settings: UserSettings
     @State private var isItemSelected = false
@@ -38,6 +38,7 @@ struct SportsView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
+            .padding(.bottom, 60)
             .navigationTitle("Sports")
             .contentMargins(.top, 20)
         }
@@ -62,7 +63,7 @@ struct SportMenuItem: View{
     var PredictionKey: String
     var seasonName: String
     var sportID : Int
-    var logoFetcher : LogoFetcher
+    @ObservedObject var logoFetcher : LogoFetcher
     @Binding var selectedTab : Int
 
     @EnvironmentObject var settings: UserSettings
@@ -92,7 +93,7 @@ struct SportPlaceholderPage: View{
     var PredictionKey: String
     var seasonName : String
     var sportID : Int
-    var logoFetcher : LogoFetcher
+    @ObservedObject var logoFetcher : LogoFetcher
     @Binding var selectedTabBarTab : Int
     @EnvironmentObject var settings: UserSettings
     @Environment(\.presentationMode) var presentationMode
@@ -130,11 +131,10 @@ struct SportPlaceholderPage: View{
                 .navigationTitle(sportName + " Predictions")
                 
             case 3:
-                TabBar(logoFetcher: logoFetcher)
+                ContentView(logoFetcher: logoFetcher)
                     .environmentObject(settings)
                     .onAppear{
                         selectedTabBarTab = 0
-                        presentationMode.wrappedValue.dismiss()
                     }
                 
             default:

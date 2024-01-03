@@ -10,7 +10,7 @@ import SwiftUI
 
 struct LogInView: View {
     @EnvironmentObject var settings: UserSettings
-    var logoFetcher: LogoFetcher
+    @ObservedObject var logoFetcher: LogoFetcher
     @State  private var emailAddress: String = ""
     @State  private var password: String = ""
     @State private var showPassword = false

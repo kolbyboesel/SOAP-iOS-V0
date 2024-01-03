@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MoreView: View {
-    var logoFetcher: LogoFetcher
+    @ObservedObject var logoFetcher: LogoFetcher
     @EnvironmentObject var userSettings: UserSettings
 
     var body: some View {

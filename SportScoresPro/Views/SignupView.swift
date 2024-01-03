@@ -1,4 +1,3 @@
-//
 //  SignupView.swift
 //  SportScoresPro
 //
