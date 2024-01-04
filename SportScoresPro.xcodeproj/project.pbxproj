@@ -9,11 +9,12 @@
 /* Begin PBXBuildFile section */
 		F9066C992B44685B001878EF /* SportsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9066C982B44685B001878EF /* SportsView.swift */; };
 		F9066C9B2B447AC1001878EF /* MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9066C9A2B447AC1001878EF /* MoreView.swift */; };
-		F9066C9F2B448CC6001878EF /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9066C9E2B448CC6001878EF /* Account.swift */; };
-		F91D82472B46008600FEE54D /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = F91D82462B46008600FEE54D /* index.html */; };
 		F98BC86C2B47506B004CC8E2 /* FunctionsPaypal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC86B2B47506B004CC8E2 /* FunctionsPaypal.swift */; };
 		F98BC86E2B475078004CC8E2 /* FunctionsUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC86D2B475078004CC8E2 /* FunctionsUser.swift */; };
 		F98BC8702B475085004CC8E2 /* PublicFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC86F2B475085004CC8E2 /* PublicFunctions.swift */; };
+		F98BC8722B4750F3004CC8E2 /* FunctionsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC8712B4750F3004CC8E2 /* FunctionsData.swift */; };
+		F98BC8752B4751B1004CC8E2 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC8742B4751B1004CC8E2 /* Database.swift */; };
+		F98BC8772B47520C004CC8E2 /* LogoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC8762B47520C004CC8E2 /* LogoFetcher.swift */; };
 		F9B66ECD2B415429005C6B49 /* SportScoresProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B66ECC2B415429005C6B49 /* SportScoresProApp.swift */; };
 		F9B66ECF2B415429005C6B49 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B66ECE2B415429005C6B49 /* ContentView.swift */; };
 		F9B66ED12B41542B005C6B49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9B66ED02B41542B005C6B49 /* Assets.xcassets */; };
@@ -30,8 +31,6 @@
 		F9B66F0C2B41557F005C6B49 /* ScoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B66F0B2B41557F005C6B49 /* ScoresView.swift */; };
 		F9B66F0E2B4155AA005C6B49 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B66F0D2B4155AA005C6B49 /* TabBar.swift */; };
 		F9B66F102B4155B3005C6B49 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B66F0F2B4155B3005C6B49 /* SignupView.swift */; };
-		F9B66F162B415635005C6B49 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B66F152B415635005C6B49 /* Functions.swift */; };
-		F9B66F182B41563F005C6B49 /* RenderLogos.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B66F172B41563F005C6B49 /* RenderLogos.swift */; };
 		F9B66F1B2B41E413005C6B49 /* PredictionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B66F1A2B41E413005C6B49 /* PredictionsView.swift */; };
 		F9B66F1D2B41E41D005C6B49 /* PredictionsStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B66F1C2B41E41D005C6B49 /* PredictionsStructure.swift */; };
 /* End PBXBuildFile section */
@@ -58,11 +57,12 @@
 		F9066C9A2B447AC1001878EF /* MoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreView.swift; sourceTree = "<group>"; };
 		F9066C9C2B447C03001878EF /* SportScoresPro.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SportScoresPro.entitlements; sourceTree = "<group>"; };
 		F9066C9D2B447C5F001878EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F9066C9E2B448CC6001878EF /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
-		F91D82462B46008600FEE54D /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = index.html; path = SportScoresPro/Paypal/index.html; sourceTree = SOURCE_ROOT; };
 		F98BC86B2B47506B004CC8E2 /* FunctionsPaypal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionsPaypal.swift; sourceTree = "<group>"; };
 		F98BC86D2B475078004CC8E2 /* FunctionsUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionsUser.swift; sourceTree = "<group>"; };
 		F98BC86F2B475085004CC8E2 /* PublicFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicFunctions.swift; sourceTree = "<group>"; };
+		F98BC8712B4750F3004CC8E2 /* FunctionsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionsData.swift; sourceTree = "<group>"; };
+		F98BC8742B4751B1004CC8E2 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		F98BC8762B47520C004CC8E2 /* LogoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoFetcher.swift; sourceTree = "<group>"; };
 		F9B66EC92B415429005C6B49 /* SportScoresPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportScoresPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9B66ECC2B415429005C6B49 /* SportScoresProApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportScoresProApp.swift; sourceTree = "<group>"; };
 		F9B66ECE2B415429005C6B49 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -82,8 +82,6 @@
 		F9B66F0B2B41557F005C6B49 /* ScoresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresView.swift; sourceTree = "<group>"; };
 		F9B66F0D2B4155AA005C6B49 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		F9B66F0F2B4155B3005C6B49 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
-		F9B66F152B415635005C6B49 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
-		F9B66F172B41563F005C6B49 /* RenderLogos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderLogos.swift; sourceTree = "<group>"; };
 		F9B66F1A2B41E413005C6B49 /* PredictionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionsView.swift; sourceTree = "<group>"; };
 		F9B66F1C2B41E41D005C6B49 /* PredictionsStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionsStructure.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -113,13 +111,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F91D82482B4601DF00FEE54D /* Paypal */ = {
+		F98BC8732B4750F7004CC8E2 /* Functions */ = {
 			isa = PBXGroup;
 			children = (
-				F91D82462B46008600FEE54D /* index.html */,
+				F98BC86F2B475085004CC8E2 /* PublicFunctions.swift */,
+				F98BC86B2B47506B004CC8E2 /* FunctionsPaypal.swift */,
+				F98BC86D2B475078004CC8E2 /* FunctionsUser.swift */,
+				F98BC8712B4750F3004CC8E2 /* FunctionsData.swift */,
 			);
-			name = Paypal;
-			path = SportScoresPro/Paypal;
+			path = Functions;
 			sourceTree = "<group>";
 		};
 		F9B66EC02B415429005C6B49 = {
@@ -128,7 +128,6 @@
 				F9B66ECB2B415429005C6B49 /* SportScoresPro */,
 				F9B66EE32B41542B005C6B49 /* SportScoresProTests */,
 				F9B66EED2B41542B005C6B49 /* SportScoresProUITests */,
-				F91D82482B4601DF00FEE54D /* Paypal */,
 				F9B66ECA2B415429005C6B49 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -147,14 +146,11 @@
 			isa = PBXGroup;
 			children = (
 				F9B66ECC2B415429005C6B49 /* SportScoresProApp.swift */,
-				F9B66F152B415635005C6B49 /* Functions.swift */,
-				F98BC86F2B475085004CC8E2 /* PublicFunctions.swift */,
-				F98BC86B2B47506B004CC8E2 /* FunctionsPaypal.swift */,
-				F98BC86D2B475078004CC8E2 /* FunctionsUser.swift */,
-				F9B66F172B41563F005C6B49 /* RenderLogos.swift */,
-				F9066C9E2B448CC6001878EF /* Account.swift */,
+				F98BC8742B4751B1004CC8E2 /* Database.swift */,
+				F98BC8762B47520C004CC8E2 /* LogoFetcher.swift */,
 				F9B66F122B4155C4005C6B49 /* Launch */,
 				F9B66F112B4155B9005C6B49 /* Views */,
+				F98BC8732B4750F7004CC8E2 /* Functions */,
 				F9B66ED02B41542B005C6B49 /* Assets.xcassets */,
 				F9B66ED22B41542B005C6B49 /* Preview Content */,
 				F9066C9C2B447C03001878EF /* SportScoresPro.entitlements */,
@@ -348,7 +344,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F91D82472B46008600FEE54D /* index.html in Resources */,
 				F9B66ED42B41542B005C6B49 /* Preview Assets.xcassets in Resources */,
 				F9B66ED12B41542B005C6B49 /* Assets.xcassets in Resources */,
 			);
@@ -375,20 +370,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9B66F182B41563F005C6B49 /* RenderLogos.swift in Sources */,
 				F9066C9B2B447AC1001878EF /* MoreView.swift in Sources */,
 				F98BC86E2B475078004CC8E2 /* FunctionsUser.swift in Sources */,
+				F98BC8722B4750F3004CC8E2 /* FunctionsData.swift in Sources */,
 				F9B66F102B4155B3005C6B49 /* SignupView.swift in Sources */,
 				F9B66F0A2B41556E005C6B49 /* ScoresStructure.swift in Sources */,
 				F98BC8702B475085004CC8E2 /* PublicFunctions.swift in Sources */,
 				F9B66F0C2B41557F005C6B49 /* ScoresView.swift in Sources */,
-				F9066C9F2B448CC6001878EF /* Account.swift in Sources */,
 				F9B66F022B415516005C6B49 /* HomeView.swift in Sources */,
 				F9B66ECF2B415429005C6B49 /* ContentView.swift in Sources */,
 				F9B66ECD2B415429005C6B49 /* SportScoresProApp.swift in Sources */,
+				F98BC8752B4751B1004CC8E2 /* Database.swift in Sources */,
+				F98BC8772B47520C004CC8E2 /* LogoFetcher.swift in Sources */,
 				F9B66F1B2B41E413005C6B49 /* PredictionsView.swift in Sources */,
 				F98BC86C2B47506B004CC8E2 /* FunctionsPaypal.swift in Sources */,
-				F9B66F162B415635005C6B49 /* Functions.swift in Sources */,
 				F9B66F062B41553D005C6B49 /* OddsStructure.swift in Sources */,
 				F9B66F082B415553005C6B49 /* OddsView.swift in Sources */,
 				F9B66F0E2B4155AA005C6B49 /* TabBar.swift in Sources */,
