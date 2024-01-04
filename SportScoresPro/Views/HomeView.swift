@@ -10,10 +10,9 @@ import SwiftUI
 struct HomeView: View {
     @ObservedObject var logoFetcher : LogoFetcher
     @EnvironmentObject var settings: UserSettings
+    
     @State var notificationToggle: Bool = false
     @State var locationUsage: Bool = false
-    
-    @State private var showPayPalView = false
 
     var body: some View {
         let homeDataArray: [HomeModel] = [

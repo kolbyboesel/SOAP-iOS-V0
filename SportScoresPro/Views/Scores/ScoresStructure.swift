@@ -9,13 +9,13 @@ import Foundation
 import SwiftUI
 
 struct ScoreFuture: View {
-    var data : LiveScoreData
     @ObservedObject var logoFetcher : LogoFetcher
-
+    var data : LiveScoreData
+    
     var body: some View {
         let awayKey = TeamKey(teamID: data.awayTeam.id, teamName: data.awayTeam.name)
         let homeKey = TeamKey(teamID: data.homeTeam.id, teamName: data.homeTeam.name)
-
+        
         HStack{
             VStack {
                 HStack {
@@ -64,9 +64,9 @@ struct ScoreFuture: View {
 }
 
 struct ScoreLive: View {
-    var data : LiveScoreData
     @ObservedObject var logoFetcher : LogoFetcher
-
+    var data : LiveScoreData
+    
     var body: some View {
         let awayKey = TeamKey(teamID: data.awayTeam.id, teamName: data.awayTeam.name)
         let homeKey = TeamKey(teamID: data.homeTeam.id, teamName: data.homeTeam.name)
@@ -139,7 +139,6 @@ struct ScoresHeader : View {
             Text(formattedDate + " " + formattedTime)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.caption)
-            
             
             Text(data.status.description)
                 .frame(alignment: .trailing)

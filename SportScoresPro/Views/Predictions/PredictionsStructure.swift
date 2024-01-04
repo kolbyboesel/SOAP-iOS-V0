@@ -9,10 +9,9 @@ import Foundation
 import SwiftUI
 
 struct PredictionBoard : View {
+    @ObservedObject var logoFetcher : LogoFetcher
     @Binding var market : String
     var data : PredictionData
-    @ObservedObject var logoFetcher : LogoFetcher
-
 
     var body: some View {
 
@@ -76,8 +75,8 @@ struct PredictionBoard : View {
 }
 
 struct PredictionMenuButton: View{
-    @Binding var isMenuVisible : Bool
     @Binding var market : String
+    @Binding var isMenuVisible : Bool
     
     var body: some View {
         ZStack {
@@ -88,7 +87,7 @@ struct PredictionMenuButton: View{
                     Text("Market")
                         .foregroundColor(.white)
                         .font(.system(size: 15))
-
+                    
                     Image(systemName: "arrow.down.app")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
@@ -103,10 +102,9 @@ struct PredictionMenuButton: View{
 }
 
 struct PredictionDropdownMenu: View {
-    let menuItems = ["Moneyline", "Spreads", "Totals"]
-    let estimatedRowHeight: CGFloat = 50
     @Binding var market : String
     @Binding var isMenuVisible : Bool
+    let menuItems = ["Moneyline", "Spreads", "Totals"]
     
     var body: some View {
         VStack(spacing: 0) {
@@ -127,7 +125,6 @@ struct PredictionDropdownMenu: View {
                 .background(market == item ? Color(.systemGray6) : Color.white)
                 
                 Divider()
-                
             }
         }
         .cornerRadius(10)

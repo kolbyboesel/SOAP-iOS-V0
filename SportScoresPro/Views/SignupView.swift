@@ -11,17 +11,19 @@ import SwiftUI
 struct SignupView: View {
     @EnvironmentObject var settings: UserSettings
     @ObservedObject var logoFetcher: LogoFetcher
+    
     @State private var emailAddress: String = ""
     @State private var lastName: String = ""
     @State private var firstName: String = ""
     @State private var password: String = ""
     @State private var passwordConfirm: String = ""
+    
     @State private var showPassword = false
+    
     @State private var isSignupInProgress = false
+    
     @State private var showAlert = false
     @State private var alertMessage = ""
-    @State private var shouldNavigateToHome = false
-    @Environment(\.presentationMode) var presentationMode
     
     @State private var showPayPalWebView = false
     
@@ -105,11 +107,8 @@ struct SignupView: View {
                         }
                         .padding()
                         .frame(width: geometry.size.width, alignment: .trailing)
-                        
-                        
                     }
                 }
-                
                 SecureField("Confirm Password", text: self.$passwordConfirm)
                     .frame(width: geometry.size.width, height: 50)
                     .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0))
@@ -137,10 +136,9 @@ struct SignupView: View {
         .navigationBarTitleDisplayMode(.inline)
         .padding()
         .fullScreenCover(isPresented: $showPayPalWebView) {
-                    PayPalWebViewControllerRepresentable()
-                }
+            PayPalWebViewControllerRepresentable()
+        }
     }
-    
     func handleSignupSubmit() {
         guard !emailAddress.isEmpty, !firstName.isEmpty, !lastName.isEmpty, !password.isEmpty, !passwordConfirm.isEmpty else {
             alertMessage = "All fields are required."
@@ -174,7 +172,7 @@ func initiatePayPalCheckout(email: String, password: String, firstName: String, 
         switch result {
         case .success(_):
             presentPayPalCheckout()
-        
+            
         case .failure(let error):
             print("Registration failed: \(error)")
         }
@@ -185,7 +183,7 @@ struct PayPalWebViewControllerRepresentable: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> PayPalWebViewController {
         return PayPalWebViewController()
     }
-
+    
     func updateUIViewController(_ uiViewController: PayPalWebViewController, context: Context) {
     }
 }

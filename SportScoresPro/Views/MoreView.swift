@@ -10,7 +10,7 @@ import SwiftUI
 struct MoreView: View {
     @ObservedObject var logoFetcher: LogoFetcher
     @EnvironmentObject var userSettings: UserSettings
-
+    
     var body: some View {
         NavigationStack{
             VStack(spacing: 0){
@@ -20,7 +20,6 @@ struct MoreView: View {
                             NavigationLink(destination: SignupView(logoFetcher: logoFetcher)) {
                                 Text("Sign Up")
                             }
-                            
                             NavigationLink(destination: LogInView(logoFetcher: logoFetcher).environmentObject(userSettings)) {
                                 Text("Log In")
                             }
@@ -30,20 +29,16 @@ struct MoreView: View {
                             NavigationLink(destination: SignupView(logoFetcher: logoFetcher)) {
                                 Text("Update Email")
                             }
-                            
                             NavigationLink(destination: SignupView(logoFetcher: logoFetcher)) {
                                 Text("Update Password")
                             }
                         }
-                        
-                        
                     }
                     Section {
                         NavigationLink(destination: AboutView().accentColor(.white)) {
                             Text("About Me")
                         }
                     }
-                    
                     
                     if userSettings.loggedIn {
                         Section {

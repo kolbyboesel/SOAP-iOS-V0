@@ -1,19 +1,17 @@
 //
-//  HomeView.swift
+//  LiveView.swift
 //  SportScoresPro
 //
-//  Created by Kolby Boesel on 12/22/23.
+//  Created by Kolby Boesel on 1/4/24.
 //
 
 import SwiftUI
 import Foundation
 
-struct SportScoresView: View {
-    var ScoreKey: String
-    var sportID: Int
+struct LiveScoresView: View {
     @ObservedObject var logoFetcher : LogoFetcher
 
-    @State private var liveScoreData: [LiveScoreData] = []
+    @State private var AllLiveScoreData: [LiveScoreData] = []
     @State private var selectedDate = Date()
     @State private var isLoading = false
     
@@ -23,28 +21,7 @@ struct SportScoresView: View {
                 ProgressView("Loading...")
             } else {
                 VStack(spacing: 0) {
-                    DatePicker("Select Date", selection: $selectedDate, displayedComponents: .date)
-                        .font(.system(size: 15))
-                        .datePickerStyle(.compact)
-                        .onChange(of: selectedDate) { newDate in
-                            isLoading = true
-                            let dateString = formatDateToString(date: newDate)
-                            getScoresData(forSport: ScoreKey, forSport: sportID, selectedDate: dateString) { fetchedData in
-                                self.liveScoreData = fetchedData
-                                isLoading = false
-                            }
-                        }
-                        .accentColor(.SportScoresRed)
-                        .padding(.leading)
-                        .padding(.trailing)
-                        .padding(.bottom, 10)
-                        .padding(.top, 10)
-                    
-                    
-                    
-                    Divider()
-                    
-                    List(liveScoreData) { data in
+                    List(AllLiveScoreData) { data in
                         
                         let formattedDate = formatEventDate(epochTIS: data.startTimestamp)
                         let formattedTime = formatEventTime(epochTIS: data.startTimestamp)
@@ -62,10 +39,10 @@ struct SportScoresView: View {
                             }
                         }
                     }
+                    .navigationTitle("Live Scores")
+                    .navigationBarTitleDisplayMode(.inline)
                     .contentMargins(.top, 20)
-                    .contentMargins(.bottom, 20)
-
-                }
+                    .contentMargins(.bottom, 20)                }
             }
         }
         .onAppear {
@@ -75,10 +52,22 @@ struct SportScoresView: View {
             dateFormatter.dateFormat = "yyyy-MM-dd"
             let todayDate = dateFormatter.string(from: Date())
             
-            getScoresData(forSport: ScoreKey, forSport: sportID, selectedDate: todayDate) { fetchedData in
-                self.liveScoreData = fetchedData
-                isLoading = false
-                
+            getLiveScoresData(forSport: 1) { Soccer in
+                self.AllLiveScoreData = Soccer
+                getLiveScoresData(forSport: 2) { Basketball in
+                    self.AllLiveScoreData.append(contentsOf: Basketball)
+                    getLiveScoresData(forSport: 4) { Hockey in
+                        self.AllLiveScoreData.append(contentsOf: Hockey)
+                        getLiveScoresData(forSport: 63) { Football in
+                            self.AllLiveScoreData.append(contentsOf: Football)
+                            getLiveScoresData(forSport: 64) { Baseball in
+                                self.AllLiveScoreData.append(contentsOf: Baseball)
+                                isLoading = false
+
+                            }
+                        }
+                    }
+                }
             }
         }
         .onDisappear {

@@ -11,18 +11,20 @@ import SwiftUI
 struct LogInView: View {
     @EnvironmentObject var settings: UserSettings
     @ObservedObject var logoFetcher: LogoFetcher
-    @State  private var emailAddress: String = ""
-    @State  private var password: String = ""
+    
+    @State private var emailAddress: String = ""
+    @State private var password: String = ""
+    
     @State private var showPassword = false
+    
     @State private var isLoginInProgress = false
+    
     @State private var showAlert = false
     @State private var alertMessage = ""
-    @State private var shouldNavigateToHome = false
+    
     @Environment(\.presentationMode) var presentationMode
-
     
     var body: some View {
-        
         GeometryReader { geometry in
             VStack (alignment: .center){
                 
@@ -51,7 +53,7 @@ struct LogInView: View {
                             .cornerRadius(5)
                             .accentColor(.SportScoresRed)
                             .foregroundColor(Color.primary)
-
+                        
                         
                         Button(action: { self.showPassword.toggle() }) {
                             Image(systemName: "eye.circle")
@@ -72,7 +74,6 @@ struct LogInView: View {
                             .cornerRadius(5)
                             .accentColor(.SportScoresRed)
                             .foregroundColor(Color.primary)
-
                         
                         Button(action: { self.showPassword.toggle() }) {
                             Image(systemName: "eye.slash.circle")
@@ -83,8 +84,6 @@ struct LogInView: View {
                         }
                         .padding()
                         .frame(width: geometry.size.width, alignment: .trailing)
-                        
-                        
                     }
                 }
                 
@@ -115,7 +114,7 @@ struct LogInView: View {
         loginUser(withCredentials: credentials, userSettings: settings) { result in
             isLoginInProgress = false
             switch result {
-            case .success(let user):
+            case .success(_):
                 settings.loggedIn = true
                 DispatchQueue.main.async {
                     alertMessage = "Login successful!"

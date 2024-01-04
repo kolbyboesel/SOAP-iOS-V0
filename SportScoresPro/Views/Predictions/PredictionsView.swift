@@ -8,20 +8,17 @@
 import SwiftUI
 
 struct SportPredictionView: View {
-    @Binding var market : String
-    @State private var predictionData: [PredictionData] = []
-    @State private var selectedDate = Date()
-    var sportName: String
     var PredictionKey : String
     var sportID: Int
     var seasonName : String
-    @ObservedObject var logoFetcher : LogoFetcher
-    @State private var isLoading = false
-    @State var isMenuVisible = false
+    @Binding var market : String
+    @ObservedObject var logoFetcher: LogoFetcher
     @EnvironmentObject var settings: UserSettings
-    @Environment(\.presentationMode) var presentationMode
-    @EnvironmentObject var sharedSportViewModel: SharedSportViewModel
+
+    @State private var predictionData: [PredictionData] = []
+    @State private var isLoading = false
     
+
     var body: some View {
         VStack(){
             if isLoading {
@@ -32,20 +29,20 @@ struct SportPredictionView: View {
                         ForEach(predictionData, id: \.match_id) { data in
                             let startTime = formatEventTime(epochTIS: TimeInterval(data.match_dat))
                             let startDate = formatEventDate(epochTIS: TimeInterval(data.match_dat))
-                            let selectedFormattedDate = formatVerifyDate(date: selectedDate)
+                            let selectedFormattedDate = formatVerifyDate(date: Date())
                             let verifyDate = startDate == selectedFormattedDate
                             
                             if(data.league_name == seasonName && verifyDate){
                                 VStack {
                                     PredictionHeader(startDate: startDate, startTime: startTime, market: $market)
                                     
-                                    PredictionBoard(market: $market, data: data, logoFetcher: logoFetcher)
+                                    PredictionBoard(logoFetcher: logoFetcher, market: $market, data: data)
                                 }
                             }
                         }
                     }
                     .contentMargins(.top, 20)
-
+                    .contentMargins(.bottom, 20)
                 } else {
                     
                     Text("Please log in or create an account to access all predictions")
@@ -60,14 +57,14 @@ struct SportPredictionView: View {
                     if let firstPrediction = predictionData.first {
                         let startTime = formatEventTime(epochTIS: TimeInterval(firstPrediction.match_dat))
                         let startDate = formatEventDate(epochTIS: TimeInterval(firstPrediction.match_dat))
-                        let selectedFormattedDate = formatVerifyDate(date: selectedDate)
+                        let selectedFormattedDate = formatVerifyDate(date: Date())
                         let verifyDate = startDate == selectedFormattedDate
                         if(firstPrediction.league_name == seasonName && verifyDate){
                             List {
                                 VStack {
                                     PredictionHeader(startDate: startDate, startTime: startTime, market: $market)
                                     
-                                    PredictionBoard(market: $market, data: firstPrediction, logoFetcher: logoFetcher)
+                                    PredictionBoard(logoFetcher: logoFetcher, market: $market, data: firstPrediction)
                                 }
                             }
                         }

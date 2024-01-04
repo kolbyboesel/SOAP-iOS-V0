@@ -8,11 +8,20 @@
 import Foundation
 import SwiftUI
 
+struct SportMenuItemModel {
+    var id: Int
+    var sportName : String
+    var ScoreKey: String
+    var OddKey: String
+    var PredictionKey: String
+    var seasonName: String
+    var sportID : Int
+}
+
 struct SportsView: View {
     @ObservedObject var logoFetcher : LogoFetcher
     @EnvironmentObject var settings: UserSettings
-    @EnvironmentObject var sharedSportViewModel: SharedSportViewModel
-
+    
     @State private var isItemSelected = false
     
     let sportMenuArray: [SportMenuItemModel] = [
@@ -35,28 +44,15 @@ struct SportsView: View {
             List {
                 ForEach(sportMenuArray, id: \.id) { item in
                     SportMenuItem(sportName: item.sportName, ScoreKey: item.ScoreKey, OddKey: item.OddKey, PredictionKey: item.PredictionKey, seasonName: item.seasonName, sportID: item.sportID, logoFetcher: logoFetcher)
-                        .environmentObject(sharedSportViewModel)
                         .environmentObject(settings)
-                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
             .navigationTitle("Sports")
             .contentMargins(.top, 20)
             .contentMargins(.bottom, 20)
-
         }
         .accentColor(.white)
     }
-}
-
-struct SportMenuItemModel {
-    var id: Int
-    var sportName : String
-    var ScoreKey: String
-    var OddKey: String
-    var PredictionKey: String
-    var seasonName: String
-    var sportID : Int
 }
 
 struct SportMenuItem: View{
@@ -66,25 +62,24 @@ struct SportMenuItem: View{
     var PredictionKey: String
     var seasonName: String
     var sportID : Int
+    
     @ObservedObject var logoFetcher : LogoFetcher
     @EnvironmentObject var settings: UserSettings
-    @EnvironmentObject var sharedSportViewModel: SharedSportViewModel
-        
+    
     var body: some View {
         NavigationLink(destination: SportPlaceholderPage(sportName: sportName, ScoreKey: ScoreKey, OddKey: OddKey, PredictionKey: PredictionKey, seasonName: seasonName, sportID: sportID, logoFetcher: logoFetcher)
-            .environmentObject(settings)
-            .environmentObject(sharedSportViewModel)) {
-            HStack {
-                Image(sportName + "Logo")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 30, height: 30)
-                    .padding(.top, 5)
-                    .padding(.trailing, 5)
-                    .padding(.bottom, 5)
-                Text(sportName)
+            .environmentObject(settings)) {
+                HStack {
+                    Image(sportName + "Logo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30)
+                        .padding(.top, 5)
+                        .padding(.trailing, 5)
+                        .padding(.bottom, 5)
+                    Text(sportName)
+                }
             }
-        }
     }
 }
 
@@ -95,16 +90,13 @@ struct SportPlaceholderPage: View{
     var PredictionKey: String
     var seasonName : String
     var sportID : Int
+    
     @ObservedObject var logoFetcher : LogoFetcher
     @EnvironmentObject var settings: UserSettings
-    @EnvironmentObject var sharedSportViewModel: SharedSportViewModel
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @State private var selectedTab = 1
     
     var body: some View {
         SportTabBar(sportName: sportName, ScoreKey: ScoreKey, OddKey: OddKey, PredictionKey: PredictionKey, seasonName: seasonName, sportID: sportID, logoFetcher: logoFetcher)
             .environmentObject(settings)
-            .environmentObject(sharedSportViewModel)
     }
 }
 
@@ -115,10 +107,9 @@ struct SportTabBar: View {
     var PredictionKey: String
     var seasonName : String
     var sportID : Int
+    
     @ObservedObject var logoFetcher : LogoFetcher
     @EnvironmentObject var userSettings: UserSettings
-    @EnvironmentObject var sharedSportViewModel: SharedSportViewModel
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @State private var selectedTab = 0
     @State private var showOddsDropdown = false
@@ -131,7 +122,9 @@ struct SportTabBar: View {
         ZStack(){
             VStack(spacing: 0){
                 HStack(spacing: 0) {
+                    
                     Spacer()
+                    
                     Button(action: { selectedTab = 0 }) {
                         VStack {
                             VStack {
@@ -148,7 +141,9 @@ struct SportTabBar: View {
                             }
                         }
                     }
+                    
                     Spacer()
+                    
                     Button(action: {
                         selectedTab = 1
                     }) {
@@ -167,7 +162,9 @@ struct SportTabBar: View {
                             }
                         }
                     }
+                    
                     Spacer()
+                    
                     Button(action: {
                         selectedTab = 2
                     }) {
@@ -186,6 +183,7 @@ struct SportTabBar: View {
                             }
                         }
                     }
+                    
                     Spacer()
                 }
                 .padding(.bottom, 0)
@@ -193,15 +191,12 @@ struct SportTabBar: View {
                 .padding(.leading)
                 .padding(.trailing)
                 .background(Color.SportScoresRed)
-
                 
                 Group {
                     switch selectedTab {
                     case 0:
                         NavigationView {
-                            SportScoresView(sportName: sportName, ScoreKey: ScoreKey, sportID: sportID, logoFetcher: logoFetcher)
-                                .environmentObject(sharedSportViewModel)
-                                .environmentObject(userSettings)
+                            SportScoresView(ScoreKey: ScoreKey, sportID: sportID, logoFetcher: logoFetcher)
                                 .navigationBarHidden(true)
                         }
                         .navigationTitle("\(sportName) Scores")
@@ -209,33 +204,28 @@ struct SportTabBar: View {
                         
                     case 1:
                         NavigationView {
-                            SportOddsView(market: $market, sportName: sportName, OddKey: OddKey, sportID: sportID, logoFetcher: logoFetcher)
-                                .environmentObject(sharedSportViewModel)
-                                .environmentObject(userSettings)
+                            SportOddsView(OddKey: OddKey, sportID: sportID, market: $market, logoFetcher: logoFetcher)
                                 .navigationBarHidden(true)
                         }
-                        .navigationBarItems(trailing: OddsMenuButton(isMenuVisible: $showOddsDropdown, market: $market))
+                        .navigationBarItems(trailing: OddsMenuButton(market: $market, isMenuVisible: $showOddsDropdown))
                         .navigationTitle("\(sportName) Odds")
                         .navigationBarTitleDisplayMode(.inline)
                         
                         
                     case 2:
                         NavigationView {
-                            SportPredictionView(market: $market, sportName: sportName, PredictionKey: PredictionKey, sportID: sportID, seasonName: seasonName, logoFetcher: logoFetcher)
-                                .environmentObject(sharedSportViewModel)
+                            SportPredictionView(PredictionKey: PredictionKey, sportID: sportID, seasonName: seasonName, market: $market, logoFetcher: logoFetcher)
                                 .environmentObject(userSettings)
                                 .navigationBarHidden(true)
                         }
-                        .navigationBarItems(trailing: PredictionMenuButton(isMenuVisible: $showPredictionsDropdown, market: $market))
+                        .navigationBarItems(trailing: PredictionMenuButton(market: $market, isMenuVisible: $showPredictionsDropdown))
                         .navigationTitle("\(sportName) Predictions")
                         .navigationBarTitleDisplayMode(.inline)
                         
                         
                     default:
                         NavigationView {
-                            SportScoresView(sportName: sportName, ScoreKey: ScoreKey, sportID: sportID, logoFetcher: logoFetcher)
-                                .environmentObject(sharedSportViewModel)
-                                .environmentObject(userSettings)
+                            SportScoresView(ScoreKey: ScoreKey, sportID: sportID, logoFetcher: logoFetcher)
                                 .navigationBarHidden(true)
                         }
                         .navigationTitle("\(sportName) Scores")

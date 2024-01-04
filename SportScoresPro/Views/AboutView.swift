@@ -104,17 +104,17 @@ struct AboutView: View {
     func contactInfo(iconName: String, value: String) -> some View {
         HStack {
             Spacer()
-
+            
             Image(systemName: iconName)
                 .foregroundColor(Color.primary)
-
+            
             Spacer()
-
+            
             Text("\(value)")
                 .foregroundColor(Color.primary)
                 .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
                 .padding()
-
+            
             Spacer()
         }
         .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)

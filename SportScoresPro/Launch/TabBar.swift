@@ -14,10 +14,7 @@ extension Color {
 struct TabBar: View {
     @ObservedObject var logoFetcher : LogoFetcher
     @EnvironmentObject var userSettings: UserSettings
-    @EnvironmentObject var sharedSportViewModel: SharedSportViewModel
-    @State private var selectedTab = 0
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
+    @State private var selectedTab = 0    
     
     var body: some View {
         VStack(spacing: 0) {
@@ -27,12 +24,15 @@ struct TabBar: View {
                     HomeView(logoFetcher: logoFetcher)
                         .environmentObject(userSettings)
                 }
-                
+            case 1:
+                NavigationView {
+                    LiveScoresView(logoFetcher: logoFetcher)
+                        .environmentObject(userSettings)
+                }
             case 2:
                 NavigationView {
                     SportsView(logoFetcher: logoFetcher)
                         .environmentObject(userSettings)
-                        .environmentObject(sharedSportViewModel)
                 }
             case 3:
                 NavigationView {

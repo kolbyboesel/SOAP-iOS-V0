@@ -9,9 +9,9 @@ import Foundation
 import SwiftUI
 
 struct OddBoard : View {
+    @ObservedObject var logoFetcher: LogoFetcher
     @Binding var market : String
     var data : OddsData
-    @ObservedObject var logoFetcher: LogoFetcher
     
     var body: some View {
         VStack {
@@ -90,10 +90,9 @@ struct OddBoard : View {
               let price = team.bookmakers.first?.markets[marketIndex].outcomes[outcomeIndex].price else {
             return "N/A"
         }
-
         return formatPrice(price)
     }
-
+    
     private func formatSpreads(forTeam team: OddsData, teamType: String) -> String {
         guard let marketIndex = team.bookmakers.first?.markets.firstIndex(where: { $0.key == "spreads" }),
               let outcomeIndex = team.bookmakers.first?.markets[marketIndex].outcomes.firstIndex(where: { $0.name == (teamType == "awayTeam" ? team.away_team : team.home_team) }),
@@ -101,32 +100,31 @@ struct OddBoard : View {
               let price = team.bookmakers.first?.markets[marketIndex].outcomes[outcomeIndex].price else {
             return "N/A"
         }
-
         let pointString = (point > 0 ? "+" : "") + "\(point)"
         return "\(pointString)    (\(formatPrice(price)))"
     }
-
+    
     private func formatOverUnder(forTeam team: OddsData, teamType: String) -> String {
         guard let marketIndex = team.bookmakers.first?.markets.firstIndex(where: { $0.key == "totals" }),
               let overOutcome = team.bookmakers.first?.markets[marketIndex].outcomes.first(where: { $0.name == "Over" }),
               let point = overOutcome.point else {
             return "N/A"
         }
-
+        
         let pointString = "\(point)"
         let priceString = formatPrice(overOutcome.price)
         
         return "\(pointString)" + "    (\(priceString))"
     }
-
+    
     private func formatPrice(_ price: Int) -> String {
         return price < 0 ? "\(price)" : "+\(price)"
     }
 }
 
 struct OddsMenuButton: View{
-    @Binding var isMenuVisible : Bool
     @Binding var market : String
+    @Binding var isMenuVisible : Bool
     
     var body: some View {
         ZStack {
@@ -137,13 +135,13 @@ struct OddsMenuButton: View{
                     Text("Market")
                         .foregroundColor(.white)
                         .font(.system(size: 15))
-
+                    
                     Image(systemName: "arrow.down.app")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(height: 25)
                         .foregroundColor(.white)
-
+                    
                 }
                 .padding()
             }
@@ -153,10 +151,9 @@ struct OddsMenuButton: View{
 }
 
 struct OddsDropdownMenu: View {
-    let menuItems = ["Moneyline", "Spreads", "Totals"]
-    let estimatedRowHeight: CGFloat = 50
     @Binding var market : String
     @Binding var isMenuVisible : Bool
+    let menuItems = ["Moneyline", "Spreads", "Totals"]
     
     var body: some View {
         VStack(spacing: 0) {
@@ -217,13 +214,12 @@ struct OddsData: Decodable {
         var price: Int
         var point: Double?
     }
-    
 }
 
 struct OddsHeader : View {
+    @Binding var market : String
     var startDate : String
     var startTime : String
-    @Binding var market : String
     
     var body : some View {
         Spacer()

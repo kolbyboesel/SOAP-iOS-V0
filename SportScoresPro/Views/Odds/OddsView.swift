@@ -8,18 +8,13 @@
 import SwiftUI
 
 struct SportOddsView: View {
-    @Binding var market : String
-    @State private var oddsData: [OddsData] = []
-    @State private var selectedDate = Date()
-    var sportName: String
     var OddKey: String
     var sportID: Int
-    @State private var isLoading = false
-    @State var isMenuVisible = false
+    @Binding var market : String
     @ObservedObject var logoFetcher : LogoFetcher
-    @Environment(\.presentationMode) var presentationMode
-    @EnvironmentObject var sharedSportViewModel: SharedSportViewModel
-    @EnvironmentObject var settings: UserSettings
+
+    @State private var isLoading = false
+    @State private var oddsData: [OddsData] = []
     
     var body: some View {
         VStack(){
@@ -31,13 +26,13 @@ struct SportOddsView: View {
                         let startTime = formatEventTime(epochTIS: TimeInterval(data.commence_time))
                         let startDate = formatEventDate(epochTIS: TimeInterval(data.commence_time))
                         VStack {
-                            OddsHeader(startDate: startDate, startTime: startTime, market: $market)
-                            OddBoard(market: $market, data: data, logoFetcher: logoFetcher)
+                            OddsHeader(market: $market, startDate: startDate, startTime: startTime)
+                            OddBoard(logoFetcher: logoFetcher, market: $market, data: data)
                         }
                     }
                 }
                 .contentMargins(.top, 20)
-            }
+                .contentMargins(.bottom, 20)            }
         }
         .onAppear {
             isLoading = true
