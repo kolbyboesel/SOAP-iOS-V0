@@ -48,10 +48,6 @@ struct LiveScoresView: View {
         .onAppear {
             isLoading = true
             
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            let todayDate = dateFormatter.string(from: Date())
-            
             getLiveScoresData(forSport: 1) { Soccer in
                 self.AllLiveScoreData = Soccer
                 getLiveScoresData(forSport: 2) { Basketball in
