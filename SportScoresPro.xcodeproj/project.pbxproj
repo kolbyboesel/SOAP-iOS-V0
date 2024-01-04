@@ -11,10 +11,10 @@
 		F9066C9B2B447AC1001878EF /* MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9066C9A2B447AC1001878EF /* MoreView.swift */; };
 		F98BC86C2B47506B004CC8E2 /* FunctionsPaypal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC86B2B47506B004CC8E2 /* FunctionsPaypal.swift */; };
 		F98BC86E2B475078004CC8E2 /* FunctionsUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC86D2B475078004CC8E2 /* FunctionsUser.swift */; };
-		F98BC8702B475085004CC8E2 /* PublicFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC86F2B475085004CC8E2 /* PublicFunctions.swift */; };
 		F98BC8722B4750F3004CC8E2 /* FunctionsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC8712B4750F3004CC8E2 /* FunctionsData.swift */; };
 		F98BC8752B4751B1004CC8E2 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC8742B4751B1004CC8E2 /* Database.swift */; };
 		F98BC8772B47520C004CC8E2 /* LogoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC8762B47520C004CC8E2 /* LogoFetcher.swift */; };
+		F98BC8792B4752BF004CC8E2 /* Public.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC8782B4752BF004CC8E2 /* Public.swift */; };
 		F9B66ECD2B415429005C6B49 /* SportScoresProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B66ECC2B415429005C6B49 /* SportScoresProApp.swift */; };
 		F9B66ECF2B415429005C6B49 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B66ECE2B415429005C6B49 /* ContentView.swift */; };
 		F9B66ED12B41542B005C6B49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9B66ED02B41542B005C6B49 /* Assets.xcassets */; };
@@ -59,10 +59,10 @@
 		F9066C9D2B447C5F001878EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F98BC86B2B47506B004CC8E2 /* FunctionsPaypal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionsPaypal.swift; sourceTree = "<group>"; };
 		F98BC86D2B475078004CC8E2 /* FunctionsUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionsUser.swift; sourceTree = "<group>"; };
-		F98BC86F2B475085004CC8E2 /* PublicFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicFunctions.swift; sourceTree = "<group>"; };
 		F98BC8712B4750F3004CC8E2 /* FunctionsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionsData.swift; sourceTree = "<group>"; };
 		F98BC8742B4751B1004CC8E2 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		F98BC8762B47520C004CC8E2 /* LogoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoFetcher.swift; sourceTree = "<group>"; };
+		F98BC8782B4752BF004CC8E2 /* Public.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Public.swift; sourceTree = "<group>"; };
 		F9B66EC92B415429005C6B49 /* SportScoresPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportScoresPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9B66ECC2B415429005C6B49 /* SportScoresProApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportScoresProApp.swift; sourceTree = "<group>"; };
 		F9B66ECE2B415429005C6B49 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -114,10 +114,10 @@
 		F98BC8732B4750F7004CC8E2 /* Functions */ = {
 			isa = PBXGroup;
 			children = (
-				F98BC86F2B475085004CC8E2 /* PublicFunctions.swift */,
 				F98BC86B2B47506B004CC8E2 /* FunctionsPaypal.swift */,
 				F98BC86D2B475078004CC8E2 /* FunctionsUser.swift */,
 				F98BC8712B4750F3004CC8E2 /* FunctionsData.swift */,
+				F98BC8782B4752BF004CC8E2 /* Public.swift */,
 			);
 			path = Functions;
 			sourceTree = "<group>";
@@ -370,12 +370,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F98BC8792B4752BF004CC8E2 /* Public.swift in Sources */,
 				F9066C9B2B447AC1001878EF /* MoreView.swift in Sources */,
 				F98BC86E2B475078004CC8E2 /* FunctionsUser.swift in Sources */,
 				F98BC8722B4750F3004CC8E2 /* FunctionsData.swift in Sources */,
 				F9B66F102B4155B3005C6B49 /* SignupView.swift in Sources */,
 				F9B66F0A2B41556E005C6B49 /* ScoresStructure.swift in Sources */,
-				F98BC8702B475085004CC8E2 /* PublicFunctions.swift in Sources */,
 				F9B66F0C2B41557F005C6B49 /* ScoresView.swift in Sources */,
 				F9B66F022B415516005C6B49 /* HomeView.swift in Sources */,
 				F9B66ECF2B415429005C6B49 /* ContentView.swift in Sources */,
