@@ -77,7 +77,7 @@ struct OddBoard : View {
             return formatMoneyline(forTeam: team, teamType: teamType)
         case "Spreads":
             return formatSpreads(forTeam: team, teamType: teamType)
-        case "Over / Unders":
+        case "Totals":
             return formatOverUnder(forTeam: team, teamType: teamType)
         default:
             return nil
@@ -128,71 +128,66 @@ struct OddsMenuButton: View{
     @Binding var isMenuVisible : Bool
     @Binding var market : String
     
-    var body: some View{
-        HStack {
+    var body: some View {
+        ZStack {
             Button(action: {
-                self.isMenuVisible.toggle()
+                isMenuVisible.toggle()
             }) {
                 HStack {
-                    Spacer()
-                    
-                    Text(market)
-                        .foregroundColor(Color.primary)
-
+                    Text("Market")
+                        .foregroundColor(.white)
                     Image(systemName: "arrow.down.app")
                         .resizable()
-                        .foregroundColor(Color.primary)
                         .aspectRatio(contentMode: .fit)
                         .frame(height: 25)
-                    
-                    Spacer()
+                        .foregroundColor(.white)
+
                 }
                 .padding()
             }
             .frame(maxWidth: .infinity)
-            .overlay(
-                Rectangle()
-                    .frame(height: 2)
-                    .foregroundColor(.SportScoresRed),
-                alignment: .bottom
-            )
         }
     }
 }
 
 struct OddsDropdownMenu: View {
-    var menuItems: [String]
+    let menuItems = ["Moneyline", "Spreads", "Totals"]
     let estimatedRowHeight: CGFloat = 50
     @Binding var market : String
     @Binding var isMenuVisible : Bool
-
+    
     var body: some View {
-        VStack{
-            List(menuItems, id: \.self) { item in
-                Button(action: {
-                    market = item
-                    isMenuVisible = false
-                }) {
-                    Text(item)
-                        .foregroundColor(self.market == item ? .SportScoresRed : Color.primary)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .padding()
-                    
-                    
+        HStack {
+            ScrollView {
+                VStack(spacing: 0) {
+                    ForEach(menuItems, id: \.self) { item in
+                        Button(action: {
+                            market = item
+                            isMenuVisible = false
+                        }) {
+                            HStack {
+                                Text(item)
+                                    .foregroundColor(market == item ? .SportScoresRed : Color.primary)
+                                    .padding(.vertical, 15)
+                                    .frame(maxWidth: .infinity)
+
+                            }
+                            .padding(.horizontal)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .background(market == item ? Color(.systemGray6) : Color.white)
+                        
+                        Divider()
+                    }
                 }
-                .frame(maxWidth: .infinity)
-                .overlay(
-                    Rectangle()
-                        .frame(height: 0.5)
-                        .foregroundColor(.gray),
-                    alignment: .bottom
-                )
-                .listRowInsets(EdgeInsets())
-                
             }
-            .frame(height: CGFloat(menuItems.count) * estimatedRowHeight)
-            .listStyle(PlainListStyle())
         }
+        .frame(height: CGFloat(menuItems.count) * estimatedRowHeight)
+        .cornerRadius(10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.SportScoresRed, lineWidth: 2)
+        )
     }
 }
 

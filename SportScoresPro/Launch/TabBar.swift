@@ -17,120 +17,141 @@ struct TabBar: View {
     @EnvironmentObject var sharedSportViewModel: SharedSportViewModel
     @State private var selectedTab = 0
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @EnvironmentObject var appEnvironment: AppEnvironment
     
     
     var body: some View {
-        ZStack {
+        VStack(spacing: 0) {
             switch selectedTab {
             case 0:
                 NavigationView {
-                    HomeView(logoFetcher: logoFetcher, selectedTab: $selectedTab)
+                    HomeView(logoFetcher: logoFetcher)
                         .environmentObject(userSettings)
-                        .environmentObject(appEnvironment)
                 }
                 
-            case 1:
+            case 2:
                 NavigationView {
-                    SportsView(logoFetcher: logoFetcher, selectedTab: $selectedTab)
+                    SportsView(logoFetcher: logoFetcher)
                         .environmentObject(userSettings)
                         .environmentObject(sharedSportViewModel)
-                        .environmentObject(appEnvironment)
                 }
-            case 2:
+            case 3:
                 NavigationView {
                     MoreView(logoFetcher: logoFetcher)
                         .environmentObject(userSettings)
                 }
             default:
                 NavigationView {
-                    HomeView(logoFetcher: logoFetcher, selectedTab: $selectedTab)
+                    HomeView(logoFetcher: logoFetcher)
                         .environmentObject(userSettings)
                     
                 }
             }
-            VStack{
+            
+            HStack(spacing: 0) {
                 Spacer()
                 
-                HStack {
-                    if (appEnvironment.sportBarActive == false) {
-                        Spacer()
-                        
-                        Button(action: { self.selectedTab = 0 }) {
-                            VStack {
-                                if selectedTab == 0 {
-                                    Color.SportScoresRed.frame(height: 2)
-                                } else {
-                                    Color.clear.frame(height: 2)
-                                }
-                                VStack {
-                                    Image(systemName: "house")
-                                        .resizable()
-                                        .foregroundColor(selectedTab == 0 ? .SportScoresRed : .gray)
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(height: 30)
-                                        .frame(maxWidth: 30)
-                                    
-                                    
-                                    Text("Home")
-                                        .font(.system(size: 12))
-                                        .foregroundColor(selectedTab == 0 ? .SportScoresRed : .gray)
-                                }
-                            }
+                Button(action: { self.selectedTab = 0 }) {
+                    VStack{
+                        if selectedTab == 0 {
+                            Color.SportScoresRed.frame(height: 2)
+                                .padding(.top, 0)
+
+                        } else {
+                            Color.clear.frame(height: 0)
                         }
-                        
-                        Spacer()
-                        Button(action: { self.selectedTab = 1 }) {
-                            VStack {
-                                if selectedTab == 1 {
-                                    Color.SportScoresRed.frame(height: 2)
-                                } else {
-                                    Color.clear.frame(height: 2)
-                                }
-                                VStack {
-                                    Image(systemName: "sportscourt")
-                                        .resizable()
-                                        .foregroundColor(selectedTab == 1 ? .SportScoresRed : .gray)
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(height: 30)
-                                        .frame(maxWidth: 30)
-                                    
-                                    Text("Sports")
-                                        .font(.system(size: 12))
-                                        .foregroundColor(selectedTab == 1 ? .SportScoresRed : .gray)
-                                }
-                            }
+                        VStack {
+                            Image(systemName: "house")
+                                .resizable()
+                                .foregroundColor(selectedTab == 0 ? .SportScoresRed : .gray)
+                                .aspectRatio(contentMode: .fit)
+                                .frame(height: 20)
+                                .frame(maxWidth: 20)
+                            
+                            Text("Home")
+                                .font(.system(size: 10))
+                                .foregroundColor(selectedTab == 0 ? .SportScoresRed : .gray)
                         }
-                        Spacer()
-                        Button(action: { self.selectedTab = 2 }) {
-                            VStack {
-                                if selectedTab == 2 {
-                                    Color.SportScoresRed.frame(height: 2)
-                                } else {
-                                    Color.clear.frame(height: 0)
-                                }
-                                VStack {
-                                    Image(systemName: "ellipsis")
-                                        .resizable()
-                                        .foregroundColor(selectedTab == 2 ? .SportScoresRed : .gray)
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(height: 30)
-                                        .frame(maxWidth: 30)
-                                    
-                                    Text("More")
-                                        .font(.system(size: 12))
-                                        .foregroundColor(selectedTab == 2 ? .SportScoresRed : .gray)
-                                }
-                            }
-                        }
-                        Spacer()
                     }
                 }
-                .padding(.top, 0)
-                .contentMargins(.bottom, 0)
-                .frame(maxWidth: .infinity, alignment: .trailing)
-                .background(Color.white)
+                Spacer()
+                Button(action: { self.selectedTab = 1 }) {
+                    VStack {
+                        if selectedTab == 1 {
+                            Color.SportScoresRed.frame(height: 2)
+                                .padding(.top, 0)
+
+                        } else {
+                            Color.clear.frame(height: 0)
+                        }
+                        VStack {
+                            Image(systemName: "sportscourt")
+                                .resizable()
+                                .foregroundColor(selectedTab == 1 ? .SportScoresRed : .gray)
+                                .aspectRatio(contentMode: .fit)
+                                .frame(height: 20)
+                                .frame(maxWidth: 20)
+                            
+                            Text("Scores")
+                                .font(.system(size: 10))
+                                .foregroundColor(selectedTab == 1 ? .SportScoresRed : .gray)
+                        }
+                    }
+                }
+                
+                Spacer()
+                Button(action: { self.selectedTab = 2 }) {
+                    VStack {
+                        if selectedTab == 2 {
+                            Color.SportScoresRed.frame(height: 2)
+                                .padding(.top, 0)
+
+                        } else {
+                            Color.clear.frame(height: 0)
+                        }
+                        VStack {
+                            Image(systemName: "basketball")
+                                .resizable()
+                                .foregroundColor(selectedTab == 2 ? .SportScoresRed : .gray)
+                                .aspectRatio(contentMode: .fit)
+                                .frame(height: 20)
+                                .frame(maxWidth: 20)
+                            
+                            Text("Sports")
+                                .font(.system(size: 10))
+                                .foregroundColor(selectedTab == 2 ? .SportScoresRed : .gray)
+                        }
+                    }
+                }
+                Spacer()
+                Button(action: { self.selectedTab = 3 }) {
+                    VStack {
+                        if selectedTab == 3 {
+                            Color.SportScoresRed.frame(height: 2)
+                                .padding(.top, 0)
+                        } else {
+                            Color.clear.frame(height: 0)
+                        }
+                        VStack {
+                            Image(systemName: "ellipsis")
+                                .resizable()
+                                .foregroundColor(selectedTab == 3 ? .SportScoresRed : .gray)
+                                .aspectRatio(contentMode: .fit)
+                                .frame(height: 20)
+                                .frame(maxWidth: 20)
+                            
+                            Text("More")
+                                .font(.system(size: 10))
+                                .foregroundColor(selectedTab == 3 ? .SportScoresRed : .gray)
+                        }
+                    }
+                }
+                Spacer()
             }
         }
+        .padding(.top, 0)
+        .contentMargins(.bottom, 0)
+        .contentMargins(.top, 0)
+        .frame(maxWidth: .infinity, alignment: .trailing)
+        .background(Color.white)
     }
 }

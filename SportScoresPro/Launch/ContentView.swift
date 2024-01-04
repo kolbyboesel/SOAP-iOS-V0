@@ -15,8 +15,7 @@ struct StartView: View {
     
     var body: some View {
         return AnyView(TabBar(logoFetcher: logoFetcher)                .environmentObject(sharedSportViewModel)
-            .environmentObject(sharedSportViewModel)
-            .environmentObject(AppEnvironment()))
+            .environmentObject(sharedSportViewModel))
     }
 }
 
@@ -24,14 +23,11 @@ struct ContentView: View {
     @ObservedObject var logoFetcher : LogoFetcher
     @EnvironmentObject var sharedSportViewModel: SharedSportViewModel
     @EnvironmentObject var userSettings : UserSettings
-    @EnvironmentObject var appEnvironment: AppEnvironment
 
     var body: some View {
         return AnyView(TabBar(logoFetcher: logoFetcher)
             .environmentObject(userSettings)
-            .environmentObject(sharedSportViewModel)
-            .environmentObject(appEnvironment))
-
+            .environmentObject(sharedSportViewModel))
     }
 }
 
@@ -43,8 +39,6 @@ struct ContentView_Previews: PreviewProvider {
         TabBar(logoFetcher: logoFetcher)
             .environmentObject(UserSettings())
             .environmentObject(sharedSportViewModel)
-            .environmentObject(AppEnvironment())
-
     }
 }
 

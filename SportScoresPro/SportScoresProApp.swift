@@ -31,7 +31,6 @@ struct SportScoresProApp: App {
     @StateObject var userSettings = UserSettings()
     @StateObject var logoFetcher = LogoFetcher()
     @StateObject var sharedSportViewModel = SharedSportViewModel()
-    @StateObject var appEnvironment = AppEnvironment()
 
     let lifecyclePublisher = NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)
     
@@ -40,7 +39,6 @@ struct SportScoresProApp: App {
             ContentView(logoFetcher: logoFetcher)
                 .environmentObject(sharedSportViewModel)
                 .environmentObject(userSettings)
-                .environmentObject(appEnvironment)
                 .onReceive(lifecyclePublisher) { _ in
                     logoFetcher.saveData()
                 }
@@ -90,8 +88,4 @@ class SharedSportViewModel: ObservableObject {
     @Published var predictionKey: String = ""
     @Published var seasonName: String = ""
     @Published var sportID: Int = 0
-}
-
-class AppEnvironment: ObservableObject {
-    @Published var sportBarActive: Bool = false
 }

@@ -17,16 +17,19 @@ struct SportScoresView: View {
     @State private var isLoading = false
     @ObservedObject var logoFetcher : LogoFetcher
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var sharedSportViewModel: SharedSportViewModel
+    @EnvironmentObject var settings: UserSettings
+    
     
     var body: some View {
-        VStack{
+        VStack(spacing: 0){
             if isLoading {
                 ProgressView("Loading...")
             } else {
-                ZStack(alignment: .bottom) {
+                VStack(spacing: 0) {
                     DatePicker("Select Date", selection: $selectedDate, displayedComponents: .date)
-                        .padding()
-                        .datePickerStyle(.automatic)
+                        .font(.system(size: 15))
+                        .datePickerStyle(.compact)
                         .onChange(of: selectedDate) { newDate in
                             isLoading = true
                             let dateString = formatDateToString(date: newDate)
@@ -35,36 +38,38 @@ struct SportScoresView: View {
                                 isLoading = false
                             }
                         }
-                        .accentColor(.blue)
+                        .accentColor(.SportScoresRed)
+                        .padding(.leading)
+                        .padding(.trailing)
+                        .padding(.bottom, 10)
+                        .padding(.top, 10)
+
+
                     
-                    Rectangle()
-                        .frame(height: 2)
-                        .foregroundColor(.SportScoresRed)
-                        .offset(y: 5)
+                    Divider()
                     
-                }
-                List(liveScoreData) { data in
-                    
-                    let formattedDate = formatEventDate(epochTIS: data.startTimestamp)
-                    let formattedTime = formatEventTime(epochTIS: data.startTimestamp)
-                    let selectedFormattedDate = formatVerifyDate(date: selectedDate)
-                    let verifyDate = formattedDate == selectedFormattedDate
-                    
-                    if verifyDate == true {
-                        VStack {
-                            ScoresHeader(data: data, formattedDate: formattedDate, formattedTime: formattedTime)
-                            if data.status.description == "Not started"{
-                                ScoreFuture(data: data, logoFetcher: logoFetcher)
-                            } else {
-                                ScoreLive(data: data, logoFetcher: logoFetcher)
+                    List(liveScoreData) { data in
+                        
+                        let formattedDate = formatEventDate(epochTIS: data.startTimestamp)
+                        let formattedTime = formatEventTime(epochTIS: data.startTimestamp)
+                        let selectedFormattedDate = formatVerifyDate(date: selectedDate)
+                        let verifyDate = formattedDate == selectedFormattedDate
+                        
+                        if verifyDate == true {
+                            VStack {
+                                ScoresHeader(data: data, formattedDate: formattedDate, formattedTime: formattedTime)
+                                if data.status.description == "Not started"{
+                                    ScoreFuture(data: data, logoFetcher: logoFetcher)
+                                } else {
+                                    ScoreLive(data: data, logoFetcher: logoFetcher)
+                                }
                             }
                         }
                     }
+                    .contentMargins(.top, 20)
                 }
             }
         }
-        .navigationTitle("\(sportName) Scores")
-        .padding(.bottom, 60)
         .onAppear {
             isLoading = true
             
@@ -79,7 +84,6 @@ struct SportScoresView: View {
             }
         }
         .onDisappear {
-            
         }
     }
 }

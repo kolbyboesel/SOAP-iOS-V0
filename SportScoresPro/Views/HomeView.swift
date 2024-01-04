@@ -10,8 +10,6 @@ import SwiftUI
 struct HomeView: View {
     @ObservedObject var logoFetcher : LogoFetcher
     @EnvironmentObject var settings: UserSettings
-    @EnvironmentObject var appEnvironment: AppEnvironment
-    @Binding var selectedTab : Int
     @State var notificationToggle: Bool = false
     @State var locationUsage: Bool = false
     
@@ -41,7 +39,6 @@ struct HomeView: View {
                             .frame(maxHeight: geometry.size.height)
                     }
                 }
-                .padding(.bottom, 60)
                 .background(Color(.systemGray6))
                 .frame(maxWidth: geometry.size.width)
                 .frame(maxHeight: .infinity)
