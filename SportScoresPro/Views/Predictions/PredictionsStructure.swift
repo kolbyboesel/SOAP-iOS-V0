@@ -87,6 +87,8 @@ struct PredictionMenuButton: View{
                 HStack {
                     Text("Market")
                         .foregroundColor(.white)
+                        .font(.system(size: 15))
+
                     Image(systemName: "arrow.down.app")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
@@ -107,32 +109,27 @@ struct PredictionDropdownMenu: View {
     @Binding var isMenuVisible : Bool
     
     var body: some View {
-        VStack {
-            ScrollView {
-                VStack(spacing: 0) {
-                    ForEach(menuItems, id: \.self) { item in
-                        Button(action: {
-                            market = item
-                            isMenuVisible = false
-                        }) {
-                            HStack {
-                                Text(item)
-                                    .foregroundColor(market == item ? .SportScoresRed : Color.primary)
-                                    .padding(.vertical, 15)
-                                    .frame(maxWidth: .infinity)
-                            }
-                            .padding(.horizontal)
-                        }
-                        .frame(maxWidth: .infinity)
-                        .background(market == item ? Color(.systemGray6) : Color.white)
-                        
-                        Divider()
-
+        VStack(spacing: 0) {
+            ForEach(menuItems, id: \.self) { item in
+                Button(action: {
+                    market = item
+                    isMenuVisible = false
+                }) {
+                    HStack {
+                        Text(item)
+                            .foregroundColor(market == item ? .SportScoresRed : Color.primary)
+                            .padding(.vertical, 15)
+                            .frame(maxWidth: .infinity)
                     }
+                    .padding(.horizontal)
                 }
+                .frame(maxWidth: .infinity)
+                .background(market == item ? Color(.systemGray6) : Color.white)
+                
+                Divider()
+                
             }
         }
-        .frame(height: CGFloat(menuItems.count) * estimatedRowHeight)
         .cornerRadius(10)
         .overlay(
             RoundedRectangle(cornerRadius: 10)
@@ -179,7 +176,7 @@ struct PredictionHeader : View {
                     .frame(alignment: .trailing)
                     .font(.caption)
             }
-            if(market == "Over / Unders"){
+            if(market == "Totals"){
                 Text("Over / Under")
                     .frame(alignment: .trailing)
                     .font(.caption)
