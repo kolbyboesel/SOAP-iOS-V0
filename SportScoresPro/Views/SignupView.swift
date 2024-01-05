@@ -8,6 +8,11 @@
 
 import SwiftUI
 
+var SignupEmail = ""
+var SignupPsw = ""
+var SignupFN = ""
+var SignupLN = ""
+
 struct SignupView: View {
     @EnvironmentObject var settings: UserSettings
     @ObservedObject var logoFetcher: LogoFetcher
@@ -26,6 +31,8 @@ struct SignupView: View {
     @State private var alertMessage = ""
     
     @State private var showPayPalWebView = false
+    
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         
@@ -136,7 +143,11 @@ struct SignupView: View {
         .navigationBarTitleDisplayMode(.inline)
         .padding()
         .fullScreenCover(isPresented: $showPayPalWebView) {
-            PayPalWebViewControllerRepresentable()
+            PayPalWebViewControllerRepresentable(userSettings: settings) {
+                self.presentationMode.wrappedValue.dismiss()
+                alertMessage = "Successfully Created Account and Logged In!"
+                showAlert = true
+            }
         }
     }
     func handleSignupSubmit() {
@@ -160,28 +171,30 @@ struct SignupView: View {
         
         isSignupInProgress = true
         
-        initiatePayPalCheckout(email: emailAddress, password: password, firstName: firstName, lastName: lastName) {
+        SignupEmail = emailAddress
+        SignupPsw = password
+        SignupFN = firstName
+        SignupLN = lastName
+        
+        initiatePayPalCheckout() {
             self.isSignupInProgress = false
             self.showPayPalWebView = true
         }
     }
 }
 
-func initiatePayPalCheckout(email: String, password: String, firstName: String, lastName: String, presentPayPalCheckout: @escaping () -> Void) {
-    registerUser(email: email, password: password, firstName: firstName, lastName: lastName) { result in
-        switch result {
-        case .success(_):
-            presentPayPalCheckout()
-            
-        case .failure(let error):
-            print("Registration failed: \(error)")
-        }
-    }
+func initiatePayPalCheckout(presentPayPalCheckout: @escaping () -> Void) {
+    presentPayPalCheckout()
 }
 
 struct PayPalWebViewControllerRepresentable: UIViewControllerRepresentable {
+    var userSettings: UserSettings
+    var onCompletion: (() -> Void)?
+    
     func makeUIViewController(context: Context) -> PayPalWebViewController {
-        return PayPalWebViewController()
+        let viewController = PayPalWebViewController(userSettings: userSettings)
+        viewController.onCompletion = onCompletion
+        return viewController
     }
     
     func updateUIViewController(_ uiViewController: PayPalWebViewController, context: Context) {

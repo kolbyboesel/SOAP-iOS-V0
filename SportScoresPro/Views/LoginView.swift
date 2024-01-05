@@ -117,9 +117,9 @@ struct LogInView: View {
             case .success(_):
                 settings.loggedIn = true
                 DispatchQueue.main.async {
+                    self.presentationMode.wrappedValue.dismiss()
                     alertMessage = "Login successful!"
                     showAlert = true
-                    self.presentationMode.wrappedValue.dismiss()
                 }
                 
             case .failure(let error):
