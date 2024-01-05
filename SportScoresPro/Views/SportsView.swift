@@ -25,19 +25,19 @@ struct SportsView: View {
     @State private var isItemSelected = false
     
     let sportMenuArray: [SportMenuItemModel] = [
-        SportMenuItemModel(id: 1, sportName: "NFL", ScoreKey: "NFL 23/24", OddKey: "americanfootball_nfl", PredictionKey: "football", seasonName: "NFL", sportID: 63),
-        SportMenuItemModel(id: 2,sportName: "NBA",  ScoreKey: "NBA 23/24", OddKey: "basketball_nba", PredictionKey: "basketball", seasonName: "NBA", sportID: 2),
-        SportMenuItemModel(id: 3,sportName: "MLB", ScoreKey: "MLB 24/25", OddKey: "baseball_mlb", PredictionKey: "baseball", seasonName: "MLB", sportID: 64),
-        SportMenuItemModel(id: 4,sportName: "NHL", ScoreKey: "NHL 23/24", OddKey: "icehockey_nhl", PredictionKey: "icehockey", seasonName: "NHL",sportID: 4),
-        SportMenuItemModel(id: 5,sportName: "College Football", ScoreKey: "NCAA Division I, FBS Post Season 23/24", OddKey: "americanfootball_ncaaf", PredictionKey: "football", seasonName: "NCAA Men",sportID: 63),
-        SportMenuItemModel(id: 6,sportName: "College Basketball", ScoreKey: "NCAA, Regular Season 23/24", OddKey: "basketball_ncaab", PredictionKey: "basketball", seasonName: "NCAA Men",sportID: 2),
-        SportMenuItemModel(id: 7,sportName: "College Baseball", ScoreKey: "NCAARegularSeason", OddKey: "baseball_ncaa", PredictionKey: "baseball", seasonName: "NCAA Men",sportID: 64),
-        SportMenuItemModel(id: 8,sportName: "Premier League", ScoreKey: "Premier League 23/24", OddKey: "soccer_epl", PredictionKey: "football", seasonName: "NFL",sportID: 1),
-        SportMenuItemModel(id: 9,sportName: "LaLiga Santander", ScoreKey: "LaLiga 23/24", OddKey: "soccer_spain_la_liga", PredictionKey: "football", seasonName: "NFL",sportID: 1),
-        SportMenuItemModel(id: 10,sportName: "Ligue 1", ScoreKey: "Ligue 1 23/24", OddKey: "soccer_france_ligue_one", PredictionKey: "football", seasonName: "NFL",sportID: 1),
-        SportMenuItemModel(id: 11,sportName: "Serie A", ScoreKey: "Serie A 23/24", OddKey: "soccer_italy_serie_a", PredictionKey: "football", seasonName: "NFL", sportID: 1),
-        SportMenuItemModel(id: 12,sportName: "Bundesliga", ScoreKey: "Bundesliga 23/24", OddKey: "soccer_germany_bundesliga", PredictionKey: "football", seasonName: "NFL", sportID: 1),
-        SportMenuItemModel(id: 13,sportName: "MLS", ScoreKey: "MLS 23/24", OddKey: "soccer_usa_mls", PredictionKey: "football", seasonName: "NFL", sportID: 1),]
+        SportMenuItemModel(id: 1, sportName: "NFL", ScoreKey: "NFL", OddKey: "americanfootball_nfl", PredictionKey: "football", seasonName: "NFL", sportID: 63),
+        SportMenuItemModel(id: 2,sportName: "NBA",  ScoreKey: "NBA", OddKey: "basketball_nba", PredictionKey: "basketball", seasonName: "NBA", sportID: 2),
+        SportMenuItemModel(id: 3,sportName: "MLB", ScoreKey: "MLB", OddKey: "baseball_mlb", PredictionKey: "baseball", seasonName: "MLB", sportID: 64),
+        SportMenuItemModel(id: 4,sportName: "NHL", ScoreKey: "NHL", OddKey: "icehockey_nhl", PredictionKey: "icehockey", seasonName: "NHL",sportID: 4),
+        SportMenuItemModel(id: 5,sportName: "College Football", ScoreKey: "NCAA Division I, FBS Post Season", OddKey: "americanfootball_ncaaf", PredictionKey: "football", seasonName: "NCAA Men",sportID: 63),
+        SportMenuItemModel(id: 6,sportName: "College Basketball", ScoreKey: "NCAA Men", OddKey: "basketball_ncaab", PredictionKey: "basketball", seasonName: "NCAA Men",sportID: 2),
+        SportMenuItemModel(id: 7,sportName: "College Baseball", ScoreKey: "NCAA Men", OddKey: "baseball_ncaa", PredictionKey: "baseball", seasonName: "NCAA Men",sportID: 64),
+        SportMenuItemModel(id: 8,sportName: "Premier League", ScoreKey: "Premier League", OddKey: "soccer_epl", PredictionKey: "football", seasonName: "NFL",sportID: 1),
+        SportMenuItemModel(id: 9,sportName: "LaLiga Santander", ScoreKey: "LaLiga", OddKey: "soccer_spain_la_liga", PredictionKey: "football", seasonName: "NFL",sportID: 1),
+        SportMenuItemModel(id: 10,sportName: "Ligue 1", ScoreKey: "Ligue 1", OddKey: "soccer_france_ligue_one", PredictionKey: "football", seasonName: "NFL",sportID: 1),
+        SportMenuItemModel(id: 11,sportName: "Serie A", ScoreKey: "Serie A", OddKey: "soccer_italy_serie_a", PredictionKey: "football", seasonName: "NFL", sportID: 1),
+        SportMenuItemModel(id: 12,sportName: "Bundesliga", ScoreKey: "Bundesliga", OddKey: "soccer_germany_bundesliga", PredictionKey: "football", seasonName: "NFL", sportID: 1),
+        SportMenuItemModel(id: 13,sportName: "MLS", ScoreKey: "MLS", OddKey: "soccer_usa_mls", PredictionKey: "football", seasonName: "NFL", sportID: 1),]
     
     var body: some View {
         NavigationStack{
@@ -113,7 +113,6 @@ struct SportTabBar: View {
     
     @State private var selectedTab = 0
     @State private var showOddsDropdown = false
-    @State private var showPredictionsDropdown = false
     
     @State var market = "Moneyline"
     @State var isMenuVisible = false
@@ -129,7 +128,7 @@ struct SportTabBar: View {
                         VStack {
                             VStack {
                                 Text("Scores")
-                                    .font(.system(size: 15))
+                                    .font(.system(size: 10))
                                     .foregroundColor(.white)
                                     .fontWeight(selectedTab == 0 ? .bold : .regular)
                                 
@@ -150,7 +149,7 @@ struct SportTabBar: View {
                         VStack {
                             VStack {
                                 Text("Odds")
-                                    .font(.system(size: 15))
+                                    .font(.system(size: 10))
                                     .foregroundColor(.white)
                                     .fontWeight(selectedTab == 1 ? .bold : .regular)
                                 
@@ -171,7 +170,7 @@ struct SportTabBar: View {
                         VStack {
                             VStack {
                                 Text("Predictions")
-                                    .font(.system(size: 15))
+                                    .font(.system(size: 10))
                                     .foregroundColor(.white)
                                     .fontWeight(selectedTab == 2 ? .bold : .regular)
                                 
@@ -218,7 +217,6 @@ struct SportTabBar: View {
                                 .environmentObject(userSettings)
                                 .navigationBarHidden(true)
                         }
-                        .navigationBarItems(trailing: PredictionMenuButton(market: $market, isMenuVisible: $showPredictionsDropdown))
                         .navigationTitle("\(sportName) Predictions")
                         .navigationBarTitleDisplayMode(.inline)
                         
@@ -238,14 +236,6 @@ struct SportTabBar: View {
             if showOddsDropdown {
                 VStack {
                     OddsDropdownMenu(market: $market, isMenuVisible: $showOddsDropdown)
-                    Spacer()
-                }
-                .zIndex(1)
-            }
-            
-            if showPredictionsDropdown {
-                VStack {
-                    PredictionDropdownMenu(market: $market, isMenuVisible: $showPredictionsDropdown)
                     Spacer()
                 }
                 .zIndex(1)

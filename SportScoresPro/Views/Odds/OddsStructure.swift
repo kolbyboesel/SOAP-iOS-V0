@@ -131,19 +131,49 @@ struct OddsMenuButton: View{
             Button(action: {
                 isMenuVisible.toggle()
             }) {
-                HStack {
-                    Text("Market")
-                        .foregroundColor(.white)
-                        .font(.system(size: 15))
-                    
-                    Image(systemName: "arrow.down.app")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(height: 25)
-                        .foregroundColor(.white)
-                    
+                if(isMenuVisible){
+                    HStack {
+                        Text("\(market)")
+                            .foregroundColor(.white)
+                            .font(.system(size: 14))
+                        
+                        Image(systemName: "arrow.up")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 18)
+                            .foregroundColor(.white)
+                        
+                    }
+                    .padding(.top, 5)
+                    .padding(.bottom, 5)
+                    .padding(.leading, 10)
+                    .padding(.trailing, 10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.white, lineWidth: 2)
+                    )
+                } else {
+                    HStack {
+                        Text("\(market)")
+                            .foregroundColor(.white)
+                            .font(.system(size: 14))
+                        
+                        Image(systemName: "arrow.down")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 18)
+                            .foregroundColor(.white)
+                        
+                    }
+                    .padding(.top, 5)
+                    .padding(.bottom, 5)
+                    .padding(.leading, 10)
+                    .padding(.trailing, 10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.white, lineWidth: 2)
+                    )
                 }
-                .padding()
             }
             .frame(maxWidth: .infinity)
         }
@@ -156,32 +186,38 @@ struct OddsDropdownMenu: View {
     let menuItems = ["Moneyline", "Spreads", "Totals"]
     
     var body: some View {
-        VStack(spacing: 0) {
-            ForEach(menuItems, id: \.self) { item in
-                Button(action: {
-                    market = item
-                    isMenuVisible = false
-                }) {
-                    HStack {
-                        Text(item)
-                            .foregroundColor(market == item ? .SportScoresRed : Color.primary)
-                            .padding(.vertical, 15)
-                            .frame(maxWidth: .infinity)
-                        
-                    }
-                    .padding(.horizontal)
-                }
-                .frame(maxWidth: .infinity)
-                .background(market == item ? Color(.systemGray6) : Color.white)
+        GeometryReader { geometry in
+            HStack{
+                Spacer()
                 
-                Divider()
+                VStack(spacing: 0) {
+                    ForEach(menuItems, id: \.self) { item in
+                        Button(action: {
+                            market = item
+                            isMenuVisible = false
+                        }) {
+                            HStack {
+                                Text(item)
+                                    .foregroundColor(market == item ? .SportScoresRed : Color.primary)
+                                    .padding(.vertical, 15)
+                                    .frame(maxWidth: geometry.size.width * 0.4)
+                            }
+                            .padding(.horizontal)
+                        }
+                        .background(market == item ? Color(.systemGray6) : Color(.systemBackground))
+                        
+                        Divider()
+                    }
+                }
+                .frame(maxWidth: geometry.size.width * 0.4)
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.SportScoresRed, lineWidth: 2)
+                )
             }
+            .padding()
         }
-        .cornerRadius(10)
-        .overlay(
-            RoundedRectangle(cornerRadius: 10)
-                .stroke(Color.SportScoresRed, lineWidth: 2)
-        )
     }
 }
 

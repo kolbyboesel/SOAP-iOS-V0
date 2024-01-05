@@ -34,12 +34,16 @@ struct SportPredictionView: View {
                             
                             if(data.league_name == seasonName && verifyDate){
                                 VStack {
-                                    PredictionHeader(startDate: startDate, startTime: startTime, market: $market)
+                                    PredictionHeader(startDate: startDate, startTime: startTime)
                                     
-                                    PredictionBoard(logoFetcher: logoFetcher, market: $market, data: data)
+                                    PredictionBoard(logoFetcher: logoFetcher, data: data, sportID: sportID)
+                                    
+                                    SportDivider(color: .SportScoresRed, width: 2)
                                 }
                             }
                         }
+                        .listRowSeparator(.hidden)
+                        .listSectionSeparator(.hidden)
                     }
                     .contentMargins(.top, 20)
                     .contentMargins(.bottom, 20)
@@ -54,6 +58,7 @@ struct SportPredictionView: View {
                         .padding()
                     
                     Spacer()
+                    
                     if let firstPrediction = predictionData.first {
                         let startTime = formatEventTime(epochTIS: TimeInterval(firstPrediction.match_dat))
                         let startDate = formatEventDate(epochTIS: TimeInterval(firstPrediction.match_dat))
@@ -62,11 +67,12 @@ struct SportPredictionView: View {
                         if(firstPrediction.league_name == seasonName && verifyDate){
                             List {
                                 VStack {
-                                    PredictionHeader(startDate: startDate, startTime: startTime, market: $market)
+                                    PredictionHeader(startDate: startDate, startTime: startTime)
                                     
-                                    PredictionBoard(logoFetcher: logoFetcher, market: $market, data: firstPrediction)
+                                    PredictionBoard(logoFetcher: logoFetcher, data: firstPrediction, sportID: sportID)
                                 }
                             }
+                            
                         }
                     }
                 }

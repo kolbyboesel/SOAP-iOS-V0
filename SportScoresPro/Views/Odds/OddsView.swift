@@ -28,11 +28,16 @@ struct SportOddsView: View {
                         VStack {
                             OddsHeader(market: $market, startDate: startDate, startTime: startTime)
                             OddBoard(logoFetcher: logoFetcher, market: $market, data: data)
+                            SportDivider(color: .SportScoresRed, width: 2)
+
                         }
                     }
+                    .listRowSeparator(.hidden)
+                    .listSectionSeparator(.hidden)
                 }
                 .contentMargins(.top, 20)
-                .contentMargins(.bottom, 20)            }
+                .contentMargins(.bottom, 20)
+            }
         }
         .onAppear {
             isLoading = true

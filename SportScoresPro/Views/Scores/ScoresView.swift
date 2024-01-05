@@ -53,13 +53,16 @@ struct SportScoresView: View {
                         
                         if verifyDate == true {
                             VStack {
-                                ScoresHeader(data: data, formattedDate: formattedDate, formattedTime: formattedTime)
+                                ScoresHeader(data: data, formattedDate: formattedDate, formattedTime: formattedTime, sportID: sportID)
                                 if data.status.description == "Not started"{
                                     ScoreFuture(logoFetcher: logoFetcher, data: data)
                                 } else {
                                     ScoreLive(logoFetcher: logoFetcher, data: data)
                                 }
+                                SportDivider(color: .SportScoresRed, width: 2)
                             }
+                            .listRowSeparator(.hidden)
+                            .listSectionSeparator(.hidden)
                         }
                     }
                     .contentMargins(.top, 20)

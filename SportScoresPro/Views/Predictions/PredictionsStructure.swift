@@ -10,12 +10,12 @@ import SwiftUI
 
 struct PredictionBoard : View {
     @ObservedObject var logoFetcher : LogoFetcher
-    @Binding var market : String
     var data : PredictionData
-
+    var sportID: Int
+    
     var body: some View {
-
-        VStack {
+        
+        VStack(spacing: 0) {
             HStack {
                 if let logo = logoFetcher.getLogo(forTeam: 0, teamName: data.away_team_name) {
                     Image(uiImage: logo)
@@ -25,24 +25,12 @@ struct PredictionBoard : View {
                 }
                 Text(data.away_team_name)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                if(market == "Moneyline"){
-                    Text("\(Int(data.rank_atw_nt * 100))%")
-                        .frame(alignment: .trailing)
-                        .font(.caption)
-                }
-                if(market == "Spreads"){
-                    Text("Spread Pred")
-                        .frame(alignment: .trailing)
-                        .font(.caption)
-                }
-                if(market == "Totals"){
-                    Text("Over / Under Pred")
-                        .frame(alignment: .trailing)
-                        .font(.caption)
-                }
+                Text("\(Int(data.rank_atw_nt * 100))%")
+                    .frame(alignment: .trailing)
+                    .font(.caption)
             }
             
-            Spacer()
+            Spacer(minLength: 20)
             
             HStack {
                 if let logo = logoFetcher.getLogo(forTeam: 0, teamName: data.home_team_name) {
@@ -53,29 +41,36 @@ struct PredictionBoard : View {
                 }
                 Text(data.home_team_name)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                if(market == "Moneyline"){
-                    Text("\(Int(data.rank_htw_nt * 100))%")
-                        .frame(alignment: .trailing)
-                        .font(.caption)
-                }
-                if(market == "Spreads"){
-                    Text("Spread Pred")
-                        .frame(alignment: .trailing)
-                        .font(.caption)
-                }
-                if(market == "Totals"){
-                    Text("Over / Under Pred")
-                        .frame(alignment: .trailing)
-                        .font(.caption)
-                }
+                Text("\(Int(data.rank_htw_nt * 100))%")
+                    .frame(alignment: .trailing)
+                    .font(.caption)
             }
+            
+            Spacer()
+            Divider()
+            
+            Text("Over Predictions")
+                .padding()
+                .frame(width: .infinity, alignment: .center)
+                .foregroundColor(Color.primary)
+                .font(.system(size: 15))
+                        
+            Divider()
+            Spacer()
+            
+            OverHeader(sportID: sportID)
+                .frame(height: 30)
+                        
+            Divider()
+            
+            OverPred(sportID: sportID, predictionData: data)
+                .frame(height: 30)
         }
         .padding()
     }
 }
 
 struct PredictionMenuButton: View{
-    @Binding var market : String
     @Binding var isMenuVisible : Bool
     
     var body: some View {
@@ -149,12 +144,27 @@ struct PredictionData: Decodable {
     var rank_htw_nt: Double
     var rank_drw_nt: Double
     var rank_atw_nt: Double
+    // Baseball Overs
+    var rank_to_65_nt : Double?
+    var rank_to_75_nt : Double?
+    var rank_to_85_nt : Double?
+    var rank_to_95_nt : Double?
+    var rank_to_105_nt : Double?
+    // Hockey Overs (Also uses rank_to_65_nt and rank_to_75_nt)
+    var rank_to_35_nt : Double?
+    var rank_to_45_nt : Double?
+    var rank_to_55_nt : Double?
+    // Basketball Overs (197.5, 205.5, 213.5, 221.5, 229.5
+    var rank_to_lvl1_nt : Double?
+    var rank_to_lvl2_nt : Double?
+    var rank_to_lvl3_nt : Double?
+    var rank_to_lvl4_nt : Double?
+    var rank_to_lvl5_nt : Double?
 }
 
 struct PredictionHeader : View {
     var startDate : String
     var startTime : String
-    @Binding var market : String
     
     var body : some View {
         Spacer()
@@ -163,24 +173,142 @@ struct PredictionHeader : View {
             Text(startDate + " " + startTime)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.caption)
-            if(market == "Moneyline"){
-                Text("Moneyline")
-                    .frame(alignment: .trailing)
-                    .font(.caption)
-            }
-            if(market == "Spreads"){
-                Text("Spread")
-                    .frame(alignment: .trailing)
-                    .font(.caption)
-            }
-            if(market == "Totals"){
-                Text("Over / Under")
-                    .frame(alignment: .trailing)
-                    .font(.caption)
-            }
+            Text("Moneyline")
+                .frame(alignment: .trailing)
+                .font(.caption)
         }
         .padding(.top)
         .padding(.leading)
         .padding(.trailing)
+    }
+}
+
+struct OverHeader: View {
+    var sportID: Int
+    var lvl1: Double
+    var lvl2: Double
+    var lvl3: Double
+    var lvl4: Double
+    var lvl5: Double
+    
+    init(sportID: Int) {
+        self.sportID = sportID
+        
+        switch sportID {
+        case 2:
+            (lvl1, lvl2, lvl3, lvl4, lvl5) = (197.5, 205.5, 213.5, 221.5, 229.5)
+        case 4:
+            (lvl1, lvl2, lvl3, lvl4, lvl5) = (3.5, 4.5, 5.5, 6.5, 7.5)
+        case 64:
+            (lvl1, lvl2, lvl3, lvl4, lvl5) = (6.5, 7.5, 8.5, 9.5, 10.5)
+        default:
+            (lvl1, lvl2, lvl3, lvl4, lvl5) = (0.0, 0.0, 0.0, 0.0, 0.0)
+        }
+    }
+    
+    var body: some View {
+        GeometryReader { geometry in
+            HStack(spacing: 0) {
+                Text(roundToOneDecimalPlaceAsString(lvl1))
+                    .frame(width: geometry.size.width / 5, alignment: .center)
+                    .foregroundColor(Color.primary)
+                    .font(.caption)
+                
+                Divider()
+                
+                Text(roundToOneDecimalPlaceAsString(lvl2))
+                    .frame(width: geometry.size.width / 5, alignment: .center)
+                    .foregroundColor(Color.primary)
+                    .font(.caption)
+                
+                Divider()
+                
+                Text(roundToOneDecimalPlaceAsString(lvl3))
+                    .frame(width: geometry.size.width / 5, alignment: .center)
+                    .foregroundColor(Color.primary)
+                    .font(.caption)
+                
+                Divider()
+                
+                Text(roundToOneDecimalPlaceAsString(lvl4))
+                    .frame(width: geometry.size.width / 5, alignment: .center)
+                    .foregroundColor(Color.primary)
+                    .font(.caption)
+                
+                Divider()
+                
+                Text(roundToOneDecimalPlaceAsString(lvl5))
+                    .frame(width: geometry.size.width / 5, alignment: .center)
+                    .foregroundColor(Color.primary)
+                    .font(.caption)
+            }
+            .frame(width: geometry.size.width)
+        }
+    }
+}
+
+struct OverPred: View {
+    var sportID: Int
+    var predictionData : PredictionData
+    var lvl1: Double
+    var lvl2: Double
+    var lvl3: Double
+    var lvl4: Double
+    var lvl5: Double
+    
+    init(sportID: Int, predictionData : PredictionData) {
+        self.sportID = sportID
+        self.predictionData = predictionData
+
+        switch sportID {
+        case 2:
+            (lvl1, lvl2, lvl3, lvl4, lvl5) = (predictionData.rank_to_lvl1_nt ?? 0.0, predictionData.rank_to_lvl2_nt ?? 0.0, predictionData.rank_to_lvl3_nt ?? 0.0, predictionData.rank_to_lvl4_nt ?? 0.0, predictionData.rank_to_lvl5_nt ?? 0.0)
+        case 4:
+            (lvl1, lvl2, lvl3, lvl4, lvl5) = (predictionData.rank_to_35_nt ?? 0.0, predictionData.rank_to_45_nt ?? 0.0, predictionData.rank_to_55_nt ?? 0.0, predictionData.rank_to_65_nt ?? 0.0, predictionData.rank_to_75_nt ?? 0.0)
+        case 64:
+            (lvl1, lvl2, lvl3, lvl4, lvl5) = (predictionData.rank_to_65_nt ?? 0.0, predictionData.rank_to_75_nt ?? 0.0, predictionData.rank_to_85_nt ?? 0.0, predictionData.rank_to_95_nt ?? 0.0, predictionData.rank_to_105_nt ?? 0.0)
+        default:
+            (lvl1, lvl2, lvl3, lvl4, lvl5) = (0.0, 0.0, 0.0, 0.0, 0.0)
+        }
+    }
+    
+    var body: some View {
+        GeometryReader { geometry in
+            HStack(spacing: 0) {
+                Text(roundToOneDecimalPlaceAsString(lvl1 * 100) + "%")
+                    .frame(width: geometry.size.width / 5, alignment: .center)
+                    .foregroundColor(Color.primary)
+                    .font(.caption)
+
+                Divider()
+
+                Text(roundToOneDecimalPlaceAsString(lvl2 * 100) + "%")
+                    .frame(width: geometry.size.width / 5, alignment: .center)
+                    .foregroundColor(Color.primary)
+                    .font(.caption)
+
+                Divider()
+
+                Text(roundToOneDecimalPlaceAsString(lvl3 * 100) + "%")
+                    .frame(width: geometry.size.width / 5, alignment: .center)
+                    .foregroundColor(Color.primary)
+                    .font(.caption)
+
+                Divider()
+
+                Text(roundToOneDecimalPlaceAsString(lvl4 * 100) + "%")
+                    .frame(width: geometry.size.width / 5, alignment: .center)
+                    .foregroundColor(Color.primary)
+                    .font(.caption)
+
+                Divider()
+
+                Text(roundToOneDecimalPlaceAsString(lvl5 * 100) + "%")
+                    .frame(width: geometry.size.width / 5, alignment: .center)
+                    .foregroundColor(Color.primary)
+                    .font(.caption)
+            }
+            .frame(width: geometry.size.width)
+        }
     }
 }

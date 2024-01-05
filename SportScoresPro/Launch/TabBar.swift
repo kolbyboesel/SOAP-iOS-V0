@@ -26,7 +26,7 @@ struct TabBar: View {
                 }
             case 1:
                 NavigationView {
-                    LiveScoresView(logoFetcher: logoFetcher)
+                    LiveTabBar(logoFetcher: logoFetcher)
                         .environmentObject(userSettings)
                 }
             case 2:

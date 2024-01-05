@@ -131,6 +131,7 @@ struct ScoresHeader : View {
     var data : LiveScoreData
     var formattedDate : String
     var formattedTime : String
+    var sportID : Int
     
     var body : some View {
         Spacer()
@@ -140,9 +141,37 @@ struct ScoresHeader : View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.caption)
             
-            Text(data.status.description)
-                .frame(alignment: .trailing)
-                .font(.caption)
+            if(data.status.type == "inprogress" && sportID != 1){
+                let plength = data.time?.periodLength ?? 0
+                let tperiod = data.time?.totalPeriodCount ?? 1
+                let played = data.time?.played ?? 0
+
+                let currentMinute = String((plength - (played / tperiod)) / 60)
+                let currentSecond = ((plength - (played / tperiod)) % 60)
+                let description = data.status.description
+                if let rangePeriod = currentMinute.range(of: ".") {
+                    let updatedCurMin = description[..<rangePeriod.lowerBound]
+                    
+                    if let rangeDecription = description.range(of: " ") {
+                        let currentPeriod = description[..<rangeDecription.lowerBound]
+                        Text(currentPeriod + " " + updatedCurMin + ":\(currentSecond)")
+                            .frame(alignment: .trailing)
+                            .font(.caption)
+                    }
+                } else {
+                    if let rangeDecription = description.range(of: " ") {
+                        let currentPeriod = description[..<rangeDecription.lowerBound]
+                        
+                        Text(currentPeriod + " " + currentMinute + ":\(currentSecond)")
+                            .frame(alignment: .trailing)
+                            .font(.caption)
+                    }
+                }
+            } else {
+                Text(data.status.description)
+                    .frame(alignment: .trailing)
+                    .font(.caption)
+            }
             
         }
         .padding(.top)
@@ -165,7 +194,8 @@ struct LiveScoreData: Decodable, Identifiable {
     var tournament: Tournament?
     var season: Season?
     var status: Status
-    
+    var time: Time?
+
     
     struct Team: Decodable {
         var id: Int
@@ -180,6 +210,8 @@ struct LiveScoreData: Decodable, Identifiable {
     
     struct Tournament: Decodable {
         var name: String?
+        var category: Category?
+        var uniqueTournament: UniqueTournament
     }
     
     struct Season: Decodable {
@@ -188,5 +220,20 @@ struct LiveScoreData: Decodable, Identifiable {
     
     struct Status: Decodable {
         var description: String
+        var type: String
+    }
+    
+    struct Time: Decodable {
+        var played: Int?
+        var periodLength: Int?
+        var totalPeriodCount: Int?
+    }
+    
+    struct Category: Decodable {
+        var name: String?
+    }
+    
+    struct UniqueTournament: Decodable {
+        var name: String?
     }
 }
