@@ -11,7 +11,7 @@ import SwiftUI
 struct LogInView: View {
     @EnvironmentObject var settings: UserSettings
     @ObservedObject var logoFetcher: LogoFetcher
-    
+
     @State private var emailAddress: String = ""
     @State private var password: String = ""
     
@@ -99,11 +99,14 @@ struct LogInView: View {
                         .disabled(isLoginInProgress)
                 }
             }
+            .navigationTitle("Log In")
+            .navigationBarTitleDisplayMode(.inline)
+            .accentColor(.white)
+
             .alert(isPresented: $showAlert) {
                 Alert(title: Text("Login"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
             }
         }
-        .navigationBarTitleDisplayMode(.inline)
         .padding()
     }
     
@@ -115,12 +118,10 @@ struct LogInView: View {
             isLoginInProgress = false
             switch result {
             case .success(_):
+                self.presentationMode.wrappedValue.dismiss()
                 settings.loggedIn = true
-                DispatchQueue.main.async {
-                    self.presentationMode.wrappedValue.dismiss()
-                    alertMessage = "Login successful!"
-                    showAlert = true
-                }
+                alertMessage = "Login successful!"
+                showAlert = true
                 
             case .failure(let error):
                 alertMessage = error.localizedDescription

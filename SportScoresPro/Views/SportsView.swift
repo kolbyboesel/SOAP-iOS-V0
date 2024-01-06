@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct SportMenuItemModel {
+struct SportMenuItemModel: Codable {
     var id: Int
     var sportName : String
     var ScoreKey: String

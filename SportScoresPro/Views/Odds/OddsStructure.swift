@@ -189,7 +189,6 @@ struct OddsDropdownMenu: View {
         GeometryReader { geometry in
             HStack{
                 Spacer()
-                
                 VStack(spacing: 0) {
                     ForEach(menuItems, id: \.self) { item in
                         Button(action: {
@@ -211,10 +210,7 @@ struct OddsDropdownMenu: View {
                 }
                 .frame(maxWidth: geometry.size.width * 0.4)
                 .cornerRadius(10)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.SportScoresRed, lineWidth: 2)
-                )
+                .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
             }
             .padding()
         }

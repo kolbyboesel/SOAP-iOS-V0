@@ -50,7 +50,9 @@ struct TabBar: View {
             HStack(spacing: 0) {
                 Spacer()
                 
-                Button(action: { self.selectedTab = 0 }) {
+                Button(action: { 
+                    self.selectedTab = 0
+                }) {
                     VStack{
                         if selectedTab == 0 {
                             Color.SportScoresRed.frame(height: 2)

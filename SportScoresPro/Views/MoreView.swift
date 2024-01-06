@@ -15,38 +15,9 @@ struct MoreView: View {
         NavigationStack{
             VStack(spacing: 0){
                 List {
-                    if !userSettings.loggedIn {
-                        Section {
-                            NavigationLink(destination: SignupView(logoFetcher: logoFetcher)) {
-                                Text("Sign Up")
-                            }
-                            NavigationLink(destination: LogInView(logoFetcher: logoFetcher).environmentObject(userSettings)) {
-                                Text("Log In")
-                            }
-                        }
-                    } else {
-                        Section {
-                            NavigationLink(destination: SignupView(logoFetcher: logoFetcher)) {
-                                Text("Update Email")
-                            }
-                            NavigationLink(destination: SignupView(logoFetcher: logoFetcher)) {
-                                Text("Update Password")
-                            }
-                        }
-                    }
                     Section {
                         NavigationLink(destination: AboutView().accentColor(.white)) {
-                            Text("About Me")
-                        }
-                    }
-                    
-                    if userSettings.loggedIn {
-                        Section {
-                            Button(action: {
-                                userSettings.loggedIn = false
-                            }) {
-                                Text("Log Out")
-                            }
+                            Text("About")
                         }
                     }
                 }

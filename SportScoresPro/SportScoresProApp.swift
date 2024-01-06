@@ -43,35 +43,55 @@ struct SportScoresProApp: App {
     }
 }
 
+import SwiftUI
+
 class UserSettings: ObservableObject {
-    @Published var tabBarVisible = true
-    @Published var homeSelected = false
+    var profileMenuSelection = ""
     
     @Published var loggedIn: Bool {
         didSet {
             UserDefaults.standard.set(loggedIn, forKey: "loggedIn")
         }
     }
+
     @Published var email: String {
         didSet {
             UserDefaults.standard.set(email, forKey: "email")
         }
     }
+
     @Published var firstName: String {
         didSet {
             UserDefaults.standard.set(firstName, forKey: "firstName")
         }
     }
+
     @Published var lastName: String {
         didSet {
             UserDefaults.standard.set(lastName, forKey: "lastName")
         }
     }
-    
-    init(loggedIn: Bool = false, email: String = "", firstName: String = "", lastName: String = "") {
+
+    @Published var userFavorites: [SportMenuItemModel] {
+        didSet {
+            if let encoded = try? JSONEncoder().encode(userFavorites) {
+                UserDefaults.standard.set(encoded, forKey: "userFavorites")
+            }
+        }
+    }
+
+    init() {
         self.loggedIn = UserDefaults.standard.bool(forKey: "loggedIn")
         self.email = UserDefaults.standard.string(forKey: "email") ?? ""
         self.firstName = UserDefaults.standard.string(forKey: "firstName") ?? ""
         self.lastName = UserDefaults.standard.string(forKey: "lastName") ?? ""
+
+        if let favoritesData = UserDefaults.standard.data(forKey: "userFavorites"),
+           let favorites = try? JSONDecoder().decode([SportMenuItemModel].self, from: favoritesData) {
+            self.userFavorites = favorites
+        } else {
+            self.userFavorites = []
+        }
     }
 }
+

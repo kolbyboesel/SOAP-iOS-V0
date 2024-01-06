@@ -136,11 +136,12 @@ struct SignupView: View {
                         .disabled(isSignupInProgress)
                 }
             }
+            .navigationTitle("Sign Up")
+            .navigationBarTitleDisplayMode(.inline)
             .alert(isPresented: $showAlert) {
                 Alert(title: Text("Signup"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
             }
         }
-        .navigationBarTitleDisplayMode(.inline)
         .padding()
         .fullScreenCover(isPresented: $showPayPalWebView) {
             PayPalWebViewControllerRepresentable(userSettings: settings) {
