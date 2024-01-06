@@ -41,6 +41,7 @@ struct LiveScoresView: View {
                                     } else {
                                         ScoreLive(logoFetcher: logoFetcher, data: data)
                                     }
+                                    
                                     if index != filteredData.count - 1 {
                                         SportDivider(color: .secondary, width: 2)
                                     }
@@ -50,15 +51,15 @@ struct LiveScoresView: View {
                                 .listSectionSeparator(.hidden)
                             }
                         } else {
-                            VStack {
-                                ForEach(AllLiveScoreData.indices, id: \.self) { index in
-                                    
-                                    let data = AllLiveScoreData[index]
-                                    
-                                    let formattedDate = formatEventDate(epochTIS: data.startTimestamp)
-                                    let formattedTime = formatEventTime(epochTIS: data.startTimestamp)
-                                    
+                            ForEach(AllLiveScoreData.indices, id: \.self) { index in
+                                let data = AllLiveScoreData[index]
+
+                                let formattedDate = formatEventDate(epochTIS: data.startTimestamp)
+                                let formattedTime = formatEventTime(epochTIS: data.startTimestamp)
+                                
+                                VStack {
                                     ScoresHeader(data: data, formattedDate: formattedDate, formattedTime: formattedTime, sportID: sportID)
+                                    
                                     if data.status.description == "Not started"{
                                         ScoreFuture(logoFetcher: logoFetcher, data: data)
                                     } else {
@@ -67,7 +68,6 @@ struct LiveScoresView: View {
                                     if index != AllLiveScoreData.count - 1 {
                                         SportDivider(color: .secondary, width: 2)
                                     }
-                                    
                                 }
                                 .listRowSeparator(.hidden)
                                 .listSectionSeparator(.hidden)
@@ -83,6 +83,7 @@ struct LiveScoresView: View {
             isLoading = true
             
             getLiveScoresData(forSport: sportID) { data in
+                print(data)
                 self.AllLiveScoreData = data
                 isLoading = false
             }

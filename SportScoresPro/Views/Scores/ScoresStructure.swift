@@ -211,7 +211,7 @@ struct LiveScoreData: Decodable, Identifiable {
     struct Tournament: Decodable {
         var name: String?
         var category: Category?
-        var uniqueTournament: UniqueTournament
+        var uniqueTournament: UniqueTournament?
     }
     
     struct Season: Decodable {
