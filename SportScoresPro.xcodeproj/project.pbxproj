@@ -133,11 +133,10 @@
 		F98BC87E2B4A03C8004CC8E2 /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				F9B66F012B415516005C6B49 /* HomeView.swift */,
 				F98BC87F2B4A0B4F004CC8E2 /* Favorites */,
+				F9B66F012B415516005C6B49 /* HomeView.swift */,
 				F9B66F0F2B4155B3005C6B49 /* SignupView.swift */,
 				F9B66F032B41552B005C6B49 /* LoginView.swift */,
-				F98BC87C2B4A03BE004CC8E2 /* FavoritesSelection.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -147,6 +146,7 @@
 			children = (
 				F98BC8802B4A0B60004CC8E2 /* FavoritesView.swift */,
 				F98BC8822B4A0D18004CC8E2 /* FavoritesStructure.swift */,
+				F98BC87C2B4A03BE004CC8E2 /* FavoritesSelection.swift */,
 			);
 			path = Favorites;
 			sourceTree = "<group>";

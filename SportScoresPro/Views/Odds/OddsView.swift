@@ -21,6 +21,17 @@ struct SportOddsView: View {
             if isLoading {
                 ProgressView("Loading...")
             } else {
+                
+                if(oddsData.count == 0){
+                    Text("No Data Currently Available")
+                        .font(.headline)
+                        .bold()
+                        .foregroundColor(Color.SportScoresRed)
+                        .frame(maxWidth: .infinity, maxHeight: 100, alignment: .center)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                }
+                
                 List{
                     ForEach(oddsData.indices, id: \.self) { index in
                         let data = oddsData[index]

@@ -23,9 +23,20 @@ struct LiveScoresView: View {
                 ProgressView("Loading...")
             } else {
                 VStack(spacing: 0) {
+                    let filteredData = filteredLiveData(sportID: sportID, for: AllLiveScoreData)
+                    
+                    if(filteredData.count == 0){
+                        Text("No Data Currently Available")
+                            .font(.headline)
+                            .bold()
+                            .foregroundColor(Color.SportScoresRed)
+                            .frame(maxWidth: .infinity, maxHeight: 100, alignment: .center)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                    }
+                    
                     List {
                         if(sportID != 1){
-                            let filteredData = filteredLiveData(for: AllLiveScoreData)
                             
                             ForEach(filteredData.indices, id: \.self) { index in
                                 
@@ -53,7 +64,7 @@ struct LiveScoresView: View {
                         } else {
                             ForEach(AllLiveScoreData.indices, id: \.self) { index in
                                 let data = AllLiveScoreData[index]
-
+                                
                                 let formattedDate = formatEventDate(epochTIS: data.startTimestamp)
                                 let formattedTime = formatEventTime(epochTIS: data.startTimestamp)
                                 
@@ -83,7 +94,6 @@ struct LiveScoresView: View {
             isLoading = true
             
             getLiveScoresData(forSport: sportID) { data in
-                print(data)
                 self.AllLiveScoreData = data
                 isLoading = false
             }
@@ -266,8 +276,12 @@ struct LiveTabBar: View {
     }
 }
     
-func filteredLiveData(for predictionData: [LiveScoreData]) -> [LiveScoreData] {
-    return predictionData.filter { data in
-        return ((data.tournament?.category?.name ?? "") == "USA")
+func filteredLiveData(sportID: Int, for predictionData: [LiveScoreData]) -> [LiveScoreData] {
+    if(sportID == 1){
+        return predictionData
+    } else {
+        return predictionData.filter { data in
+            return ((data.tournament?.category?.name ?? "") == "USA")
+        }
     }
 }

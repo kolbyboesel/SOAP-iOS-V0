@@ -42,6 +42,16 @@ struct SportScoresView: View {
                                         
                     Divider()
                     
+                    if(liveScoreData.count == 0){
+                        Text("No Data Currently Available")
+                            .font(.headline)
+                            .bold()
+                            .foregroundColor(Color.SportScoresRed)
+                            .frame(maxWidth: .infinity, maxHeight: 100, alignment: .center)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                    }
+                    
                     List {
                         ForEach(liveScoreData.indices, id: \.self) { index in
                             
@@ -84,6 +94,8 @@ struct SportScoresView: View {
             getScoresData(forSport: ScoreKey, forSport: sportID, selectedDate: todayDate) { fetchedData in
                 self.liveScoreData = fetchedData
                 isLoading = false
+                print(liveScoreData.count)
+
                 
             }
         }

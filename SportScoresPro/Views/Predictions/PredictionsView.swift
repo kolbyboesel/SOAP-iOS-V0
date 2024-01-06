@@ -26,8 +26,19 @@ struct SportPredictionView: View {
                 ProgressView("Loading...")
             } else {
                 if settings.loggedIn {
+                    let filteredData = filteredPredictionData(for: predictionData, seasonName: seasonName, selectedDate: Date())
+                    
+                    if(filteredData.count == 0){
+                        Text("No Data Currently Available")
+                            .font(.headline)
+                            .bold()
+                            .foregroundColor(Color.SportScoresRed)
+                            .frame(maxWidth: .infinity, maxHeight: 100, alignment: .center)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                    }
+                    
                     List{
-                        let filteredData = filteredPredictionData(for: predictionData, seasonName: seasonName, selectedDate: Date())
                         
                         ForEach(filteredData.indices, id: \.self) { index in
                             

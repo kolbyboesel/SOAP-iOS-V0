@@ -23,6 +23,17 @@ struct SportFavoriteView: View {
                 ProgressView("Loading...")
             } else {
                 VStack(spacing: 0) {
+                    
+                    if(liveScoreData.count == 0){
+                        Text("No Data Currently Available")
+                            .font(.headline)
+                            .bold()
+                            .foregroundColor(Color.SportScoresRed)
+                            .frame(maxWidth: .infinity, maxHeight: 100, alignment: .center)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                    }
+                    
                     List {
                         ForEach(liveScoreData.indices, id: \.self) { index in
                             
@@ -256,6 +267,17 @@ struct FavoriteOddsView: View {
             if isLoading {
                 ProgressView("Loading...")
             } else {
+                
+                if(oddsData.count == 0){
+                    Text("No Data Currently Available")
+                        .font(.headline)
+                        .bold()
+                        .foregroundColor(Color.SportScoresRed)
+                        .frame(maxWidth: .infinity, maxHeight: 100, alignment: .center)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                }
+                
                 List{
                     ForEach(oddsData.indices, id: \.self) { index in
                         let data = oddsData[index]
@@ -459,9 +481,19 @@ struct FavoritePredictionView: View {
                 ProgressView("Loading...")
             } else {
                 if settings.loggedIn {
+                    let filteredData = filteredPredictionData(for: predictionData, seasonName: seasonName, selectedDate: Date())
+
+                    if(filteredData.count == 0){
+                        Text("No Data Currently Available")
+                            .font(.headline)
+                            .bold()
+                            .foregroundColor(Color.SportScoresRed)
+                            .frame(maxWidth: .infinity, maxHeight: 100, alignment: .center)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                    }
+                    
                     List{
-                        let filteredData = filteredPredictionData(for: predictionData, seasonName: seasonName, selectedDate: Date())
-                        
                         ForEach(filteredData.indices, id: \.self) { index in
                             
                             let data = filteredData[index]
