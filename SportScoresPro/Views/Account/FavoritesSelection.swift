@@ -40,23 +40,28 @@ struct FavoritesSelection: View {
                 }
             }
             
-            Button("Confirm") {
-                updateFavorites()
+            Button(action: updateFavorites) {
+                Text("Confirm")
+                    .font(.headline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)
+                    .padding(.vertical, 12)
+                    .padding(.horizontal, 30)
             }
-            .padding()
             .background(Color.SportScoresRed)
-            .foregroundColor(Color.white)
             .cornerRadius(10)
+            .padding(.bottom)
+            .shadow(color: .gray, radius: 5, x: 0, y: 2)
         }
+        .background(Color(.systemGray6))
         .contentMargins(.top, 20)
-        .contentMargins(.bottom, 20)
         .navigationTitle("Favorites")
         .accentColor(.white)
         .onAppear {
-                    // Populate the selectedSports set with IDs from userFavorites
-                    selectedSports = Set(settings.userFavorites.map { $0.id })
-                }
+            selectedSports = Set(settings.userFavorites.map { $0.id })
+        }
     }
+    
     private func binding(for id: Int) -> Binding<Bool> {
         return .init(
             get: { self.selectedSports.contains(id) },

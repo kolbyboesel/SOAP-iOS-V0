@@ -65,13 +65,14 @@ struct HomeView: View {
                 }
                 .background(Color(.systemGray6))
             }
-            .accentColor(.white)
             
             if showProfileDropdown {
                 VStack {
                     HStack {
                         AccountDropdownMenu(logoFetcher: logoFetcher, isMenuVisible: $showProfileDropdown)
                             .environmentObject(settings)
+                            .accentColor(.white)
+
                         Spacer()
                     }
                     Spacer()

@@ -51,7 +51,6 @@ struct SportsView: View {
             .contentMargins(.top, 20)
             .contentMargins(.bottom, 20)
         }
-        .accentColor(.white)
     }
 }
 

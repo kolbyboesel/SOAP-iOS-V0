@@ -9,24 +9,8 @@ import SwiftUI
 
 @main
 struct SportScoresProApp: App {
-    init() {
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = UIColor(red: 0.95686274509, green: 0.26274509803, blue: 0.21176470588, alpha: 1)
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        appearance.shadowColor = UIColor.white
-        
-        UINavigationBar.appearance().scrollEdgeAppearance = appearance
-        UINavigationBar.appearance().tintColor = UIColor.white
-        
-        UITabBar.appearance().backgroundColor = UIColor.white
-        
-        UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(red: 0.95686274509, green: 0.26274509803, blue: 0.21176470588, alpha: 1)
-        UIPageControl.appearance().pageIndicatorTintColor = UIColor.systemGray.withAlphaComponent(0.6)
-        
-        
-    }
-    
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
     @StateObject var userSettings = UserSettings()
     @StateObject var logoFetcher = LogoFetcher()
     
@@ -95,3 +79,24 @@ class UserSettings: ObservableObject {
     }
 }
 
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = UIColor(red: 0.95686274509, green: 0.26274509803, blue: 0.21176470588, alpha: 1)
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        
+        let backItemAppearance = UIBarButtonItemAppearance()
+        backItemAppearance.normal.titleTextAttributes = [.foregroundColor : UIColor.white]
+        appearance.backButtonAppearance = backItemAppearance
+         
+        let image = UIImage(systemName: "chevron.backward")?.withTintColor(.white, renderingMode: .alwaysOriginal)
+        appearance.setBackIndicatorImage(image, transitionMaskImage: image)
+        
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().compactAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        
+        return true
+    }
+}
