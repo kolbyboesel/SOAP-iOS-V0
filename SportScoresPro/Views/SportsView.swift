@@ -128,7 +128,7 @@ struct SportTabBar: View {
                         VStack {
                             VStack {
                                 Text("Scores")
-                                    .font(.system(size: 10))
+                                    .font(.system(size: 14))
                                     .foregroundColor(.white)
                                     .fontWeight(selectedTab == 0 ? .bold : .regular)
                                 
@@ -149,7 +149,7 @@ struct SportTabBar: View {
                         VStack {
                             VStack {
                                 Text("Odds")
-                                    .font(.system(size: 10))
+                                    .font(.system(size: 14))
                                     .foregroundColor(.white)
                                     .fontWeight(selectedTab == 1 ? .bold : .regular)
                                 
@@ -170,7 +170,7 @@ struct SportTabBar: View {
                         VStack {
                             VStack {
                                 Text("Predictions")
-                                    .font(.system(size: 10))
+                                    .font(.system(size: 14))
                                     .foregroundColor(.white)
                                     .fontWeight(selectedTab == 2 ? .bold : .regular)
                                 

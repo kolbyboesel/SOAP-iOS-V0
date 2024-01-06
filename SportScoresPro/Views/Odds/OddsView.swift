@@ -22,14 +22,18 @@ struct SportOddsView: View {
                 ProgressView("Loading...")
             } else {
                 List{
-                    ForEach(oddsData, id: \.id) { data in
+                    ForEach(oddsData.indices, id: \.self) { index in
+                        let data = oddsData[index]
+
                         let startTime = formatEventTime(epochTIS: TimeInterval(data.commence_time))
                         let startDate = formatEventDate(epochTIS: TimeInterval(data.commence_time))
                         VStack {
                             OddsHeader(market: $market, startDate: startDate, startTime: startTime)
                             OddBoard(logoFetcher: logoFetcher, market: $market, data: data)
-                            SportDivider(color: .SportScoresRed, width: 2)
-
+                            
+                            if index != oddsData.count - 1 {
+                                SportDivider(color: .secondary, width: 2)
+                            }
                         }
                     }
                     .listRowSeparator(.hidden)

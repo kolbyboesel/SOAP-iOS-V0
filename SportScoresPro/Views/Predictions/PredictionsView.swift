@@ -16,6 +16,7 @@ struct SportPredictionView: View {
     @EnvironmentObject var settings: UserSettings
 
     @State private var predictionData: [PredictionData] = []
+    var usablePredData: [PredictionData] = []
     @State private var isLoading = false
     
 
@@ -26,21 +27,25 @@ struct SportPredictionView: View {
             } else {
                 if settings.loggedIn {
                     List{
-                        ForEach(predictionData, id: \.match_id) { data in
+                        let filteredData = filteredPredictionData(for: predictionData, seasonName: seasonName, selectedDate: Date())
+                        
+                        ForEach(filteredData.indices, id: \.self) { index in
+                            
+                            let data = filteredData[index]
+                            
                             let startTime = formatEventTime(epochTIS: TimeInterval(data.match_dat))
                             let startDate = formatEventDate(epochTIS: TimeInterval(data.match_dat))
-                            let selectedFormattedDate = formatVerifyDate(date: Date())
-                            let verifyDate = startDate == selectedFormattedDate
                             
-                            if(data.league_name == seasonName && verifyDate){
-                                VStack {
-                                    PredictionHeader(startDate: startDate, startTime: startTime)
-                                    
-                                    PredictionBoard(logoFetcher: logoFetcher, data: data, sportID: sportID)
-                                    
-                                    SportDivider(color: .SportScoresRed, width: 2)
+                            VStack {
+                                PredictionHeader(startDate: startDate, startTime: startTime)
+                                
+                                PredictionBoard(logoFetcher: logoFetcher, data: data, sportID: sportID)
+                                
+                                if index != filteredData.count - 1 {
+                                    SportDivider(color: .secondary, width: 2)
                                 }
                             }
+                            
                         }
                         .listRowSeparator(.hidden)
                         .listSectionSeparator(.hidden)
@@ -101,5 +106,13 @@ struct SportPredictionView: View {
                 }
             }
         }
+    }
+}
+
+func filteredPredictionData(for predictionData: [PredictionData], seasonName: String, selectedDate: Date) -> [PredictionData] {
+    let selectedFormattedDate = formatVerifyDate(date: selectedDate)
+    return predictionData.filter { data in
+        let startDate = formatEventDate(epochTIS: TimeInterval(data.match_dat))
+        return data.league_name == seasonName && startDate == selectedFormattedDate
     }
 }

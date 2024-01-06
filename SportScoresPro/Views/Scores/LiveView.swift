@@ -83,118 +83,119 @@ struct LiveTabBar: View {
     
     var body: some View {
         ZStack(){
-            VStack(spacing: 0){
-                HStack(spacing: 0) {
-                    
-                    Spacer()
-                    
-                    Button(action: { selectedTab = 0 }) {
-                        VStack {
+            VStack {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 0) {
+                        
+                        Button(action: { selectedTab = 0 }) {
                             VStack {
-                                Text("Football")
-                                    .font(.system(size: 10))
-                                    .foregroundColor(.white)
-                                    .fontWeight(selectedTab == 0 ? .bold : .regular)
-                                
-                            }
-                            if selectedTab == 0 {
-                                Color.white.frame(height: 3)
-                            } else {
-                                Color.clear.frame(height: 0)
+                                VStack {
+                                    Text("Football")
+                                        .font(.system(size: 14))
+                                        .foregroundColor(.white)
+                                        .fontWeight(selectedTab == 0 ? .bold : .regular)
+                                    
+                                }
+                                if selectedTab == 0 {
+                                    Color.white.frame(height: 3)
+                                } else {
+                                    Color.clear.frame(height: 0)
+                                }
                             }
                         }
-                    }
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        selectedTab = 1
-                    }) {
-                        VStack {
+                        .padding(.top)
+                        .padding(.leading)
+                        .padding(.trailing)
+                        
+                        Button(action: {
+                            selectedTab = 1
+                        }) {
                             VStack {
-                                Text("Basketball")
-                                    .font(.system(size: 10))
-                                    .foregroundColor(.white)
-                                    .fontWeight(selectedTab == 1 ? .bold : .regular)
-                                
-                            }
-                            if selectedTab == 1 {
-                                Color.white.frame(height: 3)
-                            } else {
-                                Color.clear.frame(height: 0)
+                                VStack {
+                                    Text("Basketball")
+                                        .font(.system(size: 14))
+                                        .foregroundColor(.white)
+                                        .fontWeight(selectedTab == 1 ? .bold : .regular)
+                                    
+                                }
+                                if selectedTab == 1 {
+                                    Color.white.frame(height: 3)
+                                } else {
+                                    Color.clear.frame(height: 0)
+                                }
                             }
                         }
-                    }
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        selectedTab = 2
-                    }) {
-                        VStack {
+                        .padding(.top)
+                        .padding(.leading)
+                        .padding(.trailing)
+                        
+                        Button(action: {
+                            selectedTab = 2
+                        }) {
                             VStack {
-                                Text("Baseball")
-                                    .font(.system(size: 10))
-                                    .foregroundColor(.white)
-                                    .fontWeight(selectedTab == 2 ? .bold : .regular)
-                                
-                            }
-                            if selectedTab == 2 {
-                                Color.white.frame(height: 3)
-                            } else {
-                                Color.clear.frame(height: 0)
+                                VStack {
+                                    Text("Baseball")
+                                        .font(.system(size: 14))
+                                        .foregroundColor(.white)
+                                        .fontWeight(selectedTab == 2 ? .bold : .regular)
+                                    
+                                }
+                                if selectedTab == 2 {
+                                    Color.white.frame(height: 3)
+                                } else {
+                                    Color.clear.frame(height: 0)
+                                }
                             }
                         }
-                    }
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        selectedTab = 3
-                    }) {
-                        VStack {
+                        .padding(.top)
+                        .padding(.leading)
+                        .padding(.trailing)
+                        
+                        Button(action: {
+                            selectedTab = 3
+                        }) {
                             VStack {
-                                Text("Hockey")
-                                    .font(.system(size: 10))
-                                    .foregroundColor(.white)
-                                    .fontWeight(selectedTab == 3 ? .bold : .regular)
-                                
-                            }
-                            if selectedTab == 3 {
-                                Color.white.frame(height: 3)
-                            } else {
-                                Color.clear.frame(height: 0)
+                                VStack {
+                                    Text("Hockey")
+                                        .font(.system(size: 14))
+                                        .foregroundColor(.white)
+                                        .fontWeight(selectedTab == 3 ? .bold : .regular)
+                                    
+                                }
+                                if selectedTab == 3 {
+                                    Color.white.frame(height: 3)
+                                } else {
+                                    Color.clear.frame(height: 0)
+                                }
                             }
                         }
-                    }
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        selectedTab = 4
-                    }) {
-                        VStack {
+                        .padding(.top)
+                        .padding(.leading)
+                        .padding(.trailing)
+                        
+                        Button(action: {
+                            selectedTab = 4
+                        }) {
                             VStack {
-                                Text("Soccer")
-                                    .font(.system(size: 10))
-                                    .foregroundColor(.white)
-                                    .fontWeight(selectedTab == 4 ? .bold : .regular)
-                                
-                            }
-                            if selectedTab == 4 {
-                                Color.white.frame(height: 3)
-                            } else {
-                                Color.clear.frame(height: 0)
+                                VStack {
+                                    Text("Soccer")
+                                        .font(.system(size: 14))
+                                        .foregroundColor(.white)
+                                        .fontWeight(selectedTab == 4 ? .bold : .regular)
+                                    
+                                }
+                                if selectedTab == 4 {
+                                    Color.white.frame(height: 3)
+                                } else {
+                                    Color.clear.frame(height: 0)
+                                }
                             }
                         }
+                        .padding(.top)
+                        .padding(.leading)
+                        .padding(.trailing)
                     }
-                    
-                    Spacer()
                 }
-                .padding(.bottom, 0)
-                .padding(.top)
-                .padding(.leading)
-                .padding(.trailing)
                 .background(Color.SportScoresRed)
                 
                 Group {
