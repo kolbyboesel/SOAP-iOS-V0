@@ -11,9 +11,9 @@ import Foundation
 struct LiveScoresView: View {
     var sportID : Int
     @ObservedObject var logoFetcher : LogoFetcher
-
+    
     @State private var AllLiveScoreData: [LiveScoreData] = []
-
+    
     @State private var selectedDate = Date()
     @State private var isLoading = false
     
@@ -23,15 +23,17 @@ struct LiveScoresView: View {
                 ProgressView("Loading...")
             } else {
                 VStack(spacing: 0) {
-                    List(AllLiveScoreData) { data in
-                        
-                        let formattedDate = formatEventDate(epochTIS: data.startTimestamp)
-                        let formattedTime = formatEventTime(epochTIS: data.startTimestamp)
-                        let selectedFormattedDate = formatVerifyDate(date: selectedDate)
-                        let verifyDate = formattedDate == selectedFormattedDate
-                        
+                    List {
                         if(sportID != 1){
-                            if verifyDate == true && ((data.tournament?.category?.name ?? "") == "USA") {
+                            let filteredData = filteredLiveData(for: AllLiveScoreData)
+                            
+                            ForEach(filteredData.indices, id: \.self) { index in
+                                
+                                let data = filteredData[index]
+                                
+                                let formattedDate = formatEventDate(epochTIS: data.startTimestamp)
+                                let formattedTime = formatEventTime(epochTIS: data.startTimestamp)
+                                
                                 VStack {
                                     ScoresHeader(data: data, formattedDate: formattedDate, formattedTime: formattedTime, sportID: sportID)
                                     if data.status.description == "Not started"{
@@ -39,29 +41,42 @@ struct LiveScoresView: View {
                                     } else {
                                         ScoreLive(logoFetcher: logoFetcher, data: data)
                                     }
-                                    SportDivider(color: .SportScoresRed, width: 2)
-
+                                    if index != filteredData.count - 1 {
+                                        SportDivider(color: .secondary, width: 2)
+                                    }
+                                    
                                 }
                                 .listRowSeparator(.hidden)
                                 .listSectionSeparator(.hidden)
                             }
                         } else {
                             VStack {
-                                ScoresHeader(data: data, formattedDate: formattedDate, formattedTime: formattedTime, sportID: sportID)
-                                if data.status.description == "Not started"{
-                                    ScoreFuture(logoFetcher: logoFetcher, data: data)
-                                } else {
-                                    ScoreLive(logoFetcher: logoFetcher, data: data)
+                                ForEach(AllLiveScoreData.indices, id: \.self) { index in
+                                    
+                                    let data = AllLiveScoreData[index]
+                                    
+                                    let formattedDate = formatEventDate(epochTIS: data.startTimestamp)
+                                    let formattedTime = formatEventTime(epochTIS: data.startTimestamp)
+                                    
+                                    ScoresHeader(data: data, formattedDate: formattedDate, formattedTime: formattedTime, sportID: sportID)
+                                    if data.status.description == "Not started"{
+                                        ScoreFuture(logoFetcher: logoFetcher, data: data)
+                                    } else {
+                                        ScoreLive(logoFetcher: logoFetcher, data: data)
+                                    }
+                                    if index != AllLiveScoreData.count - 1 {
+                                        SportDivider(color: .secondary, width: 2)
+                                    }
+                                    
                                 }
-                                SportDivider(color: .SportScoresRed, width: 2)
-
+                                .listRowSeparator(.hidden)
+                                .listSectionSeparator(.hidden)
                             }
-                            .listRowSeparator(.hidden)
-                            .listSectionSeparator(.hidden)
                         }
                     }
                     .contentMargins(.top, 20)
-                    .contentMargins(.bottom, 20)                }
+                    .contentMargins(.bottom, 20)
+                }
             }
         }
         .onAppear {
@@ -77,6 +92,7 @@ struct LiveScoresView: View {
     }
 }
 
+    
 struct LiveTabBar: View {
     @ObservedObject var logoFetcher : LogoFetcher
     @State private var selectedTab = 0
@@ -246,5 +262,11 @@ struct LiveTabBar: View {
                 .zIndex(0)
             }
         }
+    }
+}
+    
+func filteredLiveData(for predictionData: [LiveScoreData]) -> [LiveScoreData] {
+    return predictionData.filter { data in
+        return ((data.tournament?.category?.name ?? "") == "USA")
     }
 }
