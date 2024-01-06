@@ -13,7 +13,7 @@ struct FavoritesSelection: View {
     @State private var selectedSports = Set<Int>()
     
     @Environment(\.presentationMode) var presentationMode
-    
+    @Environment(\.colorScheme) var colorScheme
     
     let sportMenuArray: [SportMenuItemModel] = [
         SportMenuItemModel(id: 1, sportName: "NFL", ScoreKey: "NFL", OddKey: "americanfootball_nfl", PredictionKey: "football", seasonName: "NFL", sportID: 63),
@@ -51,9 +51,9 @@ struct FavoritesSelection: View {
             .background(Color.SportScoresRed)
             .cornerRadius(10)
             .padding(.bottom)
-            .shadow(color: .gray, radius: 5, x: 0, y: 2)
+            .shadow(radius:5)
         }
-        .background(Color(.systemGray6))
+        .background(backgroundColor)
         .contentMargins(.top, 20)
         .navigationTitle("Favorites")
         .accentColor(.white)
@@ -61,6 +61,10 @@ struct FavoritesSelection: View {
             selectedSports = Set(settings.userFavorites.map { $0.id })
         }
     }
+    
+    var backgroundColor: Color {
+            colorScheme == .dark ? Color.black : Color(.systemGray6)
+        }
     
     private func binding(for id: Int) -> Binding<Bool> {
         return .init(

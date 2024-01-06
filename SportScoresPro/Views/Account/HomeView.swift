@@ -200,7 +200,7 @@ struct AccountDropdownMenu: View {
                 }
                 .frame(maxWidth: geometry.size.width * 0.6)
                 .cornerRadius(10)
-                .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                .shadow(radius: 5)
             }
             .padding()
         }
