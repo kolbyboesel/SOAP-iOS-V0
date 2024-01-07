@@ -36,6 +36,7 @@ struct HomeView: View {
                     
                     if(settings.userFavorites.count == 0){
                         WelcomeMessage()
+                            .environmentObject(settings)
                     }
                     
                     GeometryReader { geometry in
@@ -248,7 +249,8 @@ struct AccountDropdownMenu: View {
 }
 
 struct WelcomeMessage: View {
-    
+    @EnvironmentObject var settings: UserSettings
+
     @State var notificationToggle: Bool = false
     @State var locationUsage: Bool = false
     
@@ -266,10 +268,12 @@ struct WelcomeMessage: View {
                 .multilineTextAlignment(.center)
                 .foregroundColor(Color.secondary)
             
-            Text("You can also sign up for account for $5 per month with a 7 day free trial. See the about section for more information about the benefits of creating an account")
-                .font(.body)
-                .multilineTextAlignment(.center)
-                .foregroundColor(Color.secondary)
+            if(settings.loggedIn) {
+                Text("You can also sign up for account for $5 per month with a 7 day free trial. See the about section for more information about the benefits of creating an account")
+                    .font(.body)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(Color.secondary)
+            }
         }
         .padding()
         .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
