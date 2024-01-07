@@ -19,89 +19,68 @@ struct HomeView: View {
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        ZStack{
-            NavigationStack{
-                VStack(spacing: 0) {
-                    if settings.loggedIn {
-                        Text("Welcome, " + settings.firstName)
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .foregroundColor(Color.primary)
-                            .frame(maxWidth: .infinity, maxHeight: 30, alignment: .leading)
-                            .padding(.top)
-                            .padding(.leading)
-                            .padding(.trailing)
-                            .background(Color(.systemGray6))
-                    }
-                    
-                    if(settings.userFavorites.count == 0){
-                        WelcomeMessage()
-                            .environmentObject(settings)
-                    }
-                    
-                    GeometryReader { geometry in
-                        ScrollView {
-                            ForEach(settings.userFavorites, id: \.id) { item in
-                                Spacer(minLength: 40)
-                                
-                                FavoriteSportView(id: item.id, sportName: item.sportName, ScoreKey: item.ScoreKey, OddKey: item.OddKey, PredictionKey: item.PredictionKey, seasonName: item.seasonName, sportID: item.sportID, logoFetcher: logoFetcher)
-                                    .environmentObject(settings)
-                            }
+        NavigationStack{
+            VStack(spacing: 0) {
+                if settings.loggedIn {
+                    Text("Welcome, " + settings.firstName)
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.primary)
+                        .frame(maxWidth: .infinity, maxHeight: 30, alignment: .leading)
+                        .padding(.top)
+                        .padding(.leading)
+                        .padding(.trailing)
+                        .background(Color(.systemGray6))
+                }
+                
+                if(settings.userFavorites.count == 0){
+                    WelcomeMessage()
+                        .environmentObject(settings)
+                }
+                
+                GeometryReader { geometry in
+                    ScrollView {
+                        ForEach(settings.userFavorites, id: \.id) { item in
+                            Spacer(minLength: 40)
+                            
+                            FavoriteSportView(id: item.id, sportName: item.sportName, ScoreKey: item.ScoreKey, OddKey: item.OddKey, PredictionKey: item.PredictionKey, seasonName: item.seasonName, sportID: item.sportID, logoFetcher: logoFetcher)
+                                .environmentObject(settings)
                         }
                     }
                 }
-                .zIndex(0)
-                .padding()
-                .frame(maxWidth: .infinity)
-                .frame(maxHeight: .infinity)
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        HStack {
-                            Image("home-logo")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 30)
-                        }
-                    }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        NavigationLink(destination: FavoritesSelection()
-                            .environmentObject(settings)) {
-                                HStack {
-                                    Image(systemName: "star.fill" )
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: 25, height: 25)
-                                        .padding(.top, 5)
-                                        .padding(.trailing, 5)
-                                        .padding(.bottom, 5)
-                                }
-                            }
-                    }
-                }
-                .background(Color(.systemGray6))
             }
-            
-            if showProfileDropdown {
-                VStack {
+            .zIndex(0)
+            .padding()
+            .frame(maxWidth: .infinity)
+            .frame(maxHeight: .infinity)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
                     HStack {
-                        AccountDropdownMenu(logoFetcher: logoFetcher, isMenuVisible: $showProfileDropdown)
-                            .environmentObject(settings)
-                            .accentColor(.white)
-                        
-                        Spacer()
+                        Image("home-logo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 30)
                     }
-                    Spacer()
                 }
-                .padding(.top, 44)
-                .padding(.leading)
-                .transition(.move(edge: .top))
-                .animation(.default, value: showProfileDropdown)
-                .zIndex(1)
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: FavoritesSelection()
+                        .environmentObject(settings)) {
+                            HStack {
+                                Image(systemName: "star.fill" )
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 25, height: 25)
+                                    .padding(.top, 5)
+                                    .padding(.trailing, 5)
+                                    .padding(.bottom, 5)
+                                    .foregroundColor(.white)
+                                
+                            }
+                        }
+                }
             }
-        }
-        .onAppear{
-            showProfileDropdown = false
+            .background(Color(.systemGray6))
         }
     }
 }
@@ -157,7 +136,6 @@ struct AccountDropdownMenu: View {
                                 settings.lastName = ""
                                 settings.firstName = ""
                                 settings.email = ""
-                                settings.profileMenuSelection = ""
                                 settings.userFavorites = []
                                 isMenuVisible = false
                             }) {

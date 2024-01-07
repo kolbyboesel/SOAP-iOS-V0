@@ -17,7 +17,6 @@ struct SportScoresProApp: App {
     @StateObject var userSettings = UserSettings()
     @StateObject var logoFetcher = LogoFetcher()
     
-    
     let lifecyclePublisher = NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)
     
     var body: some Scene {
@@ -36,8 +35,7 @@ import SwiftUI
 
 class UserSettings: ObservableObject {
     private var keychainManager = KeychainManager.shared
-    var profileMenuSelection = ""
-    
+
     @Published var loggedIn: Bool {
         didSet {
             UserDefaults.standard.set(loggedIn, forKey: "loggedIn")

@@ -26,7 +26,11 @@ struct MoreView: View {
                                         .padding(.top, 5)
                                         .padding(.trailing, 15)
                                         .padding(.bottom, 5)
+                                        .foregroundColor(Color.primary)
+
                                     Text("Account")
+                                        .foregroundColor(Color.primary)
+
                                 }
                                 
                             }
@@ -42,7 +46,11 @@ struct MoreView: View {
                                         .padding(.top, 5)
                                         .padding(.trailing, 15)
                                         .padding(.bottom, 5)
+                                        .foregroundColor(Color.primary)
+
                                     Text("Sign Up")
+                                        .foregroundColor(Color.primary)
+
                                 }
                             }
                             NavigationLink(destination: LogInView(logoFetcher: logoFetcher).environmentObject(userSettings)) {
@@ -54,7 +62,11 @@ struct MoreView: View {
                                         .padding(.top, 5)
                                         .padding(.trailing, 15)
                                         .padding(.bottom, 5)
+                                        .foregroundColor(Color.primary)
+
                                     Text("Log In")
+                                        .foregroundColor(Color.primary)
+
                                 }
                             }
                         }
@@ -69,6 +81,8 @@ struct MoreView: View {
                                 .padding(.top, 5)
                                 .padding(.trailing, 15)
                                 .padding(.bottom, 5)
+                                .foregroundColor(Color.primary)
+
                             Text("About")
                         }
                     }

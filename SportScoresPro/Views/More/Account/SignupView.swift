@@ -27,7 +27,7 @@ struct SignupView: View {
     @State private var isSignupInProgress = false
     
     @State private var showAlert = false
-    @State private var alertMessage = ""
+    @State var alertMessage = ""
     
     @State private var showPayPalWebView = false
     
@@ -143,10 +143,13 @@ struct SignupView: View {
         }
         .padding()
         .fullScreenCover(isPresented: $showPayPalWebView) {
-            PayPalWebViewControllerRepresentable(userSettings: settings) {
-                self.presentationMode.wrappedValue.dismiss()
-                alertMessage = "Successfully Created Account and Logged In!"
-                showAlert = true
+            PayPalWebViewControllerRepresentable(userSettings: settings) { registrationSuccess in
+                if registrationSuccess {
+                    handleLoginSubmit(email: emailAddress, password: password)
+                } else {
+                    alertMessage = "Error registering user"
+                    showAlert = true
+                }
             }
         }
     }
@@ -181,6 +184,28 @@ struct SignupView: View {
             self.showPayPalWebView = true
         }
     }
+    
+    func handleLoginSubmit(email: String, password: String) {
+        let credentials = LoginCredentials(username: SignupEmail, password: SignupPsw)
+        
+        loginUser(withCredentials: credentials, userSettings: settings) { result in
+            switch result {
+            case .success(_):
+                settings.email = SignupEmail
+                settings.firstName = SignupFN
+                settings.lastName = SignupLN
+                settings.loggedIn = true
+                self.presentationMode.wrappedValue.dismiss()
+                alertMessage = "Successfully Created Account and Logged In!"
+                showAlert = true
+                
+            case .failure(let error):
+                alertMessage = error.localizedDescription
+                showAlert = true
+            }
+        }
+    }
+    
 }
 
 func initiatePayPalCheckout(presentPayPalCheckout: @escaping () -> Void) {
@@ -189,8 +214,8 @@ func initiatePayPalCheckout(presentPayPalCheckout: @escaping () -> Void) {
 
 struct PayPalWebViewControllerRepresentable: UIViewControllerRepresentable {
     var userSettings: UserSettings
-    var onCompletion: (() -> Void)?
-    
+    var onCompletion: ((Bool) -> Void)?
+
     func makeUIViewController(context: Context) -> PayPalWebViewController {
         let viewController = PayPalWebViewController(userSettings: userSettings)
         viewController.onCompletion = onCompletion

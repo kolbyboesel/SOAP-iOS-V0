@@ -47,7 +47,6 @@ struct AccountView: View {
                     userSettings.lastName = ""
                     userSettings.firstName = ""
                     userSettings.email = ""
-                    userSettings.profileMenuSelection = ""
                     self.presentationMode.wrappedValue.dismiss()
 
                 }) {

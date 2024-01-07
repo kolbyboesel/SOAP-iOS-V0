@@ -91,11 +91,11 @@ struct SoccerPredictionHeader : View {
 }
 
 struct SoccerOverHeader: View {
-    var lvl1 = 1.5
-    var lvl2 = 2.5
-    var lvl3 = 3.5
-    
     var body: some View {
+        let lvl1 = 1.5
+        let lvl2 = 2.5
+        let lvl3 = 3.5
+        
         GeometryReader { geometry in
             HStack(spacing: 0) {
                 Text(roundToOneDecimalPlaceAsString(lvl1))

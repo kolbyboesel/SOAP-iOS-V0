@@ -117,8 +117,11 @@ struct LogInView: View {
             isLoginInProgress = false
             switch result {
             case .success(_):
-                self.presentationMode.wrappedValue.dismiss()
+                settings.email = Email
+                settings.firstName = FirstName
+                settings.lastName = LastName
                 settings.loggedIn = true
+                self.presentationMode.wrappedValue.dismiss()
                 alertMessage = "Login successful!"
                 showAlert = true
                 
