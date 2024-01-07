@@ -34,7 +34,10 @@ struct FavoritesTabBar: View {
                     
                     Spacer()
                     
-                    Button(action: { selectedTab = 0 }) {
+                    Button(action: {
+                        selectedTab = 0
+                        showDropdownBtn = false
+                    }) {
                         VStack {
                             VStack {
                                 Text("Scores")
@@ -77,6 +80,7 @@ struct FavoritesTabBar: View {
                     
                     Button(action: {
                         selectedTab = 2
+                        showDropdownBtn = false
                     }) {
                         VStack {
                             VStack {
