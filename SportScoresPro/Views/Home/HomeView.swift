@@ -96,54 +96,6 @@ struct HomeView: View {
     }
 }
 
-struct FavoriteSportView: View {
-    var id: Int
-    var sportName : String
-    var ScoreKey: String
-    var OddKey: String
-    var PredictionKey: String
-    var seasonName: String
-    var sportID : Int
-    @ObservedObject var logoFetcher : LogoFetcher
-    
-    @EnvironmentObject var settings: UserSettings
-    
-    @State private var showDropdownBtn = false
-    @State private var showOddsDropdown = false
-    @State var market = "Moneyline"
-
-    var body: some View {
-        VStack(spacing: 0) {
-            HStack {
-                
-                Spacer()
-                
-                Text(sportName)
-                    .font(.title2)
-                    .bold()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .foregroundColor(.white)
-                                
-                if(showDropdownBtn) {
-                    OddsMenuButton(market: $market, isMenuVisible: $showOddsDropdown)
-                        .frame(alignment: .trailing)
-                }
-
-            }
-            .padding()
-            .background(Color(Color.SportScoresRed))
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-
-            
-            FavoritesTabBar(sportName: sportName, ScoreKey: ScoreKey, OddKey: OddKey, PredictionKey: PredictionKey, seasonName: seasonName, sportID: sportID, logoFetcher: logoFetcher, showDropdownBtn: $showDropdownBtn)
-                .environmentObject(settings)
-        }
-        .frame(maxWidth: .infinity)
-        .background(Color(.systemBackground))
-        .cornerRadius(12)
-    }
-}
-
 struct AccountMenuButton: View{
     @Binding var isMenuVisible : Bool
     
@@ -213,7 +165,7 @@ struct AccountDropdownMenu: View {
         }
         .onAppear{
             if settings.loggedIn {
-                menuItems = ["Favorites", "Update Email", "Update Password", "Log Out"]
+                menuItems = ["Favorites", "Profile", "Log Out"]
             } else {
                 menuItems = ["Favorites", "Sign Up", "Log In"]
             }
@@ -236,10 +188,8 @@ struct AccountDropdownMenu: View {
             return AnyView(LogInView(logoFetcher: logoFetcher).environmentObject(settings))
         case "Sign Up":
             return AnyView(SignupView(logoFetcher: logoFetcher).environmentObject(settings))
-        case "Update Email":
-            return AnyView(LogInView(logoFetcher: logoFetcher).environmentObject(settings))
-        case "Update Password":
-            return AnyView(SignupView(logoFetcher: logoFetcher).environmentObject(settings))
+        case "Profile":
+            return AnyView(AccountView(logoFetcher: logoFetcher).environmentObject(settings))
         case "Favorites":
             return AnyView(FavoritesSelection().environmentObject(settings))
         default:
@@ -268,7 +218,7 @@ struct WelcomeMessage: View {
                 .multilineTextAlignment(.center)
                 .foregroundColor(Color.secondary)
             
-            if(settings.loggedIn) {
+            if(!settings.loggedIn) {
                 Text("You can also sign up for account for $5 per month with a 7 day free trial. See the about section for more information about the benefits of creating an account")
                     .font(.body)
                     .multilineTextAlignment(.center)

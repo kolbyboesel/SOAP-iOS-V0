@@ -1,9 +1,8 @@
 //
-//  LogInView.swift
-//  SwiftUIStarterKitApp
+//  Signup.swift
+//  SportScoresPro
 //
-//  Created by Osama Naeem on 02/08/2019.
-//  Copyright © 2019 NexThings. All rights reserved.
+//  Created by Kolby Boesel on 1/6/24.
 //
 
 import SwiftUI

@@ -1,8 +1,8 @@
 //
-//  SportsView.swift
+//  FavoriteSelectionView.swift
 //  SportScoresPro
 //
-//  Created by Kolby Boesel on 1/2/24.
+//  Created by Kolby Boesel on 1/6/24.
 //
 
 import Foundation

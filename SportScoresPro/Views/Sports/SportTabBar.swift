@@ -1,5 +1,5 @@
 //
-//  FavoritesView.swift
+//  SportTabBar.swift
 //  SportScoresPro
 //
 //  Created by Kolby Boesel on 1/6/24.
@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct FavoritesTabBar: View {
+struct SportTabBar: View {
     var sportName: String
     var ScoreKey: String
     var OddKey: String
@@ -17,8 +17,6 @@ struct FavoritesTabBar: View {
     var sportID : Int
     
     @ObservedObject var logoFetcher : LogoFetcher
-    @Binding var showDropdownBtn : Bool
-
     @EnvironmentObject var userSettings: UserSettings
     
     @State private var selectedTab = 0
@@ -34,10 +32,7 @@ struct FavoritesTabBar: View {
                     
                     Spacer()
                     
-                    Button(action: {
-                        selectedTab = 0
-                        showDropdownBtn = false
-                    }) {
+                    Button(action: { selectedTab = 0 }) {
                         VStack {
                             VStack {
                                 Text("Scores")
@@ -58,7 +53,6 @@ struct FavoritesTabBar: View {
                     
                     Button(action: {
                         selectedTab = 1
-                        showDropdownBtn = true
                     }) {
                         VStack {
                             VStack {
@@ -80,7 +74,6 @@ struct FavoritesTabBar: View {
                     
                     Button(action: {
                         selectedTab = 2
-                        showDropdownBtn = false
                     }) {
                         VStack {
                             VStack {
@@ -110,7 +103,7 @@ struct FavoritesTabBar: View {
                     switch selectedTab {
                     case 0:
                         NavigationView {
-                            SportFavoriteView(ScoreKey: ScoreKey, sportID: sportID, logoFetcher: logoFetcher)
+                            SportScoresView(ScoreKey: ScoreKey, sportID: sportID, logoFetcher: logoFetcher)
                                 .navigationBarHidden(true)
                         }
                         .navigationTitle("\(sportName) Scores")
@@ -118,16 +111,17 @@ struct FavoritesTabBar: View {
                         
                     case 1:
                         NavigationView {
-                            FavoriteOddsView(OddKey: OddKey, sportID: sportID, market: $market, logoFetcher: logoFetcher)
+                            SportOddsView(OddKey: OddKey, sportID: sportID, market: $market, logoFetcher: logoFetcher)
                                 .navigationBarHidden(true)
                         }
+                        .navigationBarItems(trailing: OddsMenuButton(market: $market, isMenuVisible: $showOddsDropdown))
                         .navigationTitle("\(sportName) Odds")
                         .navigationBarTitleDisplayMode(.inline)
                         
                         
                     case 2:
                         NavigationView {
-                            FavoritePredictionView(PredictionKey: PredictionKey, sportID: sportID, seasonName: seasonName, market: $market, logoFetcher: logoFetcher)
+                            SportPredictionView(PredictionKey: PredictionKey, sportID: sportID, seasonName: seasonName, market: $market, logoFetcher: logoFetcher)
                                 .environmentObject(userSettings)
                                 .navigationBarHidden(true)
                         }
@@ -137,7 +131,7 @@ struct FavoritesTabBar: View {
                         
                     default:
                         NavigationView {
-                            SportFavoriteView(ScoreKey: ScoreKey, sportID: sportID, logoFetcher: logoFetcher)
+                            SportScoresView(ScoreKey: ScoreKey, sportID: sportID, logoFetcher: logoFetcher)
                                 .navigationBarHidden(true)
                         }
                         .navigationTitle("\(sportName) Scores")
@@ -145,6 +139,14 @@ struct FavoritesTabBar: View {
                     }
                 }
                 .zIndex(0)
+            }
+            
+            if showOddsDropdown {
+                VStack {
+                    OddsDropdownMenu(market: $market, isMenuVisible: $showOddsDropdown)
+                    Spacer()
+                }
+                .zIndex(1)
             }
         }
     }

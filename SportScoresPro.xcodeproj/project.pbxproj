@@ -16,9 +16,15 @@
 		F98BC8772B47520C004CC8E2 /* LogoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC8762B47520C004CC8E2 /* LogoFetcher.swift */; };
 		F98BC8792B4752BF004CC8E2 /* Public.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC8782B4752BF004CC8E2 /* Public.swift */; };
 		F98BC87B2B475D0C004CC8E2 /* LiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC87A2B475D0C004CC8E2 /* LiveView.swift */; };
-		F98BC87D2B4A03BE004CC8E2 /* FavoritesSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC87C2B4A03BE004CC8E2 /* FavoritesSelection.swift */; };
 		F98BC8812B4A0B60004CC8E2 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC8802B4A0B60004CC8E2 /* FavoritesView.swift */; };
-		F98BC8832B4A0D18004CC8E2 /* FavoritesStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC8822B4A0D18004CC8E2 /* FavoritesStructure.swift */; };
+		F98BC8912B4A357D004CC8E2 /* FavoriteSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC8902B4A357C004CC8E2 /* FavoriteSelectionView.swift */; };
+		F98BC8932B4A35C7004CC8E2 /* FavoritesTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC8922B4A35C7004CC8E2 /* FavoritesTabBar.swift */; };
+		F98BC8952B4A36A1004CC8E2 /* LiveTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC8942B4A36A1004CC8E2 /* LiveTabBar.swift */; };
+		F98BC8972B4A36DD004CC8E2 /* SportTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC8962B4A36DD004CC8E2 /* SportTabBar.swift */; };
+		F98BC8992B4A3853004CC8E2 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC8982B4A3853004CC8E2 /* AccountView.swift */; };
+		F98BC89B2B4A38A7004CC8E2 /* FavoritesSubViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC89A2B4A38A7004CC8E2 /* FavoritesSubViews.swift */; };
+		F98BC89D2B4A4DF6004CC8E2 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC89C2B4A4DF6004CC8E2 /* ChangePasswordView.swift */; };
+		F98BC89F2B4A5C34004CC8E2 /* SoccerPredictionStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC89E2B4A5C34004CC8E2 /* SoccerPredictionStructure.swift */; };
 		F9B66ECD2B415429005C6B49 /* SportScoresProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B66ECC2B415429005C6B49 /* SportScoresProApp.swift */; };
 		F9B66ECF2B415429005C6B49 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B66ECE2B415429005C6B49 /* ContentView.swift */; };
 		F9B66ED12B41542B005C6B49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9B66ED02B41542B005C6B49 /* Assets.xcassets */; };
@@ -68,9 +74,15 @@
 		F98BC8762B47520C004CC8E2 /* LogoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoFetcher.swift; sourceTree = "<group>"; };
 		F98BC8782B4752BF004CC8E2 /* Public.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Public.swift; sourceTree = "<group>"; };
 		F98BC87A2B475D0C004CC8E2 /* LiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveView.swift; sourceTree = "<group>"; };
-		F98BC87C2B4A03BE004CC8E2 /* FavoritesSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesSelection.swift; sourceTree = "<group>"; };
 		F98BC8802B4A0B60004CC8E2 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
-		F98BC8822B4A0D18004CC8E2 /* FavoritesStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesStructure.swift; sourceTree = "<group>"; };
+		F98BC8902B4A357C004CC8E2 /* FavoriteSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteSelectionView.swift; sourceTree = "<group>"; };
+		F98BC8922B4A35C7004CC8E2 /* FavoritesTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesTabBar.swift; sourceTree = "<group>"; };
+		F98BC8942B4A36A1004CC8E2 /* LiveTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveTabBar.swift; sourceTree = "<group>"; };
+		F98BC8962B4A36DD004CC8E2 /* SportTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportTabBar.swift; sourceTree = "<group>"; };
+		F98BC8982B4A3853004CC8E2 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		F98BC89A2B4A38A7004CC8E2 /* FavoritesSubViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesSubViews.swift; sourceTree = "<group>"; };
+		F98BC89C2B4A4DF6004CC8E2 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
+		F98BC89E2B4A5C34004CC8E2 /* SoccerPredictionStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoccerPredictionStructure.swift; sourceTree = "<group>"; };
 		F9B66EC92B415429005C6B49 /* SportScoresPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportScoresPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9B66ECC2B415429005C6B49 /* SportScoresProApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportScoresProApp.swift; sourceTree = "<group>"; };
 		F9B66ECE2B415429005C6B49 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -133,19 +145,61 @@
 		F98BC87E2B4A03C8004CC8E2 /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				F98BC87F2B4A0B4F004CC8E2 /* Favorites */,
+				F98BC8982B4A3853004CC8E2 /* AccountView.swift */,
 				F9B66F0F2B4155B3005C6B49 /* SignupView.swift */,
 				F9B66F032B41552B005C6B49 /* LoginView.swift */,
+				F98BC89C2B4A4DF6004CC8E2 /* ChangePasswordView.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
 		};
-		F98BC87F2B4A0B4F004CC8E2 /* Favorites */ = {
+		F98BC8842B4A3444004CC8E2 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				F9B66F012B415516005C6B49 /* HomeView.swift */,
+				F98BC88F2B4A3558004CC8E2 /* Favorites */,
+				F98BC87E2B4A03C8004CC8E2 /* Account */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		F98BC8862B4A345A004CC8E2 /* Sports */ = {
+			isa = PBXGroup;
+			children = (
+				F9066C982B44685B001878EF /* SportsView.swift */,
+				F98BC8962B4A36DD004CC8E2 /* SportTabBar.swift */,
+				F9B66F132B4155CF005C6B49 /* Scores */,
+				F9B66F142B4155D7005C6B49 /* Odds */,
+				F9B66F192B41E3FE005C6B49 /* Predictions */,
+			);
+			path = Sports;
+			sourceTree = "<group>";
+		};
+		F98BC8872B4A3462004CC8E2 /* More */ = {
+			isa = PBXGroup;
+			children = (
+				F9066C9A2B447AC1001878EF /* MoreView.swift */,
+				F9B66EFD2B4154BF005C6B49 /* AboutView.swift */,
+			);
+			path = More;
+			sourceTree = "<group>";
+		};
+		F98BC8882B4A34DA004CC8E2 /* LiveScores */ = {
+			isa = PBXGroup;
+			children = (
+				F98BC87A2B475D0C004CC8E2 /* LiveView.swift */,
+				F98BC8942B4A36A1004CC8E2 /* LiveTabBar.swift */,
+			);
+			path = LiveScores;
+			sourceTree = "<group>";
+		};
+		F98BC88F2B4A3558004CC8E2 /* Favorites */ = {
 			isa = PBXGroup;
 			children = (
 				F98BC8802B4A0B60004CC8E2 /* FavoritesView.swift */,
-				F98BC8822B4A0D18004CC8E2 /* FavoritesStructure.swift */,
-				F98BC87C2B4A03BE004CC8E2 /* FavoritesSelection.swift */,
+				F98BC89A2B4A38A7004CC8E2 /* FavoritesSubViews.swift */,
+				F98BC8902B4A357C004CC8E2 /* FavoriteSelectionView.swift */,
+				F98BC8922B4A35C7004CC8E2 /* FavoritesTabBar.swift */,
 			);
 			path = Favorites;
 			sourceTree = "<group>";
@@ -215,14 +269,10 @@
 		F9B66F112B4155B9005C6B49 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F9B66F012B415516005C6B49 /* HomeView.swift */,
-				F9B66EFD2B4154BF005C6B49 /* AboutView.swift */,
-				F9066C9A2B447AC1001878EF /* MoreView.swift */,
-				F9066C982B44685B001878EF /* SportsView.swift */,
-				F98BC87E2B4A03C8004CC8E2 /* Account */,
-				F9B66F142B4155D7005C6B49 /* Odds */,
-				F9B66F132B4155CF005C6B49 /* Scores */,
-				F9B66F192B41E3FE005C6B49 /* Predictions */,
+				F98BC8842B4A3444004CC8E2 /* Home */,
+				F98BC8882B4A34DA004CC8E2 /* LiveScores */,
+				F98BC8862B4A345A004CC8E2 /* Sports */,
+				F98BC8872B4A3462004CC8E2 /* More */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -241,7 +291,6 @@
 			children = (
 				F9B66F092B41556E005C6B49 /* ScoresStructure.swift */,
 				F9B66F0B2B41557F005C6B49 /* ScoresView.swift */,
-				F98BC87A2B475D0C004CC8E2 /* LiveView.swift */,
 			);
 			path = Scores;
 			sourceTree = "<group>";
@@ -260,6 +309,7 @@
 			children = (
 				F9B66F1C2B41E41D005C6B49 /* PredictionsStructure.swift */,
 				F9B66F1A2B41E413005C6B49 /* PredictionsView.swift */,
+				F98BC89E2B4A5C34004CC8E2 /* SoccerPredictionStructure.swift */,
 			);
 			path = Predictions;
 			sourceTree = "<group>";
@@ -401,26 +451,32 @@
 				F98BC8792B4752BF004CC8E2 /* Public.swift in Sources */,
 				F9066C9B2B447AC1001878EF /* MoreView.swift in Sources */,
 				F98BC86E2B475078004CC8E2 /* FunctionsUser.swift in Sources */,
+				F98BC8912B4A357D004CC8E2 /* FavoriteSelectionView.swift in Sources */,
+				F98BC8992B4A3853004CC8E2 /* AccountView.swift in Sources */,
 				F98BC8722B4750F3004CC8E2 /* FunctionsData.swift in Sources */,
 				F9B66F102B4155B3005C6B49 /* SignupView.swift in Sources */,
+				F98BC89F2B4A5C34004CC8E2 /* SoccerPredictionStructure.swift in Sources */,
+				F98BC89D2B4A4DF6004CC8E2 /* ChangePasswordView.swift in Sources */,
 				F9B66F0A2B41556E005C6B49 /* ScoresStructure.swift in Sources */,
 				F98BC87B2B475D0C004CC8E2 /* LiveView.swift in Sources */,
 				F9B66F0C2B41557F005C6B49 /* ScoresView.swift in Sources */,
 				F9B66F022B415516005C6B49 /* HomeView.swift in Sources */,
+				F98BC8972B4A36DD004CC8E2 /* SportTabBar.swift in Sources */,
 				F9B66ECF2B415429005C6B49 /* ContentView.swift in Sources */,
+				F98BC8932B4A35C7004CC8E2 /* FavoritesTabBar.swift in Sources */,
 				F9B66ECD2B415429005C6B49 /* SportScoresProApp.swift in Sources */,
 				F98BC8752B4751B1004CC8E2 /* Database.swift in Sources */,
 				F98BC8772B47520C004CC8E2 /* LogoFetcher.swift in Sources */,
-				F98BC87D2B4A03BE004CC8E2 /* FavoritesSelection.swift in Sources */,
 				F9B66F1B2B41E413005C6B49 /* PredictionsView.swift in Sources */,
 				F98BC86C2B47506B004CC8E2 /* FunctionsPaypal.swift in Sources */,
 				F9B66F062B41553D005C6B49 /* OddsStructure.swift in Sources */,
 				F9B66F082B415553005C6B49 /* OddsView.swift in Sources */,
-				F98BC8832B4A0D18004CC8E2 /* FavoritesStructure.swift in Sources */,
 				F9B66F0E2B4155AA005C6B49 /* TabBar.swift in Sources */,
+				F98BC8952B4A36A1004CC8E2 /* LiveTabBar.swift in Sources */,
 				F9B66F042B41552B005C6B49 /* LoginView.swift in Sources */,
 				F98BC8812B4A0B60004CC8E2 /* FavoritesView.swift in Sources */,
 				F9066C992B44685B001878EF /* SportsView.swift in Sources */,
+				F98BC89B2B4A38A7004CC8E2 /* FavoritesSubViews.swift in Sources */,
 				F9B66F1D2B41E41D005C6B49 /* PredictionsStructure.swift in Sources */,
 				F9B66EFE2B4154BF005C6B49 /* AboutView.swift in Sources */,
 			);
@@ -595,8 +651,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -627,8 +683,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

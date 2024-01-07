@@ -26,9 +26,9 @@ struct SportScoresView: View {
                     DatePicker("Select Date", selection: $selectedDate, displayedComponents: .date)
                         .font(.system(size: 15))
                         .datePickerStyle(.compact)
-                        .onChange(of: selectedDate) { newDate in
+                        .onChange(of: selectedDate) {
                             isLoading = true
-                            let dateString = formatDateToString(date: newDate)
+                            let dateString = formatDateToString(date: selectedDate)
                             getScoresData(forSport: ScoreKey, forSport: sportID, selectedDate: dateString) { fetchedData in
                                 self.liveScoreData = fetchedData
                                 isLoading = false

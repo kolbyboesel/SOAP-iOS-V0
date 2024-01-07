@@ -175,7 +175,6 @@ struct OddsMenuButton: View{
                     )
                 }
             }
-            .frame(maxWidth: .infinity)
         }
     }
 }
