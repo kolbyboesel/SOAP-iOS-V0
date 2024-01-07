@@ -65,8 +65,18 @@ struct HomeView: View {
                         }
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        AccountMenuButton(isMenuVisible: $showProfileDropdown)
-                            .padding()
+                        NavigationLink(destination: FavoritesSelection()
+                            .environmentObject(settings)) {
+                                HStack {
+                                    Image(systemName: "star.fill" )
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 25, height: 25)
+                                        .padding(.top, 5)
+                                        .padding(.trailing, 5)
+                                        .padding(.bottom, 5)
+                                }
+                            }
                     }
                 }
                 .background(Color(.systemGray6))
@@ -78,7 +88,7 @@ struct HomeView: View {
                         AccountDropdownMenu(logoFetcher: logoFetcher, isMenuVisible: $showProfileDropdown)
                             .environmentObject(settings)
                             .accentColor(.white)
-
+                        
                         Spacer()
                     }
                     Spacer()
@@ -133,7 +143,8 @@ struct AccountDropdownMenu: View {
             HStack{
                 Spacer()
                 VStack(spacing: 0) {
-                    ForEach(menuItems, id: \.self) { item in
+                    ForEach(menuItems.indices, id: \.self) { index in
+                        let item = menuItems[index]
                         if item != "Log Out" {
                             NavigationLink(destination: destinationView(for: item)
                                 .accentColor(.white)) {
@@ -154,7 +165,10 @@ struct AccountDropdownMenu: View {
                             }
                             .background(Color(.systemBackground))
                         }
-                        Divider()
+                        
+                        if index != 2 {
+                            SportDivider(color: .secondary, width: 2)
+                        }
                     }
                 }
                 .frame(maxWidth: geometry.size.width * 0.6)

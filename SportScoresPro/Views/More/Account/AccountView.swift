@@ -12,6 +12,8 @@ struct AccountView: View {
     @ObservedObject var logoFetcher: LogoFetcher
     @EnvironmentObject var userSettings: UserSettings
     
+    @Environment(\.presentationMode) var presentationMode
+
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
@@ -39,8 +41,34 @@ struct AccountView: View {
                 //.padding(.horizontal)
                 
                 Spacer()
+                
+                Button(action: {
+                    userSettings.loggedIn = false
+                    userSettings.lastName = ""
+                    userSettings.firstName = ""
+                    userSettings.email = ""
+                    userSettings.profileMenuSelection = ""
+                    self.presentationMode.wrappedValue.dismiss()
+
+                }) {
+                    HStack {
+                        Spacer()
+                        Image(systemName: "rectangle.portrait.and.arrow.right.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 25, height: 25)
+                        Text("Log Out")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Spacer()
+
+                    }
+                    .padding()
+                }
+                .background(Color(Color.SportScoresRed))
+                .cornerRadius(10)
+                .padding(.horizontal)
+                .padding(.bottom, 20)
             }
-            .navigationBarHidden(true)
         }
         .navigationTitle("Account")
         .navigationBarTitleDisplayMode(.large)

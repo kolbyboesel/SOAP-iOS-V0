@@ -62,7 +62,7 @@ struct TabBar: View {
                             Color.clear.frame(height: 0)
                         }
                         VStack {
-                            Image(systemName: "house")
+                            Image(systemName: "house.fill")
                                 .resizable()
                                 .foregroundColor(selectedTab == 0 ? .SportScoresRed : .gray)
                                 .aspectRatio(contentMode: .fit)
@@ -86,7 +86,7 @@ struct TabBar: View {
                             Color.clear.frame(height: 0)
                         }
                         VStack {
-                            Image(systemName: "sportscourt")
+                            Image(systemName: "sportscourt.fill")
                                 .resizable()
                                 .foregroundColor(selectedTab == 1 ? .SportScoresRed : .gray)
                                 .aspectRatio(contentMode: .fit)
@@ -111,7 +111,7 @@ struct TabBar: View {
                             Color.clear.frame(height: 0)
                         }
                         VStack {
-                            Image(systemName: "basketball")
+                            Image(systemName: "basketball.fill")
                                 .resizable()
                                 .foregroundColor(selectedTab == 2 ? .SportScoresRed : .gray)
                                 .aspectRatio(contentMode: .fit)

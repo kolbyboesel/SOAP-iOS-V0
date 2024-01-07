@@ -25,6 +25,8 @@
 		F98BC89B2B4A38A7004CC8E2 /* FavoritesSubViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC89A2B4A38A7004CC8E2 /* FavoritesSubViews.swift */; };
 		F98BC89D2B4A4DF6004CC8E2 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC89C2B4A4DF6004CC8E2 /* ChangePasswordView.swift */; };
 		F98BC89F2B4A5C34004CC8E2 /* SoccerPredictionStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC89E2B4A5C34004CC8E2 /* SoccerPredictionStructure.swift */; };
+		F98BC8A32B4A68D0004CC8E2 /* FunctionsKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC8A22B4A68D0004CC8E2 /* FunctionsKeychain.swift */; };
+		F98BC8A82B4A69F9004CC8E2 /* KeychainSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC8A72B4A69F9004CC8E2 /* KeychainSwift.swift */; };
 		F9B66ECD2B415429005C6B49 /* SportScoresProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B66ECC2B415429005C6B49 /* SportScoresProApp.swift */; };
 		F9B66ECF2B415429005C6B49 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B66ECE2B415429005C6B49 /* ContentView.swift */; };
 		F9B66ED12B41542B005C6B49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9B66ED02B41542B005C6B49 /* Assets.xcassets */; };
@@ -83,6 +85,8 @@
 		F98BC89A2B4A38A7004CC8E2 /* FavoritesSubViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesSubViews.swift; sourceTree = "<group>"; };
 		F98BC89C2B4A4DF6004CC8E2 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		F98BC89E2B4A5C34004CC8E2 /* SoccerPredictionStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoccerPredictionStructure.swift; sourceTree = "<group>"; };
+		F98BC8A22B4A68D0004CC8E2 /* FunctionsKeychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionsKeychain.swift; sourceTree = "<group>"; };
+		F98BC8A72B4A69F9004CC8E2 /* KeychainSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSwift.swift; sourceTree = "<group>"; };
 		F9B66EC92B415429005C6B49 /* SportScoresPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportScoresPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9B66ECC2B415429005C6B49 /* SportScoresProApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportScoresProApp.swift; sourceTree = "<group>"; };
 		F9B66ECE2B415429005C6B49 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -138,6 +142,7 @@
 				F98BC86D2B475078004CC8E2 /* FunctionsUser.swift */,
 				F98BC8712B4750F3004CC8E2 /* FunctionsData.swift */,
 				F98BC8782B4752BF004CC8E2 /* Public.swift */,
+				F98BC8A22B4A68D0004CC8E2 /* FunctionsKeychain.swift */,
 			);
 			path = Functions;
 			sourceTree = "<group>";
@@ -158,7 +163,6 @@
 			children = (
 				F9B66F012B415516005C6B49 /* HomeView.swift */,
 				F98BC88F2B4A3558004CC8E2 /* Favorites */,
-				F98BC87E2B4A03C8004CC8E2 /* Account */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -178,6 +182,7 @@
 		F98BC8872B4A3462004CC8E2 /* More */ = {
 			isa = PBXGroup;
 			children = (
+				F98BC87E2B4A03C8004CC8E2 /* Account */,
 				F9066C9A2B447AC1001878EF /* MoreView.swift */,
 				F9B66EFD2B4154BF005C6B49 /* AboutView.swift */,
 			);
@@ -237,6 +242,7 @@
 				F9B66ED22B41542B005C6B49 /* Preview Content */,
 				F9066C9C2B447C03001878EF /* SportScoresPro.entitlements */,
 				F9066C9D2B447C5F001878EF /* Info.plist */,
+				F98BC8A72B4A69F9004CC8E2 /* KeychainSwift.swift */,
 			);
 			path = SportScoresPro;
 			sourceTree = "<group>";
@@ -471,11 +477,13 @@
 				F98BC86C2B47506B004CC8E2 /* FunctionsPaypal.swift in Sources */,
 				F9B66F062B41553D005C6B49 /* OddsStructure.swift in Sources */,
 				F9B66F082B415553005C6B49 /* OddsView.swift in Sources */,
+				F98BC8A32B4A68D0004CC8E2 /* FunctionsKeychain.swift in Sources */,
 				F9B66F0E2B4155AA005C6B49 /* TabBar.swift in Sources */,
 				F98BC8952B4A36A1004CC8E2 /* LiveTabBar.swift in Sources */,
 				F9B66F042B41552B005C6B49 /* LoginView.swift in Sources */,
 				F98BC8812B4A0B60004CC8E2 /* FavoritesView.swift in Sources */,
 				F9066C992B44685B001878EF /* SportsView.swift in Sources */,
+				F98BC8A82B4A69F9004CC8E2 /* KeychainSwift.swift in Sources */,
 				F98BC89B2B4A38A7004CC8E2 /* FavoritesSubViews.swift in Sources */,
 				F9B66F1D2B41E41D005C6B49 /* PredictionsStructure.swift in Sources */,
 				F9B66EFE2B4154BF005C6B49 /* AboutView.swift in Sources */,
