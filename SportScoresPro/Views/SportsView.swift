@@ -72,7 +72,7 @@ struct SportMenuItem: View{
                     Image(sportName + "Logo")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 30, height: 30)
+                        .frame(width: 25, height: 25)
                         .padding(.top, 5)
                         .padding(.trailing, 5)
                         .padding(.bottom, 5)

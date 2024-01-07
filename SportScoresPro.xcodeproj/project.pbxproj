@@ -134,7 +134,6 @@
 			isa = PBXGroup;
 			children = (
 				F98BC87F2B4A0B4F004CC8E2 /* Favorites */,
-				F9B66F012B415516005C6B49 /* HomeView.swift */,
 				F9B66F0F2B4155B3005C6B49 /* SignupView.swift */,
 				F9B66F032B41552B005C6B49 /* LoginView.swift */,
 			);
@@ -216,6 +215,7 @@
 		F9B66F112B4155B9005C6B49 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F9B66F012B415516005C6B49 /* HomeView.swift */,
 				F9B66EFD2B4154BF005C6B49 /* AboutView.swift */,
 				F9066C9A2B447AC1001878EF /* MoreView.swift */,
 				F9066C982B44685B001878EF /* SportsView.swift */,

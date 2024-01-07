@@ -16,9 +16,10 @@ struct AboutView: View {
 
     var body: some View {
         let aboutDataArray: [AboutModel] = [
-            AboutModel(id: 1, image: "1", titleText: "About", descriptionText: "Thank you for visiting Sport Scores Pro! This app is your hub for sport scores, betting odds, and more! Currently available are scores and moneyline odds for, NFL, NBA, MLB, NHL, College Football, College Basketball, College Baseball, Europe’s 5 Main Soccer Leagues (Premier League, Serie A, Bundesliga, LaLiga, and Ligue 1), and the MLS"),
-            AboutModel(id: 2, image: "2", titleText: "Account Benefits", descriptionText: "Now when creating a Sport Scores Pro account you get access to soccer betting predictions for Europe's top 5 leagues, as well as the MLS. These predictions are based on a variety of data, and are intended to give you +EV bets."),
-            AboutModel(id: 3, image: "3", titleText: "New Feature", descriptionText: "In the latest update, we've added a search by date function! Select a date in the scores tab for any league, and you will see a list of events from that day.")
+            AboutModel(id: 1, image: "1", titleText: "About", descriptionText: "Thank you for visiting Sport Scores Pro! This app is your hub for sport scores, betting odds, and more! Currently available are scores, betting odds, and +EV betting predictions for all sports in the image above"),
+            AboutModel(id: 2, image: "2", titleText: "Account Benefits", descriptionText: "Why create an account with Sport Scores Pro? Creating an account gives you access to high quality betting picks intended to give you +EV bets. Expected value (EV) in sports betting is a way to measure the probability gap between a bettor’s expectations and the sportsbook’s. So using a variety of data, you're given picks for every game from the supported leagues which give you the best opportunities to win. An example pick can be seen on the left, and includes the odds of a given team to win, as well as over predictions for given values. Currently supported are MLB, NFL, NHL, and NBA, and the rest of the sports listed above will be available during the season."),
+            AboutModel(id: 3, image: "3", titleText: "Favorites", descriptionText: "Now available is the ability to choose your favorite sports! Clicking the account icon on the home screen will allow you to choose your favorite sports, which will then appear on the home screen each time you launch the app"),
+            AboutModel(id: 4, image: "4", titleText: "Search By Date", descriptionText: "We've added a search by date function! Select a date in the scores tab for any league, and you will see a list of events from that day.")
         ]
         VStack(spacing: 0) {
             
