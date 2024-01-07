@@ -33,6 +33,11 @@ struct HomeView: View {
                             .padding(.trailing)
                             .background(Color(.systemGray6))
                     }
+                    
+                    if(settings.userFavorites.count == 0){
+                        WelcomeMessage()
+                    }
+                    
                     GeometryReader { geometry in
                         ScrollView {
                             ForEach(settings.userFavorites, id: \.id) { item in
@@ -177,10 +182,11 @@ struct AccountDropdownMenu: View {
                 VStack(spacing: 0) {
                     ForEach(menuItems, id: \.self) { item in
                         if item != "Log Out" {
-                            NavigationLink(destination: destinationView(for: item)                            .accentColor(.white)) {
-                                menuItemView(item: item, geometry: geometry)
-                            }
-                            .background(Color(.systemBackground))
+                            NavigationLink(destination: destinationView(for: item)
+                                .accentColor(.white)) {
+                                    menuItemView(item: item, geometry: geometry)
+                                }
+                                .background(Color(.systemBackground))
                         } else {
                             Button(action: {
                                 settings.loggedIn = false
@@ -240,4 +246,31 @@ struct AccountDropdownMenu: View {
         }
     }
 }
+
+struct WelcomeMessage: View {
+    
+    @State var notificationToggle: Bool = false
+    @State var locationUsage: Bool = false
+    
+    var body: some View {
+        Spacer(minLength: 30)
+        VStack(spacing: 20) {
+            Text("Welcome to Sport Scores")
+                .font(.title2)
+                .fontWeight(.bold)
+                .foregroundColor(Color.SportScoresRed)
+                .multilineTextAlignment(.center)
+            
+            Text("Click the account button in the top right to choose your favorite sports, and they will appear here!")
+                .font(.body)
+                .multilineTextAlignment(.center)
+                .foregroundColor(Color.secondary)
+        }
+        .padding()
+        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+        .background(Color(.systemBackground))
+        .cornerRadius(12)
+    }
+}
+
 
