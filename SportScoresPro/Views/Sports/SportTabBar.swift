@@ -21,7 +21,8 @@ struct SportTabBar: View {
     
     @State private var selectedTab = 0
     @State private var showOddsDropdown = false
-    
+    @State private var showFilterDropdown = false
+
     @State var market = "Moneyline"
     @State var isMenuVisible = false
     
@@ -106,6 +107,7 @@ struct SportTabBar: View {
                             SportScoresView(ScoreKey: ScoreKey, sportID: sportID, logoFetcher: logoFetcher)
                                 .navigationBarHidden(true)
                         }
+                        .navigationBarItems(trailing: CollegeFilterDropdown(sportName: sportName, market: $market, showFilterDropdown: $showFilterDropdown))
                         .navigationTitle("\(sportName) Scores")
                         .navigationBarTitleDisplayMode(.inline)
                         
@@ -148,6 +150,18 @@ struct SportTabBar: View {
                 }
                 .zIndex(1)
             }
+        }
+    }
+}
+
+struct CollegeFilterDropdown: View {
+    var sportName: String
+    @Binding var market : String
+    @Binding var showFilterDropdown : Bool
+    
+    var body: some View {
+        if sportName.contains("College"){
+            OddsMenuButton(market: $market, isMenuVisible: $showFilterDropdown)
         }
     }
 }

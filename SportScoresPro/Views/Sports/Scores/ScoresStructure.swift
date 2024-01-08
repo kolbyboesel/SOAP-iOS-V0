@@ -148,13 +148,15 @@ struct ScoresHeader : View {
 
                 let currentMinute = String((plength - (played / tperiod)) / 60)
                 let currentSecond = ((plength - (played / tperiod)) % 60)
+                
                 let description = data.status.description
+                
                 if let rangePeriod = currentMinute.range(of: ".") {
                     let updatedCurMin = description[..<rangePeriod.lowerBound]
                     
                     if let rangeDecription = description.range(of: " ") {
                         let currentPeriod = description[..<rangeDecription.lowerBound]
-                        Text(currentPeriod + " " + updatedCurMin + ":\(currentSecond)")
+                        Text(currentPeriod + " " + updatedCurMin + ":" + "\(currentSecond)")
                             .frame(alignment: .trailing)
                             .font(.caption)
                     }
@@ -162,7 +164,7 @@ struct ScoresHeader : View {
                     if let rangeDecription = description.range(of: " ") {
                         let currentPeriod = description[..<rangeDecription.lowerBound]
                         
-                        Text(currentPeriod + " " + currentMinute + ":\(currentSecond)")
+                        Text(currentPeriod + " " + currentMinute + ":" + "\(currentSecond)")
                             .frame(alignment: .trailing)
                             .font(.caption)
                     }
@@ -235,5 +237,99 @@ struct LiveScoreData: Decodable, Identifiable {
     
     struct UniqueTournament: Decodable {
         var name: String?
+    }
+}
+
+struct CollegeFilterMenuButton: View{
+    @Binding var market : String
+    @Binding var isMenuVisible : Bool
+    
+    var body: some View {
+        ZStack {
+            Button(action: {
+                isMenuVisible.toggle()
+            }) {
+                if(isMenuVisible){
+                    HStack {
+                        Text("\(market)")
+                            .foregroundColor(.white)
+                            .font(.system(size: 14))
+                        
+                        Image(systemName: "arrow.up")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 18)
+                            .foregroundColor(.white)
+                        
+                    }
+                    .padding(.top, 5)
+                    .padding(.bottom, 5)
+                    .padding(.leading, 10)
+                    .padding(.trailing, 10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.white, lineWidth: 2)
+                    )
+                } else {
+                    HStack {
+                        Text("\(market)")
+                            .foregroundColor(.white)
+                            .font(.system(size: 14))
+                        
+                        Image(systemName: "arrow.down")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 18)
+                            .foregroundColor(.white)
+                        
+                    }
+                    .padding(.top, 5)
+                    .padding(.bottom, 5)
+                    .padding(.leading, 10)
+                    .padding(.trailing, 10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.white, lineWidth: 2)
+                    )
+                }
+            }
+        }
+    }
+}
+
+struct CollegeFilterDropdownMenu: View {
+    @Binding var market : String
+    @Binding var isMenuVisible : Bool
+    let menuItems = ["All", "Big 10", "SEC", ""]
+    
+    var body: some View {
+        GeometryReader { geometry in
+            HStack{
+                Spacer()
+                VStack(spacing: 0) {
+                    ForEach(menuItems, id: \.self) { item in
+                        Button(action: {
+                            market = item
+                            isMenuVisible = false
+                        }) {
+                            HStack {
+                                Text(item)
+                                    .foregroundColor(market == item ? .SportScoresRed : Color.primary)
+                                    .padding(.vertical, 15)
+                                    .frame(maxWidth: geometry.size.width * 0.4)
+                            }
+                            .padding(.horizontal)
+                        }
+                        .background(market == item ? Color(.systemGray6) : Color(.systemBackground))
+                        
+                        Divider()
+                    }
+                }
+                .frame(maxWidth: geometry.size.width * 0.4)
+                .cornerRadius(10)
+                .shadow(radius: 5)
+            }
+            .padding()
+        }
     }
 }

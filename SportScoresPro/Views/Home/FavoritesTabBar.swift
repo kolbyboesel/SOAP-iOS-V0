@@ -8,7 +8,72 @@
 import Foundation
 import SwiftUI
 
-struct FavoritesTabBar: View {
+struct FavoritesTeamTabBar: View {
+    @ObservedObject var logoFetcher : LogoFetcher
+    var teamInfo : SearchData
+    @EnvironmentObject var userSettings: UserSettings
+    
+    @State private var selectedTab = 0
+    
+    
+    var body: some View {
+        ZStack(){
+            VStack(spacing: 0){
+                HStack(spacing: 0) {
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        selectedTab = 0
+                    }) {
+                        VStack {
+                            VStack {
+                                Text("Scores")
+                                    .font(.system(size: 14))
+                                    .foregroundColor(.white)
+                                    .fontWeight(selectedTab == 0 ? .bold : .regular)
+                                
+                            }
+                            if selectedTab == 0 {
+                                Color.white.frame(height: 3)
+                            } else {
+                                Color.clear.frame(height: 0)
+                            }
+                        }
+                    }
+                    
+                    Spacer()
+                }
+                .padding(.bottom, 0)
+                .padding(.top)
+                .padding(.leading)
+                .padding(.trailing)
+                .background(Color.SportScoresRed)
+                
+                Group {
+                    switch selectedTab {
+                    case 0:
+                        NavigationView {
+                            TeamScoresView(team: teamInfo, ScoreKey: teamInfo.tournament?.uniqueTournament?.name ?? "", sportID: teamInfo.sport.id, logoFetcher: logoFetcher)
+                                .navigationBarHidden(true)
+                        }
+                        
+                    default:
+                        NavigationView {
+                            TeamScoresView(team: teamInfo, ScoreKey: teamInfo.tournament?.uniqueTournament?.name ?? "", sportID: teamInfo.sport.id, logoFetcher: logoFetcher)
+                                .navigationBarHidden(true)
+                        }
+                    }
+                }
+                .zIndex(0)
+            }
+            .cornerRadius(12)
+            .background(Color(.systemGray6))
+        }
+    }
+}
+
+struct FavoritesLeagueTabBar: View {
     var sportName: String
     var ScoreKey: String
     var OddKey: String
@@ -113,17 +178,12 @@ struct FavoritesTabBar: View {
                             FavoriteScoresView(ScoreKey: ScoreKey, sportID: sportID, logoFetcher: logoFetcher)
                                 .navigationBarHidden(true)
                         }
-                        .navigationTitle("\(sportName) Scores")
-                        .navigationBarTitleDisplayMode(.inline)
                         
                     case 1:
                         NavigationView {
                             FavoriteOddsView(OddKey: OddKey, sportID: sportID, market: $market, logoFetcher: logoFetcher)
                                 .navigationBarHidden(true)
                         }
-                        .navigationTitle("\(sportName) Odds")
-                        .navigationBarTitleDisplayMode(.inline)
-                        
                         
                     case 2:
                         NavigationView {
@@ -131,21 +191,18 @@ struct FavoritesTabBar: View {
                                 .environmentObject(userSettings)
                                 .navigationBarHidden(true)
                         }
-                        .navigationTitle("\(sportName) Predictions")
-                        .navigationBarTitleDisplayMode(.inline)
-                        
                         
                     default:
                         NavigationView {
                             FavoriteScoresView(ScoreKey: ScoreKey, sportID: sportID, logoFetcher: logoFetcher)
                                 .navigationBarHidden(true)
                         }
-                        .navigationTitle("\(sportName) Scores")
-                        .navigationBarTitleDisplayMode(.inline)
                     }
                 }
                 .zIndex(0)
             }
+            .cornerRadius(12)
+            .background(Color(.systemGray6))
         }
     }
 }

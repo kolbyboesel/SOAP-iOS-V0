@@ -202,8 +202,7 @@ struct FavoritePredictionView: View {
                                 if index != filteredData.count - 1 {
                                     SportDivider(color: .secondary, width: 2)
                                 }
-                            }
-                            
+                            }                            
                         }
                         .listRowSeparator(.hidden)
                         .listSectionSeparator(.hidden)

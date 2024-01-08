@@ -68,6 +68,14 @@ class UserSettings: ObservableObject {
         }
     }
     
+    @Published var teamFavorites: [SearchData] {
+        didSet {
+            if let encoded = try? JSONEncoder().encode(teamFavorites) {
+                UserDefaults.standard.set(encoded, forKey: "teamFavorites")
+            }
+        }
+    }
+    
     init() {
         self.loggedIn = UserDefaults.standard.bool(forKey: "loggedIn")
         self.email = UserDefaults.standard.string(forKey: "email") ?? ""
@@ -79,6 +87,13 @@ class UserSettings: ObservableObject {
             self.userFavorites = favorites
         } else {
             self.userFavorites = []
+        }
+        
+        if let teamFavoritesData = UserDefaults.standard.data(forKey: "teamFavorites"),
+           let teamFavorites = try? JSONDecoder().decode([SearchData].self, from: teamFavoritesData) {
+            self.teamFavorites = teamFavorites
+        } else {
+            self.teamFavorites = []
         }
     }
 }
