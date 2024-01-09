@@ -179,9 +179,15 @@ struct SignupView: View {
         SignupFN = firstName
         SignupLN = lastName
         
-        initiatePayPalCheckout() {
-            self.isSignupInProgress = false
-            self.showPayPalWebView = true
+        registerUser(email: SignupEmail, password: SignupPsw, firstName: SignupFN, lastName: SignupLN) { result in
+            switch result {
+            case .success(_):
+                handleLoginSubmit(email: SignupEmail, password: SignupPsw)
+                
+            case .failure(let error):
+                alertMessage = error.localizedDescription
+                showAlert = true
+            }
         }
     }
     
@@ -195,9 +201,9 @@ struct SignupView: View {
                 settings.firstName = SignupFN
                 settings.lastName = SignupLN
                 settings.loggedIn = true
-                self.presentationMode.wrappedValue.dismiss()
                 alertMessage = "Successfully Created Account and Logged In!"
                 showAlert = true
+                presentationMode.wrappedValue.dismiss()
                 
             case .failure(let error):
                 alertMessage = error.localizedDescription

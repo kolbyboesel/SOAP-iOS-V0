@@ -44,7 +44,7 @@ struct FavoritesSelection: View {
                         
                         HStack {
                             
-                            if let logo = logoFetcher.teamLogos[teamKey] {
+                            if let logo = logoFetcher.getLogo(forTeam: item.id, teamName: item.name) {
                                 Image(uiImage: logo)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)

@@ -21,10 +21,10 @@ struct HomeView: View {
     var body: some View {
         NavigationStack{
             VStack(spacing: 0) {
-                if(settings.userFavorites.count == 0 && settings.teamFavorites.count == 0){ 
+                if(settings.userFavorites.count == 0 && settings.teamFavorites.count == 0){
                     WelcomeMessage()
                         .environmentObject(settings)
-                        .padding()                    
+                        .padding()
                     Spacer()
                     
                 } else {
@@ -62,9 +62,9 @@ struct HomeView: View {
                         }
                 }
             }
-            .frame(maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+            .background(Color(.systemGray6))
+            .frame(maxHeight: .infinity)
         }
-        .background(Color(.systemGray6))
     }
 }
 
@@ -76,29 +76,29 @@ struct WelcomeMessage: View {
     
     var body: some View {
         VStack(spacing: 20) {
+            
             Text("Welcome to Sport Scores")
                 .font(.title2)
                 .fontWeight(.bold)
                 .foregroundColor(Color.SportScoresRed)
                 .multilineTextAlignment(.center)
             
-            Text("Click the account button in the top right to choose your favorite sports, and they will appear here!")
+            Text("Click the star in the top right to choose your favorite sports, and they will appear here!")
                 .font(.body)
                 .multilineTextAlignment(.center)
                 .foregroundColor(Color.secondary)
             
             if(!settings.loggedIn) {
-                Text("You can also create an account for $5 per month with a 7 day free trial. See the about section for more information about the benefits of creating an account")
+                Text("You can also create an account for $5 per month with a 7 day free trial. See the about section for more information about the benefits of creating an account.")
                     .font(.body)
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color.secondary)
-                
             }
         }
-        .padding()
-        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+        .padding(20)
         .background(Color(.systemBackground))
         .cornerRadius(12)
+        .padding()
     }
 }
 

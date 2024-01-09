@@ -19,13 +19,10 @@ class LogoFetcher: ObservableObject {
         print("Initializing LogoFetcher and loading logos")
         let semaphore = DispatchSemaphore(value: 0)
         
-        print("Loading Logos from MongoDB")
         loadLogosFromMongoDB {
             semaphore.signal()
         }
-        semaphore.wait()
-        print("After loading: \(teamLogos.count)")
-        
+        semaphore.wait()        
     }
     
     func fetchLogo(forTeam teamID: Int, teamName: String) {

@@ -19,7 +19,7 @@ struct FavoritesTeamToggleButton: View {
     @State var imageName = "sportscourt.fill"
     
     var body: some View {
-        ZStack {
+        ZStack() {
             
             Group {
                 switch selectedTab {
@@ -83,7 +83,6 @@ struct FavoritesLeagueToggleButton: View {
     
     var body: some View {
         ZStack {
-            
             Group {
                 switch selectedTab {
                 case 0:

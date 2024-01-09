@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Auth0
 
 let keychain = KeychainSwift()
 
@@ -17,6 +18,7 @@ struct SportScoresProApp: App {
             KeychainManager.shared.saveApiKey(key: "PaypalClientID", value: "AUd0qQwqx3a99eudXSf4m25OmVuxGGw9bta3NHgrE4yyMypxcyaVEm3R5wAXUw8kdewVwJP6zngFxWi")
             KeychainManager.shared.saveApiKey(key: "RapidAPIKEY", value: "7c01195a20mshbc9188a6ca4f5a5p1ce61cjsn5e640810eca6")
         }
+    
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
@@ -119,6 +121,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().compactAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        
+        // Auth0.configuration = Configuration(clientId: "YOUR_CLIENT_ID", domain: "YOUR_DOMAIN")
         
         return true
     }

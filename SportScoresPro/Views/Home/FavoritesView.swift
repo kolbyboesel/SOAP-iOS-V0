@@ -23,52 +23,27 @@ struct FavoritesView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(Array(settings.userFavorites.enumerated()), id: \.element.id) { index, item in
-                            Button(action: { selectedTab = index }) {
-                                VStack {
-                                    Text(item.sportName)
-                                        .font(.system(size: 14))
-                                        .foregroundColor(.white)
-                                        .fontWeight(selectedTab == index ? .bold : .regular)
-                                    
-                                    if selectedTab == index {
-                                        Color.white.frame(height: 3)
-                                    } else {
-                                        Color.clear.frame(height: 0)
-                                    }
-                                }
-                            }
-                            .padding(.leading)
-                            .padding(.trailing)
+                            UserFavoriteButton(item: item, index: index, selectedTab: $selectedTab)
                         }
+                        .padding(.leading, 5)
+                        .padding(.trailing, 5)
+                        
                         let offset = settings.userFavorites.count
                         
                         
                         ForEach(Array(settings.teamFavorites.enumerated()), id: \.element.id) { index, item in
-                            Button(action: { selectedTab = (index + offset)}) {
-                                VStack {
-                                    Text(item.shortName)
-                                        .font(.system(size: 14))
-                                        .foregroundColor(.white)
-                                        .fontWeight(selectedTab == (index + offset) ? .bold : .regular)
-                                    
-                                    if selectedTab == (index + offset) {
-                                        Color.white.frame(height: 3)
-                                    } else {
-                                        Color.clear.frame(height: 0)
-                                    }
-                                }
-                            }
-                            .padding(.leading)
-                            .padding(.trailing)
+                            UserTeamFavoriteButton(logoFetcher: logoFetcher, item: item, index: index, offset: offset, selectedTab: $selectedTab)
                         }
+                        .padding(.leading, 5)
+                        .padding(.trailing, 5)
                     }
                     .padding(.leading)
                     .padding(.trailing)
+                    
                 }
-                .padding(.top)
+                .padding(.bottom, 10)
+                .padding(.top, 10)
                 .background(Color.SportScoresRed)
-                
-                Spacer()
                 
                 VStack(spacing: 0) {
                     Group {
@@ -95,3 +70,70 @@ struct FavoritesView: View {
         }
     }
 }
+
+struct UserFavoriteButton: View {
+    var item: SportMenuItemModel
+    var index: Int
+    @Binding var selectedTab: Int
+    
+    var body: some View {
+        Button(action: { selectedTab = index }) {
+            HStack {
+                Image(item.sportName + "Logo")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: 15)
+                    .padding(.trailing, 5)
+                
+                
+                Text(item.seasonName)
+                    .font(.system(size: 14))
+                    .foregroundColor(selectedTab == index ? .SportScoresRed : .white)
+                    .fontWeight(selectedTab == index ? .bold : .regular)
+            }
+            .padding(10)
+            .background(Color(selectedTab == index ? .white : .white.opacity(0.4)))
+            .cornerRadius(10)
+
+
+        }
+    }
+}
+
+struct UserTeamFavoriteButton: View {
+    @ObservedObject var logoFetcher : LogoFetcher
+    var item: SearchData
+    var index: Int
+    var offset : Int
+    @Binding var selectedTab: Int
+
+    var body: some View {
+        Button(action: { selectedTab = (index + offset) }) {
+            HStack {
+                if let logo = logoFetcher.getLogo(forTeam: item.id, teamName: item.name) {
+                    Image(uiImage: logo)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 15)
+                        .padding(.trailing, 5)
+                } else {
+                    ProgressView()
+                        .onAppear {
+                            logoFetcher.fetchLogo(forTeam: item.id, teamName: item.name)
+                        }
+                        .frame(width: 15, height: 15)
+                }
+                
+                Text(item.shortName)
+                    .font(.system(size: 14))
+                    .foregroundColor(selectedTab == (index + offset) ? .SportScoresRed : .white)
+                    .fontWeight(selectedTab == (index + offset) ? .bold : .regular)
+            }
+            .padding(10)
+            .background(Color(selectedTab == (index + offset) ? .white : .white.opacity(0.4)))
+            .cornerRadius(10)
+        }
+    }
+}
+
+
