@@ -18,11 +18,10 @@ struct FavoritesView: View {
     @State private var selectedTab = 0
     
     var body: some View {
-        ZStack {
+        GeometryReader { geometry in
             VStack(spacing: 0) {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
-                        
                         ForEach(Array(settings.userFavorites.enumerated()), id: \.element.id) { index, item in
                             Button(action: { selectedTab = index }) {
                                 VStack {
@@ -41,7 +40,6 @@ struct FavoritesView: View {
                             .padding(.leading)
                             .padding(.trailing)
                         }
-                        
                         let offset = settings.userFavorites.count
                         
                         
@@ -72,42 +70,28 @@ struct FavoritesView: View {
                 
                 Spacer()
                 
-                Group {
-                    if selectedTab < settings.userFavorites.count {
-                        let item = settings.userFavorites[selectedTab]
-                        NavigationView {
-                            FavoritesLeagueTabBar(sportName: item.sportName, ScoreKey: item.ScoreKey, OddKey: item.OddKey, PredictionKey: item.PredictionKey, seasonName: item.seasonName, sportID: item.sportID, logoFetcher: logoFetcher, showDropdownBtn: $showDropdownBtn, market: $market)
-                                .environmentObject(settings)
-                                .id(selectedTab)
+                VStack(spacing: 0) {
+                    Group {
+                        if selectedTab < settings.userFavorites.count {
+                            let item = settings.userFavorites[selectedTab]
+                            NavigationView {
+                                FavoritesLeagueToggleButton(sportName: item.sportName, ScoreKey: item.ScoreKey, OddKey: item.OddKey, PredictionKey: item.PredictionKey, seasonName: item.seasonName, sportID: item.sportID, logoFetcher: logoFetcher, showDropdownBtn: $showDropdownBtn, market: $market)
+                                    .environmentObject(settings)
+                                    .id(selectedTab)
+                            }
+                            
+                        } else {
+                            let adjustedIndex = selectedTab - settings.userFavorites.count
+                            let item = settings.teamFavorites[adjustedIndex]
+                            NavigationView {
+                                FavoritesTeamToggleButton(logoFetcher: logoFetcher, teamInfo: item, showDropdownBtn: $showDropdownBtn)
+                                    .environmentObject(settings)
+                                    .id(selectedTab)
+                            }
                         }
-                        .padding()
-                        .navigationBarTitleDisplayMode(.inline)
-                        
-                    } else {
-                        let adjustedIndex = selectedTab - settings.userFavorites.count
-                        let item = settings.teamFavorites[adjustedIndex]
-                        NavigationView {
-                            FavoritesTeamTabBar(logoFetcher: logoFetcher, teamInfo: item)
-                                .environmentObject(settings)
-                                .id(selectedTab)
-                        }
-                        .padding()
                     }
-                }
-                
-                
-                if showOddsDropdown {
-                    VStack {
-                        Spacer()
-                        OddsDropdownMenu(market: $market, isMenuVisible: $showOddsDropdown)
-                            .transition(.move(edge: .top))
-                    }
-                    .zIndex(1)
                 }
             }
         }
-        .frame(maxWidth: .infinity)
-        .background(Color(.systemGray6))
-        
     }
 }

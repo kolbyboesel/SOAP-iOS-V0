@@ -42,73 +42,45 @@ struct FavoritesTeamSelection: View {
                                 .onAppear {
                                     logoFetcher.fetchLogo(forTeam: item.id, teamName: item.name)
                                 }
-                                .frame(width: 30, height: 30)
+                                .frame(width: 25, height: 25)
+                                .padding(.top, 5)
+                                .padding(.trailing, 15)
+                                .padding(.bottom, 5)
                         }
                         
-                        VStack {
+                        VStack(alignment: .leading) {
                             Text(item.name)
+                                .lineLimit(1)
+                                .truncationMode(.tail)
                                 .frame(maxWidth: .infinity, alignment: .leading)
+
                             Text(item.tournament?.uniqueTournament?.name ?? "")
-                                .frame(maxWidth: .infinity, alignment: .leading)
                                 .font(.caption)
-                            
+                                .lineLimit(1)
+                                .truncationMode(.tail)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+
                         }
+                        .frame(maxWidth: .infinity)
+
+                        
                         Toggle("", isOn: selectedSports.contains(item.id) ? .constant(true) : .constant(false))
                             .onTapGesture {
                                 toggleSelection(for: item.id)
                                 updateFavorite(for: item.id)
                             }
+                            .padding(.leading)
+                            .frame(maxWidth: 45, alignment: .trailing)
                     }
                 }
-                
-                if(searchText == ""){
-                    Section {
-                        ForEach(settings.teamFavorites, id: \.id) { item in
-                            let teamKey = TeamKey(teamID: item.id, teamName: item.name)
-                            
-                            HStack {
-                                if let logo = logoFetcher.teamLogos[teamKey] {
-                                    Image(uiImage: logo)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: 25, height: 25)
-                                        .padding(.top, 5)
-                                        .padding(.trailing, 15)
-                                        .padding(.bottom, 5)
-                                } else {
-                                    ProgressView()
-                                        .onAppear {
-                                            logoFetcher.fetchLogo(forTeam: item.id, teamName: item.name)
-                                        }
-                                        .frame(width: 30, height: 30)
-                                }
-                                
-                                VStack {
-                                    Text(item.name)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                    Text(item.tournament?.uniqueTournament?.name ?? "")
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .font(.caption)
-                                    
-                                }
-                                Toggle("", isOn: selectedSports.contains(item.id) ? .constant(true) : .constant(false))
-                                    .onTapGesture {
-                                        toggleSelection(for: item.id)
-                                        updateFavorite(for: item.id)
-                                    }
-                            }
-                        }
-                    }
+                .onChange(of: searchText) {
+                    performSearch(with: searchText)
                 }
-            }
-            .contentMargins(.top, 20)
-            .searchable(text: $searchText)
-            .foregroundColor(.white)
-            .accentColor(.white)
-            .onChange(of: searchText) {
-                performSearch(with: searchText)
             }
         }
+        .searchable(text: $searchText)
+        .contentMargins(.top, 20)
+        .accentColor(.white)
         .navigationTitle("Select Teams")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {

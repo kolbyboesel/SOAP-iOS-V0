@@ -13,13 +13,11 @@ struct ScoreFuture: View {
     var data : LiveScoreData
     
     var body: some View {
-        let awayKey = TeamKey(teamID: data.awayTeam.id, teamName: data.awayTeam.name)
-        let homeKey = TeamKey(teamID: data.homeTeam.id, teamName: data.homeTeam.name)
         
         HStack{
             VStack {
                 HStack {
-                    if let logo = logoFetcher.teamLogos[awayKey] {
+                    if let logo = logoFetcher.getLogo(forTeam: data.awayTeam.id, teamName: data.awayTeam.name) {
                         Image(uiImage: logo)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -40,7 +38,7 @@ struct ScoreFuture: View {
                 Spacer()
                 
                 HStack {
-                    if let logo = logoFetcher.teamLogos[homeKey] {
+                    if let logo = logoFetcher.getLogo(forTeam: data.homeTeam.id, teamName: data.homeTeam.name) {
                         Image(uiImage: logo)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -68,11 +66,13 @@ struct ScoreLive: View {
     var data : LiveScoreData
     
     var body: some View {
-        let awayKey = TeamKey(teamID: data.awayTeam.id, teamName: data.awayTeam.name)
-        let homeKey = TeamKey(teamID: data.homeTeam.id, teamName: data.homeTeam.name)
+        
+        let awayScore = data.awayScore?.current ?? 0
+        let homeScore = data.homeScore?.current ?? 0
+
         VStack {
             HStack {
-                if let logo = logoFetcher.teamLogos[awayKey] {
+                if let logo = logoFetcher.getLogo(forTeam: data.awayTeam.id, teamName: data.awayTeam.name) {
                     Image(uiImage: logo)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
@@ -85,21 +85,35 @@ struct ScoreLive: View {
                         .frame(width: 30, height: 30)
                 }
                 
-                Text(data.awayTeam.name)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                if let score = data.awayScore?.current {
-                    Text("\(score)")
-                        .frame(alignment: .trailing)
+                if(awayScore > homeScore){
+                    Text(data.awayTeam.name)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .bold()
+                    
+                    if let score = data.awayScore?.current {
+                        Text("\(score)")
+                            .frame(alignment: .trailing)
+                            .bold()
+                    } else {
+                        Text("")
+                    }
                 } else {
-                    Text("")
+                    Text(data.awayTeam.name)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    if let score = data.awayScore?.current {
+                        Text("\(score)")
+                            .frame(alignment: .trailing)
+                    } else {
+                        Text("")
+                    }
                 }
             }
             
             Spacer()
             
             HStack {
-                if let logo = logoFetcher.teamLogos[homeKey] {
+                if let logo = logoFetcher.getLogo(forTeam: data.homeTeam.id, teamName: data.homeTeam.name) {
                     Image(uiImage: logo)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
@@ -107,19 +121,33 @@ struct ScoreLive: View {
                 } else {
                     ProgressView()
                         .onAppear {
-                            logoFetcher.fetchLogo(forTeam: data.homeTeam.id, teamName: data.awayTeam.name)
+                            logoFetcher.fetchLogo(forTeam: data.homeTeam.id, teamName: data.homeTeam.name)
                         }
                         .frame(width: 30, height: 30)
                 }
                 
-                Text(data.homeTeam.name)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                if let score = data.homeScore?.current {
-                    Text("\(score)")
-                        .frame(alignment: .trailing)
+                if(awayScore < homeScore){
+                    Text(data.homeTeam.name)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .bold()
+                    
+                    if let score = data.homeScore?.current {
+                        Text("\(score)")
+                            .frame(alignment: .trailing)
+                            .bold()
+                    } else {
+                        Text("")
+                    }
                 } else {
-                    Text("")
+                    Text(data.homeTeam.name)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    if let score = data.homeScore?.current {
+                        Text("\(score)")
+                            .frame(alignment: .trailing)
+                    } else {
+                        Text("")
+                    }
                 }
             }
         }

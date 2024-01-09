@@ -30,11 +30,11 @@ struct TeamScoresView: View {
                             .font(.headline)
                             .bold()
                             .foregroundColor(Color.SportScoresRed)
-                            .frame(maxWidth: .infinity, maxHeight: 100, alignment: .center)
+                            .frame(maxWidth: .infinity, alignment: .center)
                             .multilineTextAlignment(.center)
                             .padding()
                     }
-                    
+
                     List {
                         ForEach(liveScoreData.indices, id: \.self) { index in
                             
@@ -42,7 +42,6 @@ struct TeamScoresView: View {
                             
                             let formattedDate = formatEventDate(epochTIS: data.startTimestamp)
                             let formattedTime = formatEventTime(epochTIS: data.startTimestamp)
-                            let selectedFormattedDate = formatVerifyDate(date: selectedDate)
                             
                             VStack {
                                 ScoresHeader(data: data, formattedDate: formattedDate, formattedTime: formattedTime, sportID: sportID)
@@ -60,7 +59,6 @@ struct TeamScoresView: View {
                             .listSectionSeparator(.hidden)
                         }
                     }
-                    .listStyle(.plain)
                     .contentMargins(.top, 20)
                     .contentMargins(.bottom, 20)
                 }
@@ -68,10 +66,6 @@ struct TeamScoresView: View {
         }
         .onAppear {
             isLoading = true
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            let todayDate = dateFormatter.string(from: Date())
             
             getTeamEvents(forSport: team.id, eventType: "last") { fetchedData in
                 self.liveScoreData = fetchedData

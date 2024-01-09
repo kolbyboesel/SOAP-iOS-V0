@@ -8,72 +8,60 @@
 import Foundation
 import SwiftUI
 
-struct FavoritesTeamTabBar: View {
+struct FavoritesTeamToggleButton: View {
     @ObservedObject var logoFetcher : LogoFetcher
     var teamInfo : SearchData
+    @Binding var showDropdownBtn : Bool
+
     @EnvironmentObject var userSettings: UserSettings
     
     @State private var selectedTab = 0
-    
+    @State var imageName = "sportscourt.fill"
     
     var body: some View {
-        ZStack(){
-            VStack(spacing: 0){
-                HStack(spacing: 0) {
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        selectedTab = 0
-                    }) {
-                        VStack {
-                            VStack {
-                                Text("Scores")
-                                    .font(.system(size: 14))
-                                    .foregroundColor(.white)
-                                    .fontWeight(selectedTab == 0 ? .bold : .regular)
-                                
-                            }
-                            if selectedTab == 0 {
-                                Color.white.frame(height: 3)
-                            } else {
-                                Color.clear.frame(height: 0)
-                            }
-                        }
-                    }
-                    
-                    Spacer()
+        ZStack {
+            
+            Group {
+                switch selectedTab {
+                case 0:
+                    TeamScoresView(team: teamInfo, ScoreKey: teamInfo.tournament?.uniqueTournament?.name ?? "", sportID: teamInfo.sport.id, logoFetcher: logoFetcher)
+                        .navigationBarHidden(true)
+                default:
+                    TeamScoresView(team: teamInfo, ScoreKey: teamInfo.tournament?.uniqueTournament?.name ?? "", sportID: teamInfo.sport.id, logoFetcher: logoFetcher)
+                        .navigationBarHidden(true)
                 }
-                .padding(.bottom, 0)
-                .padding(.top)
-                .padding(.leading)
-                .padding(.trailing)
-                .background(Color.SportScoresRed)
-                
-                Group {
-                    switch selectedTab {
-                    case 0:
-                        NavigationView {
-                            TeamScoresView(team: teamInfo, ScoreKey: teamInfo.tournament?.uniqueTournament?.name ?? "", sportID: teamInfo.sport.id, logoFetcher: logoFetcher)
-                                .navigationBarHidden(true)
-                        }
-                        
-                    default:
-                        NavigationView {
-                            TeamScoresView(team: teamInfo, ScoreKey: teamInfo.tournament?.uniqueTournament?.name ?? "", sportID: teamInfo.sport.id, logoFetcher: logoFetcher)
-                                .navigationBarHidden(true)
-                        }
-                    }
-                }
-                .zIndex(0)
             }
-            .cornerRadius(12)
-            .background(Color(.systemGray6))
+            .navigationBarHidden(true)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    Image(systemName: imageName)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.SportScoresRed)
+                        .clipShape(Circle())
+                        .contextMenu {
+                            Button(action: {
+                                selectedTab = 0
+                                imageName = "sportscourt.fill"
+                                showDropdownBtn = false
+                            }) {
+                                Text("Scores")
+                            }
+                        }
+                        .padding(.trailing, 20)
+                        .padding(.bottom, 20)
+                }
+            }
+            .zIndex(1)
         }
     }
 }
 
-struct FavoritesLeagueTabBar: View {
+struct FavoritesLeagueToggleButton: View {
     var sportName: String
     var ScoreKey: String
     var OddKey: String
@@ -83,7 +71,7 @@ struct FavoritesLeagueTabBar: View {
     
     @ObservedObject var logoFetcher : LogoFetcher
     @Binding var showDropdownBtn : Bool
-
+    
     @EnvironmentObject var userSettings: UserSettings
     
     @State private var selectedTab = 0
@@ -91,118 +79,64 @@ struct FavoritesLeagueTabBar: View {
     
     @Binding var market : String
     @State var isMenuVisible = false
+    @State var imageName = "sportscourt.fill"
     
     var body: some View {
-        ZStack(){
-            VStack(spacing: 0){
-                HStack(spacing: 0) {
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        selectedTab = 0
-                        showDropdownBtn = false
-                    }) {
-                        VStack {
-                            VStack {
-                                Text("Scores")
-                                    .font(.system(size: 14))
-                                    .foregroundColor(.white)
-                                    .fontWeight(selectedTab == 0 ? .bold : .regular)
-                                
-                            }
-                            if selectedTab == 0 {
-                                Color.white.frame(height: 3)
-                            } else {
-                                Color.clear.frame(height: 0)
-                            }
-                        }
-                    }
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        selectedTab = 1
-                        showDropdownBtn = true
-                    }) {
-                        VStack {
-                            VStack {
-                                Text("Odds")
-                                    .font(.system(size: 14))
-                                    .foregroundColor(.white)
-                                    .fontWeight(selectedTab == 1 ? .bold : .regular)
-                                
-                            }
-                            if selectedTab == 1 {
-                                Color.white.frame(height: 3)
-                            } else {
-                                Color.clear.frame(height: 0)
-                            }
-                        }
-                    }
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        selectedTab = 2
-                        showDropdownBtn = false
-                    }) {
-                        VStack {
-                            VStack {
-                                Text("Predictions")
-                                    .font(.system(size: 14))
-                                    .foregroundColor(.white)
-                                    .fontWeight(selectedTab == 2 ? .bold : .regular)
-                                
-                            }
-                            if selectedTab == 2 {
-                                Color.white.frame(height: 3)
-                            } else {
-                                Color.clear.frame(height: 0)
-                            }
-                        }
-                    }
-                    
-                    Spacer()
+        ZStack {
+            
+            Group {
+                switch selectedTab {
+                case 0:
+                    SportScoresView(ScoreKey: ScoreKey, sportID: sportID, logoFetcher: logoFetcher)
+                case 1:
+                    SportOddsView(OddKey: OddKey, sportID: sportID, market: $market, logoFetcher: logoFetcher)
+                case 2:
+                    SportPredictionView(PredictionKey: PredictionKey, sportID: sportID, seasonName: seasonName, market: $market, logoFetcher: logoFetcher)
+                        .environmentObject(userSettings)
+                default:
+                    SportScoresView(ScoreKey: ScoreKey, sportID: sportID, logoFetcher: logoFetcher)
                 }
-                .padding(.bottom, 0)
-                .padding(.top)
-                .padding(.leading)
-                .padding(.trailing)
-                .background(Color.SportScoresRed)
-                
-                Group {
-                    switch selectedTab {
-                    case 0:
-                        NavigationView {
-                            FavoriteScoresView(ScoreKey: ScoreKey, sportID: sportID, logoFetcher: logoFetcher)
-                                .navigationBarHidden(true)
-                        }
-                        
-                    case 1:
-                        NavigationView {
-                            FavoriteOddsView(OddKey: OddKey, sportID: sportID, market: $market, logoFetcher: logoFetcher)
-                                .navigationBarHidden(true)
-                        }
-                        
-                    case 2:
-                        NavigationView {
-                            FavoritePredictionView(PredictionKey: PredictionKey, sportID: sportID, seasonName: seasonName, market: $market, logoFetcher: logoFetcher)
-                                .environmentObject(userSettings)
-                                .navigationBarHidden(true)
-                        }
-                        
-                    default:
-                        NavigationView {
-                            FavoriteScoresView(ScoreKey: ScoreKey, sportID: sportID, logoFetcher: logoFetcher)
-                                .navigationBarHidden(true)
-                        }
-                    }
-                }
-                .zIndex(0)
             }
-            .cornerRadius(12)
-            .background(Color(.systemGray6))
+            .navigationBarHidden(true)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    Image(systemName: imageName)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.SportScoresRed)
+                        .clipShape(Circle())
+                        .contextMenu {
+                            Button(action: {
+                                selectedTab = 0
+                                imageName = "sportscourt.fill"
+                                showDropdownBtn = false
+                            }) {
+                                Text("Scores")
+                            }
+                            Button(action: {
+                                selectedTab = 1
+                                imageName = "dollarsign"
+                                showDropdownBtn = true
+                            }) {
+                                Text("Odds")
+                            }
+                            Button(action: {
+                                selectedTab = 2
+                                imageName = "clock.badge"
+                                showDropdownBtn = false
+                            }) {
+                                Text("Predictions")
+                            }
+                        }
+                        .padding(.trailing, 20)
+                        .padding(.bottom, 20)
+                }
+            }
+            .zIndex(1)
         }
     }
 }

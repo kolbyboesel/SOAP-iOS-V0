@@ -94,9 +94,6 @@ struct SportScoresView: View {
             getScoresData(forSport: ScoreKey, forSport: sportID, selectedDate: todayDate) { fetchedData in
                 self.liveScoreData = fetchedData
                 isLoading = false
-                print(liveScoreData.count)
-
-                
             }
         }
         .onDisappear {

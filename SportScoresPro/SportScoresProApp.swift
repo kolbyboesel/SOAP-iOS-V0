@@ -12,6 +12,12 @@ let keychain = KeychainSwift()
 @main
 struct SportScoresProApp: App {
     
+    init() {
+            KeychainManager.shared.saveApiKey(key: "MongoDB", value: "KjIhB7ZvgPZ9i0DfnrU27gsf7uiWOdq91F8MIacza4y3mg80PI7Vw4xzzGm5B4rp")
+            KeychainManager.shared.saveApiKey(key: "PaypalClientID", value: "AUd0qQwqx3a99eudXSf4m25OmVuxGGw9bta3NHgrE4yyMypxcyaVEm3R5wAXUw8kdewVwJP6zngFxWi")
+            KeychainManager.shared.saveApiKey(key: "RapidAPIKEY", value: "7c01195a20mshbc9188a6ca4f5a5p1ce61cjsn5e640810eca6")
+        }
+    
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     @StateObject var userSettings = UserSettings()
@@ -24,9 +30,6 @@ struct SportScoresProApp: App {
         WindowGroup {
             ContentView(logoFetcher: logoFetcher)
                 .environmentObject(userSettings)
-                .onReceive(lifecyclePublisher) { _ in
-                    logoFetcher.saveData()
-                }
         }
     }
 }

@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		F9066C992B44685B001878EF /* SportsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9066C982B44685B001878EF /* SportsView.swift */; };
 		F9066C9B2B447AC1001878EF /* MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9066C9A2B447AC1001878EF /* MoreView.swift */; };
+		F9747A062B4CEDD500479838 /* Auth0 in Frameworks */ = {isa = PBXBuildFile; productRef = F9747A052B4CEDD500479838 /* Auth0 */; };
 		F98BC86C2B47506B004CC8E2 /* FunctionsPaypal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC86B2B47506B004CC8E2 /* FunctionsPaypal.swift */; };
 		F98BC86E2B475078004CC8E2 /* FunctionsUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC86D2B475078004CC8E2 /* FunctionsUser.swift */; };
 		F98BC8722B4750F3004CC8E2 /* FunctionsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC8712B4750F3004CC8E2 /* FunctionsData.swift */; };
-		F98BC8752B4751B1004CC8E2 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC8742B4751B1004CC8E2 /* Database.swift */; };
 		F98BC8772B47520C004CC8E2 /* LogoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC8762B47520C004CC8E2 /* LogoFetcher.swift */; };
 		F98BC8792B4752BF004CC8E2 /* Public.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC8782B4752BF004CC8E2 /* Public.swift */; };
 		F98BC87B2B475D0C004CC8E2 /* LiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98BC87A2B475D0C004CC8E2 /* LiveView.swift */; };
@@ -75,7 +75,6 @@
 		F98BC86B2B47506B004CC8E2 /* FunctionsPaypal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionsPaypal.swift; sourceTree = "<group>"; };
 		F98BC86D2B475078004CC8E2 /* FunctionsUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionsUser.swift; sourceTree = "<group>"; };
 		F98BC8712B4750F3004CC8E2 /* FunctionsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionsData.swift; sourceTree = "<group>"; };
-		F98BC8742B4751B1004CC8E2 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		F98BC8762B47520C004CC8E2 /* LogoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoFetcher.swift; sourceTree = "<group>"; };
 		F98BC8782B4752BF004CC8E2 /* Public.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Public.swift; sourceTree = "<group>"; };
 		F98BC87A2B475D0C004CC8E2 /* LiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveView.swift; sourceTree = "<group>"; };
@@ -121,6 +120,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9747A062B4CEDD500479838 /* Auth0 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,7 +242,6 @@
 			isa = PBXGroup;
 			children = (
 				F9B66ECC2B415429005C6B49 /* SportScoresProApp.swift */,
-				F98BC8742B4751B1004CC8E2 /* Database.swift */,
 				F98BC8762B47520C004CC8E2 /* LogoFetcher.swift */,
 				F9B66F122B4155C4005C6B49 /* Launch */,
 				F9B66F112B4155B9005C6B49 /* Views */,
@@ -346,6 +345,7 @@
 			);
 			name = SportScoresPro;
 			packageProductDependencies = (
+				F9747A052B4CEDD500479838 /* Auth0 */,
 			);
 			productName = SportScoresPro;
 			productReference = F9B66EC92B415429005C6B49 /* SportScoresPro.app */;
@@ -420,6 +420,7 @@
 			);
 			mainGroup = F9B66EC02B415429005C6B49;
 			packageReferences = (
+				F9747A042B4CEDD500479838 /* XCRemoteSwiftPackageReference "Auth0" */,
 			);
 			productRefGroup = F9B66ECA2B415429005C6B49 /* Products */;
 			projectDirPath = "";
@@ -482,7 +483,6 @@
 				F98BC8932B4A35C7004CC8E2 /* FavoritesTabBar.swift in Sources */,
 				F9B66ECD2B415429005C6B49 /* SportScoresProApp.swift in Sources */,
 				F98BC8B42B4B92A9004CC8E2 /* FavoriteLeagueSelection.swift in Sources */,
-				F98BC8752B4751B1004CC8E2 /* Database.swift in Sources */,
 				F98BC8772B47520C004CC8E2 /* LogoFetcher.swift in Sources */,
 				F9B66F1B2B41E413005C6B49 /* PredictionsView.swift in Sources */,
 				F98BC86C2B47506B004CC8E2 /* FunctionsPaypal.swift in Sources */,
@@ -673,11 +673,12 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = KolbyBoesel.SportScoresPro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -692,10 +693,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SportScoresPro/SportScoresPro.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SportScoresPro/Preview Content\"";
-				DEVELOPMENT_TEAM = 394YD524TX;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 394YD524TX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SportScoresPro/Info.plist;
@@ -705,13 +709,16 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = KolbyBoesel.SportScoresPro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "SportScores Distribution";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -834,6 +841,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F9747A042B4CEDD500479838 /* XCRemoteSwiftPackageReference "Auth0" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/auth0/Auth0.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F9747A052B4CEDD500479838 /* Auth0 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F9747A042B4CEDD500479838 /* XCRemoteSwiftPackageReference "Auth0" */;
+			productName = Auth0;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F9B66EC12B415429005C6B49 /* Project object */;
 }
